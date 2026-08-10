@@ -11,7 +11,7 @@
         default root application. It is a separate build from the Community
         edition and uses the ``willow_backend_theme_ent`` technical name.
     """,
-    "version": "19.0.2.4.8",
+    "version": "19.0.2.4.9",
     "category": "Themes/Backend",
     "license": "OPL-1",
     "price": 76.00,
