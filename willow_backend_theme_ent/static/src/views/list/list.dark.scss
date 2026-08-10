@@ -1,0 +1,165 @@
+.o_list_view .o_list_renderer {
+    --ListRenderer-thead-bg-color: #18212f;
+    --ListRenderer-thead-bg-active-color: #202b3a;
+    --ListRenderer-tfoot-bg-color: #18212f;
+    --ListRenderer-table-background-color: #111827;
+    background-color: #18212f;
+    border-color: #2b3647;
+    color: #e5e7eb;
+}
+
+.o_content:has(.o_list_view),
+.o_list_view,
+.o_list_view .o_content,
+.o_list_view .o_renderer {
+    background: #111827 !important;
+    color: #e5e7eb;
+}
+
+.o_list_view .o_list_renderer .o_list_table {
+    border-color: #2b3647;
+    background: #111827;
+    color: #e5e7eb;
+}
+
+.o_list_view .o_list_renderer .o_list_table thead,
+.o_list_view .o_list_renderer .o_list_table thead tr,
+.o_list_view .o_list_renderer .o_list_table thead th {
+    border-color: #2b3647;
+    color: #cbd5e1;
+    background: #111827;
+}
+
+.o_list_view .o_list_renderer .o_list_table thead th:hover,
+.o_list_view .o_list_renderer .o_list_table thead th:active,
+.o_list_view .o_list_renderer .o_list_table thead th:focus-within {
+    background-color: #202b3a;
+}
+
+.o_list_view .o_list_renderer .o_list_table thead th .o_list_sortable_icon {
+    color: #94a3b8;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody td {
+    background-color: #18212f;
+    border-color: #2b3647;
+    color: #e5e7eb;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody,
+.o_list_view .o_list_renderer .o_list_table tbody tr {
+    border-color: #2b3647;
+    background: #111827;
+    color: #e5e7eb;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row > td:first-child,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row > td:last-child {
+    border-color: #2b3647;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody tr:hover td {
+    background-color: #202b3a;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-info,
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-active,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_selected_row,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row_selected,
+.o_list_view .o_list_renderer .o_list_table tbody tr:has(.o_list_record_selector .form-check-input:checked) {
+    --wl-list-selected-bg: color-mix(in srgb, var(--wl-dark-accent) 24%, #111827);
+    --wl-list-selected-bg-hover: color-mix(in srgb, var(--wl-dark-accent) 30%, #111827);
+    --wl-list-selected-color: #f8fafc;
+    --bs-table-bg: var(--wl-list-selected-bg);
+    --bs-table-color: var(--wl-list-selected-color);
+    --bs-table-accent-bg: var(--wl-list-selected-bg);
+    --bs-table-hover-bg: var(--wl-list-selected-bg-hover);
+    --bs-table-hover-color: var(--wl-list-selected-color);
+    --bs-table-striped-bg: var(--wl-list-selected-bg);
+    --bs-table-striped-color: var(--wl-list-selected-color);
+    --bs-table-active-bg: var(--wl-list-selected-bg);
+    --bs-table-active-color: var(--wl-list-selected-color);
+    background-color: transparent !important;
+    color: var(--wl-list-selected-color) !important;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-info > *,
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-active > *,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_selected_row > *,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row_selected > *,
+.o_list_view .o_list_renderer .o_list_table tbody tr:has(.o_list_record_selector .form-check-input:checked) > * {
+    --bs-table-bg: var(--wl-list-selected-bg);
+    --bs-table-accent-bg: var(--wl-list-selected-bg);
+    --bs-table-striped-bg: var(--wl-list-selected-bg);
+    --bs-table-striped-color: var(--wl-list-selected-color);
+    --bs-table-active-bg: var(--wl-list-selected-bg);
+    --bs-table-active-color: var(--wl-list-selected-color);
+    background-color: var(--wl-list-selected-bg) !important;
+    box-shadow: inset 0 0 0 9999px var(--wl-list-selected-bg) !important;
+    border-color: color-mix(in srgb, var(--wl-dark-accent) 34%, #2b3647) !important;
+    color: var(--wl-list-selected-color) !important;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-info:hover > *,
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-active:hover > *,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_selected_row:hover > *,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row_selected:hover > *,
+.o_list_view .o_list_renderer .o_list_table tbody tr:has(.o_list_record_selector .form-check-input:checked):hover > * {
+    background-color: var(--wl-list-selected-bg-hover) !important;
+    box-shadow: inset 0 0 0 9999px var(--wl-list-selected-bg-hover) !important;
+    color: var(--wl-list-selected-color) !important;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-info > * :where(span, div, small, i):not(.badge),
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-active > * :where(span, div, small, i):not(.badge),
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_selected_row > * :where(span, div, small, i):not(.badge),
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row_selected > * :where(span, div, small, i):not(.badge),
+.o_list_view .o_list_renderer .o_list_table tbody tr:has(.o_list_record_selector .form-check-input:checked) > * :where(span, div, small, i):not(.badge) {
+    color: inherit !important;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-info > * a,
+.o_list_view .o_list_renderer .o_list_table tbody tr.table-active > * a,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_selected_row > * a,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row_selected > * a,
+.o_list_view .o_list_renderer .o_list_table tbody tr:has(.o_list_record_selector .form-check-input:checked) > * a {
+    color: color-mix(in srgb, var(--wl-dark-accent) 54%, #ffffff) !important;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_selected_row .o_input,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_selected_row .form-control,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_selected_row .o_field_widget:not(.o_field_badge) {
+    background-color: transparent !important;
+    color: var(--wl-list-selected-color) !important;
+}
+
+.o_list_view .o_list_renderer .o_list_table .form-check-input {
+    border-color: #64748b;
+    background-color: #111827;
+}
+
+.o_list_view .o_list_renderer .o_list_table .form-check-input:checked {
+    border-color: var(--wl-dark-accent);
+    background-color: var(--wl-dark-accent);
+}
+
+.o_list_view .o_list_renderer .o_list_table tfoot td {
+    background: var(--ListRenderer-tfoot-bg-color, #18212f);
+    border-color: #2b3647;
+    color: #e5e7eb;
+    box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.o_list_view .o_optional_columns_dropdown,
+.o_list_view .o_field_x2many_list_row_add,
+.o_list_view .o_list_button,
+.o_list_view .o_column_sortable,
+.o_list_view .o_column_title {
+    color: #e5e7eb;
+}
+
+.o_list_view .o_optional_columns_dropdown .dropdown-menu {
+    border-color: #2b3647;
+    background: #18212f;
+    color: #e5e7eb;
+}

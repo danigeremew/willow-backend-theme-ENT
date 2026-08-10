@@ -1,0 +1,269 @@
+.o_web_client {
+    .o_kanban_view,
+    .o_kanban_renderer {
+        --Kanban-background: var(--wl-dark-surface, #18212f);
+        --KanbanGroup-background: color-mix(in srgb, var(--wl-dark-border, #2b3647) 14%, var(--wl-dark-surface, #18212f));
+        --KanbanRecord-background: var(--wl-dark-surface-soft, #202b3a);
+        --KanbanRecord-border-color: var(--wl-dark-border, #2b3647);
+        --KanbanColumn__highlight-background: color-mix(in srgb, var(--wl-dark-accent) 12%, transparent);
+        --KanbanColumn__highlight-border: color-mix(in srgb, var(--wl-dark-accent) 52%, transparent);
+        --tt-kanban-card-bg: var(--wl-dark-surface-soft, #202b3a);
+        --tt-kanban-card-border: var(--wl-dark-border, #2b3647);
+        --tt-kanban-muted: var(--wl-dark-text, #e5e7eb);
+        --tt-kanban-soft-muted: var(--wl-dark-muted, #9ca3af);
+        --tt-kanban-title: var(--wl-dark-heading, #f8fafc);
+        background: var(--wl-dark-surface, #18212f) !important;
+        color: var(--wl-dark-text, #e5e7eb);
+    }
+
+    .o_content:has(.o_kanban_view),
+    .o_content:has(.o_kanban_renderer) {
+        background: var(--wl-dark-surface, #18212f) !important;
+    }
+
+    .o_kanban_renderer.o_kanban_grouped,
+    .o_kanban_renderer.o_kanban_ungrouped,
+    .o_kanban_renderer .o_kanban_group {
+        border-color: var(--wl-dark-border, #2b3647);
+        background: var(--wl-dark-surface, #18212f) !important;
+        color: var(--wl-dark-text, #e5e7eb);
+    }
+
+    .o_kanban_renderer .o_kanban_group:not(.o_column_folded) {
+        border-color: var(--wl-dark-border, #2b3647);
+    }
+
+    // Beat kanban.scss grouped-column light glass background
+    .o_kanban_renderer.o_kanban_grouped .o_kanban_group:not(.o_column_folded) {
+        border-radius: 14px;
+        border: 1px solid var(--wl-dark-border, #2b3647) !important;
+        background: var(--KanbanGroup-background) !important;
+    }
+
+    .o_kanban_view .o_kanban_quick_create,
+    .o_kanban_view .o-kanban-button-new {
+        border: 1px dashed color-mix(in srgb, var(--wl-dark-muted, #9ca3af) 42%, transparent) !important;
+        background: color-mix(in srgb, var(--wl-dark-surface-soft, #202b3a) 72%, transparent) !important;
+        color: var(--wl-dark-muted, #9ca3af);
+        box-shadow: none;
+    }
+
+    .o_kanban_view .o_kanban_record.o_record_selected:not(.o_kanban_ghost) {
+        border-color: color-mix(in srgb, var(--wl-dark-accent) 48%, var(--wl-dark-border, #2b3647)) !important;
+        background: color-mix(in srgb, var(--wl-dark-accent) 10%, var(--wl-dark-surface-soft, #202b3a)) !important;
+        box-shadow: none;
+    }
+
+    .o_kanban_renderer .o_kanban_header,
+    .o_kanban_renderer .o_kanban_group_header,
+    .o_kanban_renderer .o_column_quick_create {
+        border-color: var(--wl-dark-border, #2b3647);
+        background: var(--wl-dark-surface, #18212f);
+        color: var(--wl-dark-text, #e5e7eb);
+    }
+
+    .o_kanban_renderer .o_kanban_header_title,
+    .o_kanban_renderer .o_column_title,
+    .o_kanban_renderer .o_kanban_counter,
+    .o_kanban_renderer .o_kanban_counter_side,
+    .o_kanban_renderer .o_kanban_group_header :is(span, strong, b, div, a, button),
+    .o_kanban_renderer .o_kanban_header :is(span, strong, b, div, a, button),
+    .o_kanban_renderer .o_column_title :is(span, strong, b) {
+        color: var(--wl-dark-text, #e5e7eb) !important;
+    }
+
+    .o_kanban_renderer .o_kanban_group_header :is(.text-muted, small),
+    .o_kanban_renderer .o_kanban_header :is(.text-muted, small),
+    .o_kanban_renderer .o_kanban_counter,
+    .o_kanban_renderer .o_kanban_counter_side {
+        color: var(--wl-dark-muted, #9ca3af) !important;
+    }
+
+    .o_kanban_renderer .o_kanban_counter_progress,
+    .o_kanban_renderer .o_column_progress,
+    .o_kanban_renderer .o_kanban_group .progress {
+        background: var(--wl-dark-border, #2b3647);
+    }
+
+    .o_kanban_renderer .o_kanban_record:not(.o_kanban_ghost):not(.o-kanban-button-new),
+    .o_kanban_view .o_kanban_record:not(.o_kanban_ghost):not(.o-kanban-button-new),
+    .o_kanban_record:not(.o_kanban_ghost):not(.o-kanban-button-new) {
+        border: 1px solid var(--wl-dark-border, #2b3647);
+        background: var(--wl-dark-surface-soft, #202b3a) !important;
+        color: var(--wl-dark-text, #e5e7eb);
+        box-shadow: none;
+    }
+
+    .o_kanban_renderer .o_kanban_record:not(.o_kanban_ghost):not(.o-kanban-button-new):hover,
+    .o_kanban_view .o_kanban_record:not(.o_kanban_ghost):not(.o-kanban-button-new):hover {
+        border-color: color-mix(in srgb, var(--wl-dark-accent) 42%, var(--wl-dark-border, #2b3647));
+        background: var(--wl-dark-surface-soft, #202b3a) !important;
+        box-shadow: none;
+    }
+
+    .o_kanban_record :is(h1, h2, h3, h4, h5, h6, strong, b),
+    .o_kanban_record .o_kanban_record_title,
+    .o_kanban_record .o_kanban_record_headings,
+    .o_kanban_record .o_kanban_record_top,
+    .o_kanban_record .o_kanban_record_body,
+    .o_kanban_record :is(.fw-bold, .fw-bolder, .fs-5),
+    .o_kanban_record :is(.fw-bold, .fw-bolder, .fs-5) .o_field_widget,
+    .o_kanban_record main > div:first-child .o_field_widget {
+        color: var(--wl-dark-heading, #f8fafc) !important;
+    }
+
+    .o_kanban_record .text-muted,
+    .o_kanban_record small,
+    .o_kanban_record .o_text_overflow {
+        color: var(--wl-dark-muted, #9ca3af) !important;
+    }
+
+    // Override light kanban.scss hardcoded colors on meta rows and icons.
+    .o_kanban_record main > div:not(:first-child),
+    .o_kanban_record main > div:not(:first-child) .o_field_widget,
+    .o_kanban_record main > div:not(:first-child) span:not(.o_tag):not(.badge),
+    .o_kanban_record :is(.text-primary, .fa, .fa-fw, .fa-envelope, .fa-phone, .fa-suitcase, .fa-briefcase, .fa-birthday-cake),
+    .o_kanban_record .o_field_widget:not(.badge):not(.o_tag) {
+        color: var(--wl-dark-text, #e5e7eb) !important;
+    }
+
+    .o_kanban_record .o_dropdown_kanban :is(.btn, .dropdown-toggle, i, .fa) {
+        color: var(--wl-dark-text, #e5e7eb) !important;
+    }
+
+    .o_kanban_record footer :is(.o_field_widget, .o-mail-ActivityButton, .fa, i) {
+        color: var(--wl-dark-muted, #9ca3af) !important;
+    }
+
+    .o_kanban_record :is(span, div, p, a:not(.btn), label, small) {
+        color: inherit;
+    }
+
+    .o_kanban_renderer .btn,
+    .o_kanban_renderer .o_kanban_record .btn,
+    .o_kanban_renderer .o_kanban_header .btn,
+    .o_kanban_renderer button:not(.o_drag_handle):not(.fa) {
+        border-color: var(--wl-dark-border, #2b3647);
+        background-color: var(--wl-dark-surface-soft, #202b3a);
+        color: var(--wl-dark-text, #e5e7eb);
+        box-shadow: none;
+    }
+
+    .o_kanban_renderer .btn:hover,
+    .o_kanban_renderer .o_kanban_record .btn:hover,
+    .o_kanban_renderer .o_kanban_header .btn:hover,
+    .o_kanban_renderer button:not(.o_drag_handle):not(.fa):hover {
+        border-color: color-mix(in srgb, var(--wl-dark-accent) 48%, transparent);
+        background-color: var(--wl-dark-surface-soft, #202b3a);
+        color: var(--wl-dark-text, #e5e7eb);
+    }
+
+    .o_kanban_renderer .btn-primary,
+    .o_kanban_renderer .btn.active:not(.btn-success):not(.btn-danger):not(.btn-info):not(.btn-warning),
+    .o_kanban_renderer .btn.show:not(.btn-success):not(.btn-danger):not(.btn-info):not(.btn-warning),
+    .o_kanban_renderer .btn:active:not(.btn-success):not(.btn-danger):not(.btn-info):not(.btn-warning) {
+        border-color: transparent !important;
+        background-color: var(--wl-dark-accent) !important;
+        color: var(--wl-dark-accent-contrast, #ffffff) !important;
+    }
+
+    .o_kanban_renderer .o_kanban_quick_create,
+    .o_kanban_renderer .o_kanban_quick_create .card,
+    .o_kanban_renderer .o_kanban_load_more {
+        border-color: var(--wl-dark-border, #2b3647);
+        background: var(--wl-dark-surface-soft, #202b3a);
+        color: var(--wl-dark-text, #e5e7eb);
+    }
+
+    .o_kanban_renderer .o_kanban_quick_create .form-control,
+    .o_kanban_renderer .o_kanban_quick_create .o_input {
+        border-color: var(--wl-dark-border, #2b3647);
+        background: var(--wl-dark-surface, #18212f);
+        color: var(--wl-dark-text, #e5e7eb);
+    }
+
+    .o_kanban_record .o_kanban_image,
+    .o_kanban_record .o_kanban_image_fill_left,
+    .o_kanban_record .o_kanban_image_full {
+        background-color: var(--wl-dark-surface, #18212f);
+    }
+
+    .o_kanban_record .badge:not(.text-bg-danger):not(.text-bg-warning):not(.text-bg-success):not(.text-bg-info):not(.text-bg-primary),
+    .o_kanban_view .o_kanban_record :is(.o_tag, .badge.rounded-pill):not(.text-bg-danger):not(.text-bg-warning):not(.text-bg-success):not(.text-bg-info):not(.text-bg-primary) {
+        border: 1px solid color-mix(in srgb, #38bdf8 34%, var(--wl-dark-border, #2b3647)) !important;
+        background: color-mix(in srgb, #38bdf8 22%, var(--wl-dark-surface-soft, #202b3a)) !important;
+        color: #e0f2fe !important;
+        box-shadow: none;
+
+        :is(.o_tag_badge_text, .o_badge_text) {
+            color: inherit !important;
+        }
+    }
+
+    .o_kanban_view .o_kanban_record :is(.o_tag:nth-child(2n), .badge.rounded-pill:nth-child(2n)):not(.text-bg-danger):not(.text-bg-warning):not(.text-bg-success):not(.text-bg-info):not(.text-bg-primary) {
+        border-color: color-mix(in srgb, #fb923c 36%, var(--wl-dark-border, #2b3647)) !important;
+        background: color-mix(in srgb, #fb923c 24%, var(--wl-dark-surface-soft, #202b3a)) !important;
+        color: #ffedd5 !important;
+    }
+
+    .o_kanban_view .o_kanban_record :is(.o_tag:nth-child(3n), .badge.rounded-pill:nth-child(3n)):not(.text-bg-danger):not(.text-bg-warning):not(.text-bg-success):not(.text-bg-info):not(.text-bg-primary) {
+        border-color: color-mix(in srgb, #c084fc 38%, var(--wl-dark-border, #2b3647)) !important;
+        background: color-mix(in srgb, #c084fc 24%, var(--wl-dark-surface-soft, #202b3a)) !important;
+        color: #f3e8ff !important;
+    }
+
+    .o_kanban_view .o_kanban_record :is(.o_tag:nth-child(4n), .badge.rounded-pill:nth-child(4n)):not(.text-bg-danger):not(.text-bg-warning):not(.text-bg-success):not(.text-bg-info):not(.text-bg-primary) {
+        border-color: color-mix(in srgb, #fbbf24 34%, var(--wl-dark-border, #2b3647)) !important;
+        background: color-mix(in srgb, #fbbf24 20%, var(--wl-dark-surface-soft, #202b3a)) !important;
+        color: #fef3c7 !important;
+    }
+
+    .o_opportunity_kanban,
+    .o_opportunity_kanban .o_kanban_renderer,
+    .o_purchase_dashboard_kanban,
+    .o_hr_employee_kanban,
+    .o_hr_employee_kanban .o_kanban_renderer,
+    .o_hr_department_kanban,
+    .o_hr_department_kanban .o_kanban_renderer {
+        background: var(--wl-dark-surface, #18212f) !important;
+        color: var(--wl-dark-text, #e5e7eb);
+    }
+
+    .o_opportunity_kanban .o_kanban_card_crm_lead_revenue,
+    .o_opportunity_kanban .o_kanban_record_subtitle,
+    .o_hr_employee_kanban .o_kanban_record_subtitle,
+    .o_hr_department_kanban .o_kanban_record_subtitle,
+    .o_hr_employee_kanban .o_kanban_record > main > div:not(:first-child),
+    .o_hr_employee_kanban .o_kanban_record > main > div:not(:first-child) .o_field_widget,
+    .o_hr_employee_kanban .o_kanban_record > main > div:not(:first-child) span {
+        color: var(--wl-dark-text, #e5e7eb) !important;
+    }
+
+    .o_hr_employee_kanban .o_kanban_record > main > div:first-child .o_field_widget {
+        color: var(--wl-dark-heading, #f8fafc) !important;
+    }
+
+    .tt_kanban_person_title {
+        color: var(--wl-dark-heading, #f8fafc) !important;
+    }
+
+    .tt_kanban_person_subtitle,
+    .tt_kanban_person_company,
+    .tt_kanban_person_meta,
+    .tt_kanban_person_meta i,
+    .tt_kanban_person_meta .o_field_widget,
+    .tt_kanban_person_meta span > span {
+        color: var(--wl-dark-text, #e5e7eb) !important;
+    }
+
+    .o_kanban_view.o_modules_kanban .o_kanban_record :is(.o_kanban_record_title, h3, h4, strong, .fw-bold, .fs-5),
+    .o_kanban_view.o_modules_kanban .o_kanban_record main .o_field_widget.fw-bold,
+    .o_kanban_view.o_modules_kanban .o_kanban_record main > .o_field_widget {
+        color: var(--wl-dark-heading, #f8fafc) !important;
+    }
+
+    .o_kanban_view.o_modules_kanban .o_kanban_record main > p.text-muted,
+    .o_kanban_view.o_modules_kanban .o_kanban_record main > p.text-muted code {
+        color: var(--wl-dark-muted, #9ca3af) !important;
+    }
+}

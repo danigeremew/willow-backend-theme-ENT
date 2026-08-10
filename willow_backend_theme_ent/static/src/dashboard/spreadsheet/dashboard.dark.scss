@@ -1,0 +1,186 @@
+// Spreadsheet dashboard — dark shell + canvas letterboxing (colors only; no height/overflow on grid).
+// Core hardcodes background: white on .o_spreadsheet_dashboard_action / .o_renderer / .o-grid.
+
+.o_web_client .o_spreadsheet_dashboard_action {
+    background-color: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120)) !important;
+    color: var(--wl-config-dark-body-text, #e5edf7);
+
+    > .o_content,
+    .o_content,
+    .o_renderer,
+    .o_renderer_with_searchpanel {
+        background-color: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120)) !important;
+    }
+
+    .o_spreadsheet_container.o_field_highlight,
+    .o_spreadsheet_container.o_field_highlight > .o-spreadsheet.h-100.w-100,
+    .o_spreadsheet_container {
+        background-color: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120)) !important;
+        color: var(--wl-config-dark-body-text, #e5edf7);
+        color-scheme: dark;
+        scrollbar-color: #475569 var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120));
+    }
+
+    .o_spreadsheet_container.o_field_highlight::-webkit-scrollbar-track,
+    .o_spreadsheet_container::-webkit-scrollbar-track {
+        background: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120));
+    }
+
+    .o_spreadsheet_container.o_field_highlight::-webkit-scrollbar-thumb,
+    .o_spreadsheet_container::-webkit-scrollbar-thumb {
+        background: #475569;
+        border-radius: 4px;
+    }
+
+    // Dashboard search panel (Sales / CRM sidebar filters).
+    .o_spreadsheet_dashboard_search_panel,
+    .o_search_panel,
+    .o_search_panel_sidebar {
+        border-color: var(--wl-config-dark-card-border, #273449) !important;
+        background: var(--wl-config-dark-card, #111827) !important;
+        color: var(--wl-config-dark-body-text, #e5edf7);
+        box-shadow: inset -1px 0 0 var(--wl-config-dark-card-border, #273449) !important;
+    }
+
+    .o_search_panel_section_header,
+    .o_search_panel_counter,
+    .o_search_panel_current_selection {
+        color: var(--wl-config-dark-body-muted, #9aa7ba) !important;
+    }
+
+    .o_search_panel_category_value,
+    .o_search_panel_filter_value,
+    .list-group-item {
+        border-color: transparent !important;
+        background: transparent !important;
+        color: var(--wl-config-dark-body-text, #e5edf7);
+    }
+
+    .o_search_panel_category_value:hover,
+    .o_search_panel_filter_value:hover,
+    .list-group-item:hover {
+        background: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 12%, #111827) !important;
+        color: #ffffff;
+    }
+
+    .o_search_panel_category_value.active,
+    .o_search_panel_filter_value.active,
+    .list-group-item.active {
+        background: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 18%, transparent) !important;
+        color: #ffffff;
+        box-shadow: inset 3px 0 0 var(--wl-dark-primary, #6b8aff) !important;
+    }
+
+    // Canvas letterboxing around the grid viewport (background-color only).
+    .o-spreadsheet,
+    .o-spreadsheet .o-grid,
+    .o-spreadsheet .o-grid-container,
+    .o-spreadsheet .o-spreadsheet-content,
+    .o-spreadsheet .o-spreadsheet-canvas-container,
+    .o-spreadsheet .mx-auto.h-100.position-relative {
+        background-color: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120)) !important;
+        color: var(--wl-config-dark-body-text, #e5edf7);
+    }
+
+    .o-spreadsheet {
+        color-scheme: dark;
+    }
+
+    .o-spreadsheet .o-grid canvas {
+        background-color: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120));
+        // Light bundle applies contrast filter to grid canvases — disable so gutters match.
+        filter: none !important;
+    }
+
+    .o-spreadsheet .o-figure,
+    .o-spreadsheet .o-figure-wrapper,
+    .o-spreadsheet .o-chart,
+    .o-spreadsheet .o-chart-container,
+    .o-spreadsheet .o-mobile-figure {
+        border-color: var(--wl-config-dark-card-border, #273449) !important;
+        background: var(--wl-config-dark-card, #111827) !important;
+        color: var(--wl-config-dark-body-text, #e5edf7) !important;
+        box-shadow: none !important;
+    }
+
+    .o-spreadsheet .o-figure canvas,
+    .o-spreadsheet .o-chart canvas,
+    .o-spreadsheet .o-chart-container canvas {
+        background-color: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120)) !important;
+        filter: none !important;
+    }
+
+    // o-spreadsheet virtual scrollbars (default track #f5f5f5 — full-width white bar in dark mode).
+    .o-spreadsheet .o-scrollbar {
+        background-color: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120)) !important;
+        scrollbar-color: #475569 transparent;
+
+        &::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120));
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+
+        &.corner {
+            background-color: var(--wl-dark-bg, var(--wl-config-dark-canvas, #0b1120)) !important;
+            border-top-color: var(--wl-config-dark-card-border, #273449) !important;
+            border-left-color: var(--wl-config-dark-card-border, #273449) !important;
+        }
+    }
+
+    .o-spreadsheet .o-dropdown-content,
+    .o-spreadsheet .o-carousel-empty,
+    .o-spreadsheet .o-spreadsheet-small-bottom-bar,
+    .o-spreadsheet .o-small-composer,
+    .o-spreadsheet .bottom-bar-menu {
+        border-color: var(--wl-config-dark-card-border, #273449) !important;
+        background-color: var(--wl-config-dark-card, #111827) !important;
+        color: var(--wl-config-dark-body-text, #e5edf7) !important;
+    }
+
+    .o-spreadsheet .o-dashboard-chart-select,
+    .o-spreadsheet .o-chart-dashboard-item,
+    .o-spreadsheet .o-figure select,
+    .o-spreadsheet .o-figure button,
+    .o-spreadsheet .o-chart-container button {
+        border-color: var(--wl-config-dark-card-border, #273449) !important;
+        background: var(--wl-config-dark-card, #111827) !important;
+        color: var(--wl-config-dark-body-text, #e5edf7) !important;
+    }
+
+    .o-spreadsheet .o-dashboard-chart-select:hover,
+    .o-spreadsheet .o-chart-dashboard-item:hover,
+    .o-spreadsheet .o-figure select:hover,
+    .o-spreadsheet .o-figure button:hover,
+    .o-spreadsheet .o-chart-container button:hover {
+        background: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 14%, #111827) !important;
+        color: #ffffff !important;
+    }
+
+    .o-spreadsheet .o-chart-custom-tooltip {
+        border-color: var(--wl-config-dark-card-border, #273449) !important;
+        background-color: var(--wl-config-dark-card, #111827) !important;
+        color: var(--wl-config-dark-body-text, #e5edf7) !important;
+        box-shadow: 0 16px 36px rgba(2, 6, 23, 0.46) !important;
+    }
+
+    .o-spreadsheet .o-chart-custom-tooltip .o-tooltip-title {
+        color: #f8fafc !important;
+    }
+
+    .o-spreadsheet .o-chart-custom-tooltip .o-tooltip-label {
+        color: var(--wl-config-dark-body-muted, #9aa7ba) !important;
+    }
+
+    .o-spreadsheet .o-chart-custom-tooltip .o-tooltip-value {
+        color: #ffffff !important;
+    }
+}

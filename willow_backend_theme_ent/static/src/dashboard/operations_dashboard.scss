@@ -1,0 +1,3446 @@
+// Willow Home — consolidated layout (sections A–H)
+
+$o_willow_dashboard_section-gap: 20px;
+$o_willow_dashboard_panel-gap: 16px;
+$o_willow_dashboard_radius: 8px;
+$o_willow_dashboard_panel-shadow: 0 2px 8px rgba(18, 32, 51, 0.06);
+$o_willow_dashboard_gutter: 24px;
+$o_willow_dashboard_border: var(--wl-erp-border, #d3dce7);
+$o_willow_dashboard_border-soft: color-mix(in srgb, var(--wl-erp-border, #e7ecf2) 75%, var(--wl-erp-card-bg, #ffffff));
+$o_willow_dashboard_canvas: var(--wl-canvas, #edf2f7);
+$o_willow_dashboard_panel-bg: var(--wl-erp-card-bg, var(--wl-card, #ffffff));
+$o_willow_dashboard_panel-tint: color-mix(in srgb, var(--wl-canvas, #f8f9fa) 72%, var(--wl-erp-card-bg, #ffffff));
+
+.o_willow_dashboard_action {
+    min-height: 100%;
+    padding-top: 0;
+    background: $o_willow_dashboard_canvas !important;
+    color: var(--wl-erp-text-dark, #122033);
+    --wl-erp-radius-lg: #{$o_willow_dashboard_radius};
+}
+
+// Use full action-manager width on Home (theme adds 16px side padding elsewhere).
+.o_web_client.wl_sp_global_mode:has(.o_willow_dashboard_action) > .o_action_manager {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+// ─── Hero header overrides ───────────────────────────────────────────────────
+
+.o_willow_dashboard_action .wl_erp_dashboard_header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    min-height: 150px;
+    padding-top: 24px;
+    padding-bottom: 36px;
+    padding-left: 38px;
+    padding-right: 38px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+.o_willow_dashboard_action :is(
+    .wl_erp_card,
+    .tt_dashboard_stat,
+    .tt_dashboard_panel,
+    .tt_dashboard_pill,
+    .tt_dashboard_empty,
+    .tt_dashboard_graph,
+    .tt_dashboard_app_tile,
+    .tt_dashboard_week_bar,
+    .tt_dashboard_bar_track,
+    .tt_dashboard_bar_fill,
+    .tt_dashboard_attention_list li strong,
+    .wl_sp_footer_card
+) {
+    border-radius: $o_willow_dashboard_radius !important;
+}
+
+// Sharp corners on homepage control chips / tabs / inline actions (not panels).
+.o_willow_dashboard_action :is(
+    .tt_dashboard_button,
+    .tt_dashboard_panel_select,
+    .tt_dashboard_filter_tabs,
+    .tt_dashboard_filter_tab,
+    .tt_dashboard_filter_chip,
+    .tt_dashboard_status_chip,
+    .tt_dashboard_panel_action_inline,
+    .tt_dashboard_quick_links_pills .tt_dashboard_quick_link,
+    .tt_biz_btn,
+    .wl_erp_action_button
+) {
+    border-radius: 0 !important;
+}
+
+.o_willow_dashboard_action .wl_erp_dashboard_header_actions {
+    margin-top: 36px;
+}
+
+.o_willow_dashboard_action .wl_erp_dashboard_content {
+    padding-top: 0;
+    padding-left: 38px;
+    padding-right: 38px;
+    max-width: none;
+    width: 100%;
+}
+
+// Business dashboard — full content width (grid was capped at 1380px vs full header)
+.o_willow_dashboard_action .wl_erp_biz_dashboard {
+    margin-bottom: $o_willow_dashboard_section-gap;
+    margin-top: 8px;
+    // Match bottom home panels ($o_willow_dashboard_radius = 8px); do not re-override to 16px
+    --wl-erp-radius-lg: #{$o_willow_dashboard_radius};
+    width: 100%;
+}
+
+.o_willow_dashboard_action .wl_erp_biz_dashboard .wl_erp_dashboard_grid {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+}
+
+.o_willow_dashboard_action .wl_erp_dashboard_title {
+    margin-bottom: 10px;
+    line-height: 1.08;
+    color: var(--wl-config-dashboard-title-color, var(--wl-hero-chrome-text, #122033));
+    font-size: var(--wl-config-dashboard-title-size, 38px);
+    font-weight: var(--wl-config-dashboard-title-weight, 700);
+}
+
+.o_web_client.wl_sp_theme_dark .o_willow_dashboard_action .wl_erp_dashboard_title {
+    color: var(--wl-hero-chrome-text, #f8fafc);
+}
+
+.o_willow_dashboard_action .wl_erp_dashboard_subtitle {
+    margin-bottom: 0;
+    color: var(--wl-config-dashboard-subtitle-color, var(--wl-hero-chrome-muted, #5c6b7f));
+    font-size: var(--wl-config-dashboard-subtitle-size, 19px);
+    font-weight: var(--wl-config-dashboard-subtitle-weight, 500);
+}
+
+.o_web_client.wl_sp_theme_dark .o_willow_dashboard_action .wl_erp_dashboard_subtitle {
+    color: var(--wl-hero-chrome-muted, rgba(255, 255, 255, 0.78));
+}
+
+.o_willow_dashboard_action .tt_dashboard_context {
+    margin: 6px 0 0;
+    color: var(--wl-config-dashboard-subtitle-color, var(--wl-hero-chrome-muted, #5c6b7f));
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.o_web_client.wl_sp_theme_dark .o_willow_dashboard_action .tt_dashboard_context {
+    color: var(--wl-hero-chrome-muted, rgba(255, 255, 255, 0.78));
+}
+
+.o_willow_dashboard_action .tt_dashboard_button_primary {
+    background: var(--wl-erp-primary, #5068f6) !important;
+    border-color: var(--wl-erp-primary, #5068f6) !important;
+    color: #ffffff !important;
+}
+
+.o_willow_dashboard_action .tt_dashboard_button_primary:hover {
+    background: var(--wl-erp-primary-dark, #4054d8) !important;
+}
+
+// ─── Content shell ───────────────────────────────────────────────────────────
+
+.tt_dashboard_shell {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-bottom: 0;
+}
+
+.tt_dashboard_shell.is-loading {
+    opacity: 0.72;
+    pointer-events: none;
+}
+
+.tt_dashboard_error_banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 0 24px;
+    padding: 14px 16px;
+    border: 1px solid color-mix(in srgb, var(--wl-erp-red, #ff4d57) 25%, transparent);
+    border-radius: $o_willow_dashboard_radius;
+    background: color-mix(in srgb, var(--wl-erp-red, #ff4d57) 6%, transparent);
+    color: var(--wl-erp-text-dark, #122033);
+}
+
+.tt_dashboard_error_banner p {
+    margin: 0;
+    font-size: 13px;
+}
+
+// ─── KPI strip (section B) ───────────────────────────────────────────────────
+
+.tt_dashboard_stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: $o_willow_dashboard_panel-gap;
+    // KPI sits at the top of the homepage content — keep spacing tight under the hero.
+    margin: 8px 0 $o_willow_dashboard_section-gap;
+}
+
+.tt_dashboard_stat {
+    // Preset card surface (light/dark via --wl-erp-card-bg)
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--wl-erp-card-bg, $o_willow_dashboard_panel-bg);
+    border: 1px solid var(--wl-erp-border, $o_willow_dashboard_border);
+    border-radius: $o_willow_dashboard_radius;
+    box-shadow: $o_willow_dashboard_panel-shadow;
+    padding: 18px 18px 16px;
+    min-height: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.tt_dashboard_stat.is-clickable {
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.tt_dashboard_stat.is-clickable:hover {
+    border-color: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 35%, var(--wl-erp-border, #bac8d8));
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 6%, var(--wl-erp-card-bg, #ffffff));
+}
+
+// Overdue stays on the same card surface as the other KPIs — urgency is shown
+// on the label/value, not a pink wash across the whole tile.
+.tt_dashboard_stat.is-urgent {
+    border-color: var(--wl-erp-border, $o_willow_dashboard_border);
+    background: var(--wl-erp-card-bg, $o_willow_dashboard_panel-bg);
+}
+
+.tt_dashboard_stat.is-urgent .tt_dashboard_stat_label {
+    color: var(--wl-erp-red, #ff4d57);
+}
+
+.tt_dashboard_stat.is-urgent .tt_dashboard_stat_value {
+    color: var(--wl-erp-text-dark, #122033);
+}
+
+.tt_dashboard_stat.is-urgent .tt_dashboard_stat_icon {
+    color: var(--wl-erp-red, #ff4d57);
+}
+
+.tt_dashboard_stat_top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.tt_dashboard_stat_label {
+    display: block;
+    margin-bottom: 0;
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.tt_dashboard_stat_icon {
+    // Bare glyph only — no tinted chip/box behind the KPI icon.
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: auto;
+    height: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--wl-erp-primary, #5068f6);
+    font-size: 16px;
+    line-height: 1;
+}
+
+.tt_dashboard_stat_rose .tt_dashboard_stat_icon {
+    color: var(--wl-erp-red, #ff4d57);
+}
+
+.tt_dashboard_stat_green .tt_dashboard_stat_icon {
+    color: var(--wl-erp-green, #16b978);
+}
+
+.tt_dashboard_stat_value {
+    display: block;
+    margin-top: 4px;
+    font-size: clamp(28px, 2vw, 36px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--wl-erp-text-dark, #122033);
+    font-weight: 800;
+}
+
+.tt_dashboard_stat_meta {
+    margin: 0;
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.tt_dashboard_stat_share {
+    margin-top: 8px;
+    height: 4px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--wl-erp-border, #e7ecf2) 70%, var(--wl-erp-card-bg, #ffffff));
+    overflow: hidden;
+}
+
+.tt_dashboard_stat_share_fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--wl-erp-primary, #5068f6);
+    min-width: 0;
+    transition: width 0.2s ease;
+}
+
+.tt_dashboard_stat_rose .tt_dashboard_stat_share_fill {
+    background: var(--wl-erp-red, #ff4d57);
+}
+
+.tt_dashboard_stat_green .tt_dashboard_stat_share_fill {
+    background: var(--wl-erp-green, #16b978);
+}
+
+.tt_dashboard_stat_secondary {
+    margin: 2px 0 0;
+    color: var(--wl-erp-text-dark, #122033);
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.tt_dashboard_pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: -4px 0 $o_willow_dashboard_section-gap;
+}
+
+.tt_dashboard_pill {
+    border: 1px solid var(--wl-erp-border, $o_willow_dashboard_border);
+    border-radius: $o_willow_dashboard_radius;
+    background: var(--wl-erp-card-bg, $o_willow_dashboard_panel-bg);
+    color: var(--wl-erp-text-dark, #122033);
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.tt_dashboard_pill:hover {
+    border-color: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 32%, var(--wl-erp-border, #b9c5d3));
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 6%, var(--wl-erp-card-bg, #ffffff));
+}
+
+// ─── Row grids (sections C–G) ────────────────────────────────────────────────
+
+.tt_dashboard_row {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: $o_willow_dashboard_panel-gap;
+    align-items: stretch;
+    margin-bottom: $o_willow_dashboard_section-gap;
+}
+
+.tt_dashboard_row > .tt_dashboard_panel {
+    min-height: 100%;
+}
+
+.tt_dashboard_row_charts {
+    align-items: stretch;
+}
+
+.tt_dashboard_row_charts > .tt_dashboard_panel {
+    min-height: 340px;
+    height: 100%;
+}
+
+.tt_dashboard_row_charts > .tt_dashboard_panel_chart {
+    grid-column: span 7;
+}
+
+.tt_dashboard_row_charts > .tt_dashboard_panel_week {
+    grid-column: span 5;
+}
+
+.tt_dashboard_row_attention > .tt_dashboard_panel:first-child {
+    grid-column: span 7;
+}
+
+.tt_dashboard_row_attention > .tt_dashboard_panel_bars {
+    grid-column: span 5;
+}
+
+.tt_dashboard_row_work > .tt_dashboard_panel:first-child,
+.tt_dashboard_row_work > .tt_dashboard_panel:last-child {
+    grid-column: span 6;
+    min-height: 240px;
+}
+
+.tt_dashboard_row_apps > .tt_dashboard_panel:first-child {
+    grid-column: span 7;
+}
+
+.tt_dashboard_row_apps > .tt_dashboard_panel:last-child {
+    grid-column: span 5;
+}
+
+.tt_dashboard_row_attention.is-single-col,
+.tt_dashboard_row_charts.is-single-col {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.tt_dashboard_row_attention.is-single-col > .tt_dashboard_panel,
+.tt_dashboard_row_charts.is-single-col > .tt_dashboard_panel {
+    grid-column: 1 / -1;
+}
+
+// ─── Panels ──────────────────────────────────────────────────────────────────
+
+.tt_dashboard_panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--wl-erp-card-bg, $o_willow_dashboard_panel-bg);
+    border: 1px solid var(--wl-erp-border, $o_willow_dashboard_border);
+    border-radius: $o_willow_dashboard_radius;
+    box-shadow: $o_willow_dashboard_panel-shadow;
+    padding: 16px 18px;
+    min-width: 0;
+}
+
+.tt_dashboard_panel_compact {
+    padding: 12px 16px;
+}
+
+.tt_dashboard_panel_head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid $o_willow_dashboard_border-soft;
+    flex-shrink: 0;
+}
+
+.tt_dashboard_panel_head h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--wl-erp-text-dark, #122033);
+    letter-spacing: -0.02em;
+}
+
+.tt_dashboard_panel_head p {
+    margin: 2px 0 0;
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-size: 12px;
+}
+
+.tt_dashboard_panel_select {
+    border: 1px solid $o_willow_dashboard_border;
+    border-radius: 0;
+    background: $o_willow_dashboard_panel-tint;
+    color: var(--wl-erp-primary, #5068f6);
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+}
+
+.tt_dashboard_panel_select:hover {
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 8%, transparent);
+}
+
+.tt_dashboard_panel_body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.tt_dashboard_panel_chart .tt_dashboard_panel_body {
+    flex: 0 0 auto;
+}
+
+.tt_dashboard_empty {
+    margin: 0;
+    padding: 9px 11px;
+    border: 1px dashed #d8e0e8;
+    background: $o_willow_dashboard_panel-tint;
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-size: 12px;
+    text-align: left;
+    line-height: 1.45;
+}
+
+.tt_dashboard_panel.is-empty {
+    padding-bottom: 12px;
+}
+
+.tt_dashboard_panel.is-empty .tt_dashboard_panel_head {
+    margin-bottom: 8px;
+}
+
+.tt_dashboard_panel.is-empty .tt_dashboard_panel_body {
+    min-height: 0;
+}
+
+// ─── Charts (section C) ──────────────────────────────────────────────────────
+
+.tt_dashboard_panel_chart {
+    min-height: 0;
+}
+
+.tt_dashboard_row_charts .tt_dashboard_panel_body {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.tt_dashboard_row_charts .tt_dashboard_graph {
+    flex: 1 1 auto;
+    min-height: 280px;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.tt_dashboard_row_charts .tt_dashboard_graph_svg {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+    max-height: none;
+}
+
+.tt_dashboard_row_charts .tt_dashboard_week_list {
+    flex: 1 1 auto;
+    justify-content: space-between;
+    min-height: 0;
+}
+
+.tt_dashboard_panel_week {
+    padding: 12px 14px;
+}
+
+.tt_dashboard_panel_week .tt_dashboard_panel_head {
+    margin-bottom: 8px;
+    padding-bottom: 7px;
+}
+
+.tt_dashboard_chart_legend,
+.tt_dashboard_panel_week .tt_dashboard_week_legend {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--wl-erp-text-muted, #7d8798);
+}
+
+.tt_dashboard_chart_legend span,
+.tt_dashboard_week_legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tt_dashboard_chart_legend i,
+.tt_dashboard_week_legend i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+}
+
+.tt_dashboard_chart_legend .is-due i,
+.tt_dashboard_week_legend .is-due i {
+    background: linear-gradient(
+        90deg,
+        var(--wl-erp-primary, #5870f8),
+        color-mix(in srgb, var(--wl-erp-primary, #6f86ff) 72%, var(--wl-erp-card-bg, #ffffff))
+    );
+}
+
+.tt_dashboard_chart_legend .is-overdue i,
+.tt_dashboard_week_legend .is-overdue i {
+    background: var(--wl-erp-red, #ef596f);
+}
+
+.tt_dashboard_graph {
+    position: relative;
+    flex: 0 0 auto;
+    max-height: 240px;
+    padding: 6px 6px 2px;
+    border-radius: $o_willow_dashboard_radius;
+    background: $o_willow_dashboard_panel-tint;
+    border: 1px solid color-mix(in srgb, var(--wl-erp-primary, #5068f6) 10%, transparent);
+}
+
+.tt_dashboard_graph_svg {
+    width: 100%;
+    height: auto;
+    max-height: 210px;
+    display: block;
+}
+
+.tt_dashboard_graph_grid line {
+    stroke: rgba(148, 163, 184, 0.25);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+}
+
+.tt_dashboard_graph_axis {
+    stroke: rgba(148, 163, 184, 0.35);
+    stroke-width: 1;
+}
+
+.tt_dashboard_graph_yaxis text {
+    fill: #8492a6;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.tt_dashboard_graph_line.is-due {
+    fill: none;
+    stroke: var(--wl-erp-primary, #4f6df5);
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.tt_dashboard_graph_line.is-overdue {
+    fill: none;
+    stroke: var(--wl-erp-red, #ef596f);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.tt_dashboard_graph_points circle {
+    fill: #ffffff;
+    stroke-width: 2;
+    opacity: 0;
+    transition: opacity 0.15s ease, r 0.15s ease;
+    cursor: pointer;
+}
+
+.tt_dashboard_graph_points.is-due circle {
+    stroke: var(--wl-erp-primary, #4f6df5);
+}
+
+.tt_dashboard_graph_points.is-overdue circle {
+    stroke: var(--wl-erp-red, #ef596f);
+}
+
+.tt_dashboard_graph.is-point-visible .tt_dashboard_graph_points circle,
+.tt_dashboard_graph_points circle.is-latest {
+    opacity: 1;
+}
+
+.tt_dashboard_graph:hover .tt_dashboard_graph_points circle,
+.tt_dashboard_graph_points circle.is-active {
+    opacity: 1;
+}
+
+.tt_dashboard_graph_points circle.is-active {
+    stroke-width: 2.5;
+}
+
+.tt_dashboard_graph_labels {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    margin-top: 6px;
+    padding: 0 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--wl-erp-text-muted, #8492a6);
+}
+
+.tt_dashboard_graph_tooltip {
+    position: absolute;
+    z-index: 2;
+    transform: translate(-50%, calc(-100% - 10px));
+    min-width: 88px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(30, 58, 138, 0.1);
+    background: $o_willow_dashboard_panel-bg;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.tt_dashboard_graph_tooltip strong {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--wl-erp-text-dark, #122033);
+}
+
+.tt_dashboard_graph_tooltip span {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--wl-erp-primary, #4f6df5);
+}
+
+.tt_dashboard_panel_week .tt_dashboard_week_legend {
+    margin-bottom: 8px;
+    gap: 10px;
+    font-size: 10px;
+}
+
+.tt_dashboard_panel_week .tt_dashboard_week_list {
+    gap: 10px;
+}
+
+.tt_dashboard_panel_week .tt_dashboard_week_day {
+    grid-template-columns: 36px 1fr 24px;
+    gap: 10px;
+}
+
+.tt_dashboard_week_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+}
+
+.tt_dashboard_week_day {
+    display: grid;
+    grid-template-columns: 36px 1fr 24px;
+    align-items: center;
+    gap: 10px;
+}
+
+.tt_dashboard_week_label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--wl-erp-text-muted, #7b8798);
+    text-transform: uppercase;
+}
+
+.tt_dashboard_week_track {
+    height: 7px;
+    border-radius: 999px;
+    background: $o_willow_dashboard_panel-tint;
+    overflow: hidden;
+}
+
+.tt_dashboard_week_fill {
+    display: flex;
+    height: 100%;
+    min-width: 0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.tt_dashboard_week_segment {
+    display: block;
+    height: 100%;
+    min-width: 0;
+}
+
+.tt_dashboard_week_segment.is-due {
+    background: linear-gradient(
+        90deg,
+        var(--wl-erp-primary, #5870f8),
+        color-mix(in srgb, var(--wl-erp-primary, #6f86ff) 72%, var(--wl-erp-card-bg, #ffffff))
+    );
+}
+
+.tt_dashboard_week_segment.is-overdue {
+    background: var(--wl-erp-red, #ef596f);
+}
+
+.tt_dashboard_week_count {
+    text-align: right;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--wl-erp-text-dark, #17233c);
+}
+
+// ─── Lower dashboard section ─────────────────────────────────────────────────
+
+.tt_dashboard_lower_section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 4px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(18, 32, 51, 0.06);
+}
+
+.tt_dashboard_panel_lower {
+    min-height: 280px;
+    padding: 18px 20px 16px;
+}
+
+.tt_dashboard_panel_lower .tt_dashboard_panel_body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.tt_dashboard_panel_header {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+}
+
+.tt_dashboard_panel_title_wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+}
+
+.tt_dashboard_panel_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--wl-erp-primary, #5068f6);
+    background: transparent;
+    font-size: 15px;
+    line-height: 1;
+}
+
+.tt_dashboard_panel_badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 10%, transparent);
+    color: var(--wl-erp-primary, #5068f6);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.tt_dashboard_panel_toolbar {
+    margin: -4px 0 12px;
+}
+
+.tt_dashboard_filter_tabs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 4px;
+    border-radius: 0;
+    background: $o_willow_dashboard_panel-tint;
+    border: 1px solid $o_willow_dashboard_border-soft;
+}
+
+.tt_dashboard_filter_tab {
+    border: 0;
+    background: transparent;
+    color: var(--wl-erp-text-muted, #7d8798);
+    padding: 6px 12px;
+    border-radius: 0;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tt_dashboard_filter_tab.is-active,
+.tt_dashboard_filter_tab:hover {
+    background: $o_willow_dashboard_panel-bg;
+    color: var(--wl-erp-primary, #5068f6);
+    box-shadow: 0 1px 4px rgba(18, 32, 51, 0.08);
+}
+
+.tt_dashboard_filter_chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tt_dashboard_filter_chip {
+    display: inline-flex;
+    padding: 5px 10px;
+    border-radius: 0;
+    border: 1px solid $o_willow_dashboard_border-soft;
+    background: $o_willow_dashboard_panel-tint;
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.tt_dashboard_filter_chip.is-active {
+    background: $o_willow_dashboard_panel-bg;
+    border-color: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 35%, transparent);
+    color: var(--wl-erp-primary, #5068f6);
+    box-shadow: 0 1px 4px rgba(18, 32, 51, 0.08);
+}
+
+.tt_dashboard_panel_action {
+    margin-top: auto;
+    padding-top: 14px;
+    border: 0;
+    background: transparent;
+    color: var(--wl-erp-primary, #5068f6);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: left;
+}
+
+.tt_dashboard_panel_action:hover {
+    color: var(--wl-erp-primary-dark, #4054d8);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.tt_dashboard_panel_action_inline {
+    margin-top: 0;
+    padding: 6px 12px;
+    border: 1px solid color-mix(in srgb, var(--wl-erp-primary, #5068f6) 22%, transparent);
+    border-radius: 0;
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 6%, transparent);
+    text-decoration: none !important;
+    white-space: nowrap;
+}
+
+.tt_dashboard_panel_action_inline:hover {
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 12%, transparent);
+}
+
+.tt_dashboard_status_card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px 20px;
+    padding: 18px 20px;
+    border-radius: $o_willow_dashboard_radius;
+    border: 1px solid color-mix(in srgb, var(--wl-erp-primary, #5068f6) 14%, transparent);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--wl-erp-primary, #5068f6) 7%, transparent) 0%, color-mix(in srgb, var(--wl-erp-green, #16b978) 5%, transparent) 100%);
+}
+
+.tt_dashboard_status_card.is-clear .tt_dashboard_status_icon {
+    color: var(--wl-erp-green, #16b978);
+}
+
+.tt_dashboard_status_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wl-erp-primary, #5068f6);
+    background: transparent;
+    font-size: 22px;
+    line-height: 1;
+}
+
+.tt_dashboard_status_body h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--wl-erp-text-dark, #122033);
+}
+
+.tt_dashboard_status_body p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--wl-erp-text-muted, #7d8798);
+}
+
+.tt_dashboard_status_chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.tt_dashboard_status_chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: 0;
+    border: 1px solid $o_willow_dashboard_border-soft;
+    background: $o_willow_dashboard_panel-bg;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--wl-erp-text-dark, #122033);
+    white-space: nowrap;
+}
+
+.tt_dashboard_status_chip.is-rose {
+    border-color: color-mix(in srgb, var(--wl-erp-red, #ff4d57) 20%, transparent);
+    color: var(--wl-erp-red, #ff4d57);
+}
+
+.tt_dashboard_status_chip.is-green {
+    border-color: color-mix(in srgb, var(--wl-erp-green, #16b978) 22%, transparent);
+    color: var(--wl-erp-green, #16b978);
+}
+
+.tt_dashboard_status_chip.is-blue {
+    border-color: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 22%, transparent);
+    color: var(--wl-erp-primary, #5068f6);
+}
+
+.tt_dashboard_empty_state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 8px 0 4px;
+    flex: 1;
+}
+
+.tt_dashboard_empty_state_compact {
+    padding-top: 4px;
+}
+
+.tt_dashboard_empty_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    color: var(--wl-erp-primary, #5068f6);
+    background: transparent;
+    border: 0;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.tt_dashboard_empty_state h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--wl-erp-text-dark, #122033);
+}
+
+.tt_dashboard_empty_state p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--wl-erp-text-muted, #7d8798);
+    max-width: 36em;
+}
+
+.tt_dashboard_skeleton_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: grid;
+    gap: 8px;
+}
+
+.tt_dashboard_skeleton_list li {
+    height: 44px;
+    border-radius: $o_willow_dashboard_radius;
+    background: linear-gradient(90deg, rgba(18, 32, 51, 0.04) 0%, rgba(18, 32, 51, 0.07) 50%, rgba(18, 32, 51, 0.04) 100%);
+    border: 1px solid $o_willow_dashboard_border-soft;
+}
+
+.tt_dashboard_activity_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+    flex: 1;
+}
+
+.tt_dashboard_activity_item {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid $o_willow_dashboard_border-soft;
+    border-radius: $o_willow_dashboard_radius;
+    background: $o_willow_dashboard_panel-tint;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tt_dashboard_activity_item:hover {
+    border-color: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 28%, transparent);
+    background: $o_willow_dashboard_panel-bg;
+    box-shadow: 0 2px 8px rgba(18, 32, 51, 0.05);
+}
+
+.tt_dashboard_activity_item.is-overdue {
+    border-color: color-mix(in srgb, var(--wl-erp-red, #ff4d57) 22%, transparent);
+    background: color-mix(in srgb, var(--wl-erp-red, #ff4d57) 8%, var(--wl-erp-card-bg, #fffafb));
+}
+
+.tt_dashboard_activity_due {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--wl-erp-text-muted, #7d8798);
+}
+
+.tt_dashboard_activity_item.is-overdue .tt_dashboard_activity_due {
+    color: var(--wl-erp-red, #ff4d57);
+}
+
+.tt_dashboard_activity_main strong {
+    display: block;
+    font-size: 14px;
+    color: var(--wl-erp-text-dark, #122033);
+    margin-bottom: 4px;
+}
+
+.tt_dashboard_activity_badge,
+.tt_dashboard_meta_badge {
+    display: inline-flex;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 10%, transparent);
+    color: var(--wl-erp-primary, #5068f6);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tt_dashboard_row_chevron {
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+// ─── Attention (section D) ───────────────────────────────────────────────────
+
+.tt_dashboard_attention_groups {
+    display: grid;
+    gap: 14px;
+}
+
+.tt_dashboard_attention_groups.is-multi {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tt_dashboard_attention_group h4 {
+    margin: 0 0 6px;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--wl-erp-text-muted, #7d8798);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.tt_dashboard_attention_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tt_dashboard_attention_list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--wl-erp-border, rgba(18, 32, 51, 0.09));
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--wl-erp-text-dark, #122033);
+    transition: color 0.15s ease;
+}
+
+.tt_dashboard_attention_list li:last-child {
+    border-bottom: 0;
+}
+
+.tt_dashboard_attention_list li:hover {
+    color: var(--wl-erp-primary, #5068f6);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--wl-erp-primary, #5068f6) 4%, transparent), transparent);
+}
+
+.tt_dashboard_attention_list li strong {
+    min-width: 28px;
+    padding: 2px 8px;
+    border-radius: $o_willow_dashboard_radius;
+    background: rgba(18, 32, 51, 0.06);
+    font-size: 12px;
+    text-align: center;
+}
+
+.tt_dashboard_attention_list li.is-urgent strong {
+    background: color-mix(in srgb, var(--wl-erp-red, #ff4d57) 12%, transparent);
+    color: var(--wl-erp-red, #ff4d57);
+}
+
+.tt_dashboard_bar_chart {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+}
+
+.tt_dashboard_bar_chart li {
+    display: grid;
+    grid-template-columns: minmax(88px, 1fr) minmax(0, 2fr) 24px;
+    align-items: center;
+    gap: 10px;
+}
+
+.tt_dashboard_bar_label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--wl-erp-text-dark, #122033);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tt_dashboard_bar_track {
+    height: 7px;
+    border-radius: 999px;
+    background: $o_willow_dashboard_panel-tint;
+    overflow: hidden;
+}
+
+.tt_dashboard_bar_fill {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(
+        90deg,
+        var(--wl-erp-primary, #5870f8),
+        color-mix(in srgb, var(--wl-erp-primary, #6f86ff) 72%, var(--wl-erp-card-bg, #ffffff))
+    );
+    min-width: 0;
+    transition: width 0.2s ease;
+}
+
+.tt_dashboard_bar_chart li strong {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--wl-erp-text-dark, #17233c);
+    text-align: right;
+}
+
+// ─── Work (section E) ────────────────────────────────────────────────────────
+
+.tt_dashboard_table_wrap {
+    overflow-x: auto;
+    flex: 1;
+}
+
+.tt_dashboard_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.tt_dashboard_table thead th {
+    position: sticky;
+    top: 0;
+    background: var(--wl-erp-card-bg, #fff);
+    padding: 9px 10px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--wl-erp-text-muted, #7d8798);
+    border-bottom: 1px solid var(--wl-erp-border, rgba(18, 32, 51, 0.09));
+}
+
+.tt_dashboard_table tbody tr {
+    cursor: pointer;
+    transition: background 0.12s ease;
+}
+
+.tt_dashboard_table tbody tr:nth-child(even) {
+    background: rgba(18, 32, 51, 0.02);
+}
+
+.tt_dashboard_table tbody tr:hover {
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 5%, transparent);
+}
+
+.tt_dashboard_table td {
+    padding: 10px;
+    border-bottom: 1px solid var(--wl-erp-border, rgba(18, 32, 51, 0.06));
+    color: var(--wl-erp-text-dark, #122033);
+}
+
+.tt_dashboard_table tbody tr.is-overdue td:first-child {
+    color: var(--wl-erp-red, #ff4d57);
+    font-weight: 700;
+}
+
+.tt_dashboard_link_btn {
+    margin-top: 10px;
+    border: 0;
+    background: transparent;
+    color: var(--wl-erp-primary, #5068f6);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 0;
+    cursor: pointer;
+}
+
+.tt_dashboard_recent_list,
+.tt_dashboard_upcoming_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+    flex: 1;
+}
+
+.tt_dashboard_recent_item,
+.tt_dashboard_upcoming_item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid $o_willow_dashboard_border-soft;
+    border-radius: $o_willow_dashboard_radius;
+    background: $o_willow_dashboard_panel-tint;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tt_dashboard_recent_item:hover,
+.tt_dashboard_upcoming_item:hover {
+    border-color: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 28%, transparent);
+    background: $o_willow_dashboard_panel-bg;
+    box-shadow: 0 2px 8px rgba(18, 32, 51, 0.05);
+}
+
+.tt_dashboard_recent_icon,
+.tt_dashboard_upcoming_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wl-erp-primary, #5068f6);
+    background: transparent;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.tt_dashboard_recent_main strong,
+.tt_dashboard_upcoming_main strong {
+    display: block;
+    font-size: 14px;
+    color: var(--wl-erp-text-dark, #122033);
+    margin-bottom: 4px;
+}
+
+.tt_dashboard_recent_meta,
+.tt_dashboard_upcoming_main span {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--wl-erp-text-muted, #7d8798);
+}
+
+// ─── Apps (section F) ────────────────────────────────────────────────────────
+
+.tt_dashboard_apps_launcher .tt_dashboard_app_grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.tt_dashboard_app_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+    gap: 10px;
+}
+
+.tt_dashboard_app_tile {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid $o_willow_dashboard_border;
+    border-radius: $o_willow_dashboard_radius;
+    background: $o_willow_dashboard_panel-tint;
+    padding: 14px;
+    min-height: 76px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.tt_dashboard_app_tile:hover {
+    background: $o_willow_dashboard_panel-bg;
+    border-color: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 32%, transparent);
+    box-shadow: 0 4px 14px rgba(18, 32, 51, 0.08);
+    transform: translateY(-1px);
+}
+
+.tt_dashboard_app_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: 0;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.tt_dashboard_app_icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tt_dashboard_app_initial {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--wl-erp-primary, #5068f6);
+}
+
+.tt_dashboard_app_content {
+    min-width: 0;
+}
+
+.tt_dashboard_app_name {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--wl-erp-text-dark, #122033);
+    margin-bottom: 2px;
+    line-height: 1.3;
+}
+
+.tt_dashboard_app_category {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--wl-erp-text-muted, #7d8798);
+    margin-bottom: 2px;
+}
+
+.tt_dashboard_app_meta {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--wl-erp-primary, #5068f6);
+}
+
+.tt_dashboard_app_arrow {
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-size: 12px;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.tt_dashboard_app_tile:hover .tt_dashboard_app_arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--wl-erp-primary, #5068f6);
+}
+
+// ─── Summary bar (section G) ─────────────────────────────────────────────────
+
+.tt_dashboard_summary_bar {
+    margin-bottom: 18px;
+}
+
+.tt_dashboard_summary_bar .tt_dashboard_panel_compact,
+.tt_dashboard_summary_overview {
+    background: $o_willow_dashboard_panel-bg;
+    border: 1px solid $o_willow_dashboard_border;
+    box-shadow: $o_willow_dashboard_panel-shadow;
+    padding: 16px 20px;
+}
+
+.tt_dashboard_summary_overview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+}
+
+.tt_dashboard_summary_items {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    flex: 1 1 auto;
+    min-width: unquote("min(100%, 520px)");
+}
+
+.tt_dashboard_summary_item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: $o_willow_dashboard_radius;
+    background: $o_willow_dashboard_panel-tint;
+    border: 1px solid $o_willow_dashboard_border-soft;
+    min-width: 0;
+}
+
+.tt_dashboard_summary_item_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wl-erp-primary, #5068f6);
+    background: transparent;
+    font-size: 13px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.tt_dashboard_summary_item.is-green .tt_dashboard_summary_item_icon {
+    color: var(--wl-erp-green, #16b978);
+}
+
+.tt_dashboard_summary_item.is-rose .tt_dashboard_summary_item_icon {
+    color: var(--wl-erp-red, #ff4d57);
+}
+
+.tt_dashboard_summary_item_label {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--wl-erp-text-muted, #7d8798);
+    margin-bottom: 2px;
+}
+
+.tt_dashboard_summary_item_value {
+    display: block;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--wl-erp-text-dark, #122033);
+    line-height: 1.2;
+}
+
+.tt_dashboard_summary_inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px 28px;
+    align-items: center;
+}
+
+.tt_dashboard_inline_title {
+    margin: 0 0 6px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--wl-erp-text-muted, #7d8798);
+}
+
+.tt_dashboard_summary_text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--wl-erp-text-dark, #122033);
+}
+
+.tt_dashboard_quick_col {
+    min-width: 200px;
+    padding-left: 0;
+    border-left: 0;
+}
+
+.tt_dashboard_summary_overview .tt_dashboard_quick_col {
+    flex: 0 0 auto;
+}
+
+.tt_dashboard_quick_links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tt_dashboard_quick_links_inline,
+.tt_dashboard_quick_links_pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tt_dashboard_quick_links_pills .tt_dashboard_quick_link {
+    padding: 7px 14px;
+    border: 1px solid color-mix(in srgb, var(--wl-erp-primary, #5068f6) 22%, transparent);
+    border-radius: 0;
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 6%, transparent);
+    text-decoration: none !important;
+}
+
+.tt_dashboard_quick_links_pills .tt_dashboard_quick_link:hover {
+    background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 12%, transparent);
+    text-decoration: none !important;
+}
+
+.tt_dashboard_quick_links_inline li {
+    margin: 0;
+}
+
+.tt_dashboard_quick_link {
+    border: 0;
+    background: transparent;
+    color: var(--wl-erp-primary, #5068f6);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.tt_dashboard_quick_link:hover {
+    color: var(--wl-erp-primary-dark, #4054d8);
+    text-decoration: underline;
+}
+
+// ─── Buttons ─────────────────────────────────────────────────────────────────
+
+.tt_dashboard_button {
+    border: 0;
+    border-radius: 0;
+    min-height: 38px;
+    padding: 0 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.tt_dashboard_button_subtle {
+    background: var(--wl-hero-chrome-surface, rgba(18, 32, 51, 0.06));
+    border: 1px solid var(--wl-hero-chrome-border, rgba(18, 32, 51, 0.14));
+    color: var(--wl-hero-chrome-text, #122033);
+}
+
+.tt_dashboard_button_subtle:hover {
+    background: var(--wl-hero-chrome-surface-strong, rgba(18, 32, 51, 0.1));
+}
+
+.tt_dashboard_intro_actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+// ─── Footer (section H) — system status panel ───────────────────────────────
+
+.o_willow_dashboard_action .wl_sp_dashboard_footer {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 $o_willow_dashboard_gutter 20px;
+    border-top: 0;
+    background: transparent;
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_card {
+    margin-top: 8px;
+    background: $o_willow_dashboard_panel-bg;
+    border: 1px solid $o_willow_dashboard_border;
+    border-radius: $o_willow_dashboard_radius;
+    box-shadow: $o_willow_dashboard_panel-shadow;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 14px 20px 12px;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1.25fr);
+    align-items: center;
+    gap: 8px 20px;
+    min-width: 0;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_row_primary {
+    color: var(--wl-erp-text-dark, #122033);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_row_secondary {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid $o_willow_dashboard_border-soft;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--wl-erp-text-muted, #7d8798);
+}
+
+.o_willow_dashboard_action .wl_sp_footer_row_secondary:has(#wl_sp_footer_actions[hidden]):has(
+        #wl_sp_footer_status_section[hidden]
+    ) {
+    display: none;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+    min-width: 0;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_group_user {
+    justify-content: center;
+    font-weight: 500;
+    color: var(--wl-erp-text-muted, #7d8798);
+}
+
+.o_willow_dashboard_action .wl_sp_footer_group_meta {
+    justify-content: flex-end;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--wl-erp-text-muted, #7d8798);
+}
+
+.o_willow_dashboard_action .wl_sp_footer_sep,
+.o_willow_dashboard_action .wl_sp_footer_env_sep {
+    margin: 0 7px;
+    color: var(--wl-erp-text-muted, #7d8798);
+    opacity: 0.5;
+    user-select: none;
+    font-weight: 400;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_env_badge[hidden] + .wl_sp_footer_env_sep {
+    display: none;
+}
+
+.o_willow_dashboard_action #wl_sp_footer_support_row[hidden] + #wl_sp_footer_support_sep,
+.o_willow_dashboard_action #wl_sp_footer_build_row[hidden] + #wl_sp_footer_build_sep {
+    display: none;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_env_badge {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_env_badge.is-production {
+    color: var(--wl-erp-green, #166534);
+}
+
+.o_willow_dashboard_action .wl_sp_footer_env_badge.is-staging {
+    color: var(--wl-erp-orange, #c2410c);
+}
+
+.o_willow_dashboard_action .wl_sp_footer_env_badge.is-development {
+    color: var(--wl-erp-primary, #1d4ed8);
+}
+
+.o_willow_dashboard_action .wl_sp_footer_company_db {
+    font-weight: 600;
+    color: var(--wl-erp-text-dark, #122033);
+}
+
+.o_willow_dashboard_action .wl_sp_footer_refresh_label {
+    margin-right: 5px;
+    font-weight: 500;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_refresh_btn {
+    border: 0;
+    background: transparent;
+    color: var(--wl-erp-primary, #5068f6);
+    padding: 0;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_refresh_btn:hover {
+    color: var(--wl-erp-primary-dark, #4054d8);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_shortcut {
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-width: 0;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_action {
+    border: 0;
+    background: transparent;
+    color: var(--wl-erp-primary, #5068f6);
+    padding: 0;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_action:not([hidden]) ~ .wl_sp_footer_action:not([hidden])::before {
+    content: "·";
+    margin: 0 8px;
+    color: var(--wl-erp-text-muted, #7d8798);
+    font-weight: 400;
+    pointer-events: none;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_action:hover {
+    color: var(--wl-erp-primary-dark, #4054d8);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_status {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0;
+    min-width: 0;
+    text-align: right;
+}
+
+.o_willow_dashboard_action .wl_sp_footer_status strong {
+    font-weight: 700;
+    color: var(--wl-erp-text-dark, #122033);
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+
+@media (max-width: 1199.98px) {
+    .tt_dashboard_stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .tt_dashboard_attention_groups.is-multi {
+        grid-template-columns: 1fr;
+    }
+
+    .tt_dashboard_apps_launcher .tt_dashboard_app_grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tt_dashboard_summary_items {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tt_dashboard_status_card {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .tt_dashboard_status_chips {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .o_willow_dashboard_action .wl_erp_dashboard_header,
+    .o_willow_dashboard_action .wl_erp_dashboard_content {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .o_willow_dashboard_action .wl_erp_dashboard_header {
+        min-height: 0;
+        padding-top: 8px;
+        padding-bottom: 14px;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .o_willow_dashboard_action .wl_erp_dashboard_header_actions {
+        margin-top: 0;
+        width: 100%;
+    }
+
+    .o_willow_dashboard_action .wl_erp_dashboard_title {
+        font-size: 28px;
+        margin-bottom: 4px;
+    }
+
+    .tt_dashboard_row_charts,
+    .tt_dashboard_row_attention,
+    .tt_dashboard_row_work,
+    .tt_dashboard_row_apps {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .tt_dashboard_row > .tt_dashboard_panel,
+    .tt_dashboard_row_charts > .tt_dashboard_panel_chart,
+    .tt_dashboard_row_charts > .tt_dashboard_panel_week,
+    .tt_dashboard_row_attention > .tt_dashboard_panel:first-child,
+    .tt_dashboard_row_attention > .tt_dashboard_panel_bars,
+    .tt_dashboard_row_work > .tt_dashboard_panel:first-child,
+    .tt_dashboard_row_work > .tt_dashboard_panel:last-child,
+    .tt_dashboard_row_apps > .tt_dashboard_panel:first-child,
+    .tt_dashboard_row_apps > .tt_dashboard_panel:last-child {
+        grid-column: 1 / -1;
+        min-height: 0;
+    }
+
+    .tt_dashboard_summary_inner {
+        grid-template-columns: 1fr;
+    }
+
+    .tt_dashboard_quick_col {
+        padding-left: 0;
+        border-left: 0;
+        padding-top: 12px;
+        border-top: 1px solid #e8edf2;
+        min-width: 0;
+    }
+
+    .tt_dashboard_stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 0;
+    }
+
+    .tt_dashboard_panel_chart {
+        min-height: 0;
+    }
+
+    .tt_dashboard_row_charts > .tt_dashboard_panel {
+        min-height: 300px;
+    }
+
+    .tt_dashboard_row_charts .tt_dashboard_graph {
+        min-height: 220px;
+    }
+
+    .tt_dashboard_row_charts .tt_dashboard_graph_svg {
+        min-height: 190px;
+    }
+
+    .o_willow_dashboard_action .wl_sp_dashboard_footer {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .o_willow_dashboard_action .wl_sp_footer_row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .o_willow_dashboard_action .wl_sp_footer_group_user,
+    .o_willow_dashboard_action .wl_sp_footer_group_meta,
+    .o_willow_dashboard_action .wl_sp_footer_status {
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .o_willow_dashboard_action .wl_sp_footer_row_secondary {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .o_willow_dashboard_action .wl_erp_dashboard_header,
+    .o_willow_dashboard_action .wl_erp_dashboard_content {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .tt_dashboard_stats {
+        grid-template-columns: 1fr;
+    }
+
+    .tt_dashboard_stat {
+        min-height: 0;
+    }
+
+    .tt_dashboard_shell {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .tt_dashboard_panel_head {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tt_dashboard_panel_select {
+        width: 100%;
+    }
+
+    .tt_dashboard_app_grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+
+    .tt_dashboard_row_work > .tt_dashboard_panel:first-child,
+    .tt_dashboard_row_work > .tt_dashboard_panel:last-child,
+    .tt_dashboard_panel_lower {
+        min-height: 0;
+    }
+
+    .tt_dashboard_apps_launcher .tt_dashboard_app_grid,
+    .tt_dashboard_summary_items {
+        grid-template-columns: 1fr;
+    }
+
+    .tt_dashboard_summary_overview {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tt_dashboard_status_card {
+        grid-template-columns: 1fr;
+    }
+
+    .tt_dashboard_activity_item {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .tt_dashboard_activity_due {
+        grid-column: 1 / -1;
+    }
+
+    .tt_dashboard_summary_inner {
+        gap: 12px;
+    }
+
+    .o_willow_dashboard_action .wl_sp_dashboard_footer {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+}
+
+.o_willow_dashboard_action .wl_erp_product_image .wl_erp_inv_img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 7px;
+}
+
+// ─── Business Dashboard (legacy tt_biz — unused) ───────────────────────────────
+
+$tt_biz_gap: 16px;
+$tt_biz_card-radius: $o_willow_dashboard_radius;
+$tt_biz_card-shadow: $o_willow_dashboard_panel-shadow;
+$tt_biz_col-left-width: 220px;
+$tt_biz_col-right-width: 280px;
+
+.o_willow_dashboard_action .tt_biz_dashboard {
+    margin-top: $o_willow_dashboard_section-gap;
+    margin-bottom: $o_willow_dashboard_section-gap;
+    display: flex;
+    flex-direction: column;
+    gap: $tt_biz_gap;
+}
+
+// ── shared card ──────────────────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_card {
+    background: $o_willow_dashboard_panel-bg;
+    border: 1px solid $o_willow_dashboard_border-soft;
+    border-radius: $tt_biz_card-radius;
+    box-shadow: $tt_biz_card-shadow;
+    padding: 18px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    overflow: hidden;
+    cursor: default;
+
+    &.tt_biz_card_receivables,
+    &.tt_biz_card_payables,
+    &.tt_biz_card_purchase {
+        cursor: pointer;
+        transition: box-shadow 0.15s, border-color 0.15s;
+
+        &:hover,
+        &:focus-visible {
+            box-shadow: 0 4px 16px color-mix(in srgb, var(--wl-erp-primary, #5068f6) 14%, transparent);
+            border-color: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 30%, transparent);
+            outline: none;
+        }
+    }
+
+    &.tt_biz_card_sales {
+        cursor: pointer;
+        transition: box-shadow 0.15s, border-color 0.15s;
+
+        &:hover,
+        &:focus-visible {
+            box-shadow: 0 4px 16px color-mix(in srgb, var(--wl-erp-primary, #5068f6) 14%, transparent);
+            border-color: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 30%, transparent);
+            outline: none;
+        }
+    }
+}
+
+.o_willow_dashboard_action .tt_biz_card_head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.o_willow_dashboard_action .tt_biz_card_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wl-primary, #4f6ef7);
+    background: transparent;
+    font-size: 12px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.o_willow_dashboard_action .tt_biz_card_title {
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.o_willow_dashboard_action .tt_biz_card_amount {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.o_willow_dashboard_action .tt_biz_card_count {
+    font-size: 30px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.1;
+}
+
+.o_willow_dashboard_action .tt_biz_card_meta {
+    font-size: 11.5px;
+    color: #64748b;
+}
+
+// ── card actions (buttons) ────────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_card_actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.o_willow_dashboard_action .tt_biz_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 0;
+    font-size: 11.5px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    box-shadow: none;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+    white-space: nowrap;
+    line-height: 1.2;
+
+    &.tt_biz_btn_primary {
+        background: var(--wl-erp-primary, var(--wl-primary, #4f6ef7));
+        border-color: var(--wl-erp-primary, var(--wl-primary, #4f6ef7));
+        color: #fff;
+
+        &:hover {
+            background: var(--wl-erp-primary-dark, var(--wl-primary-dark, #3d57d9));
+            border-color: var(--wl-erp-primary-dark, var(--wl-primary-dark, #3d57d9));
+        }
+    }
+
+    &.tt_biz_btn_outline {
+        background: transparent;
+        border-color: $o_willow_dashboard_border;
+        color: #475569;
+
+        &:hover {
+            border-color: var(--wl-erp-primary, var(--wl-primary, #4f6ef7));
+            color: var(--wl-erp-primary, var(--wl-primary, #4f6ef7));
+        }
+    }
+}
+
+// ── sales progress bar ────────────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_progress_wrap {
+    margin: 4px 0 2px;
+}
+
+.o_willow_dashboard_action .tt_biz_progress_track {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 3px;
+}
+
+.o_willow_dashboard_action .tt_biz_progress_fill {
+    height: 100%;
+    background: var(--wl-erp-primary, var(--wl-primary, #4f6ef7));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+    min-width: 2px;
+}
+
+.o_willow_dashboard_action .tt_biz_progress_label {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+// ── sales metric pills ────────────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_sales_metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-top: 8px;
+    border-top: 1px solid $o_willow_dashboard_border-soft;
+    padding-top: 8px;
+}
+
+.o_willow_dashboard_action .tt_biz_metric {
+    display: flex;
+    flex-direction: column;
+    padding: 0 14px 0 0;
+    margin-right: 14px;
+    border-right: 1px solid $o_willow_dashboard_border-soft;
+
+    &:last-child {
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+    }
+}
+
+.o_willow_dashboard_action .tt_biz_metric_label {
+    font-size: 10.5px;
+    color: #94a3b8;
+    margin-bottom: 1px;
+}
+
+.o_willow_dashboard_action .tt_biz_metric_value {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+}
+
+// ── KPI row layout (row 1) ────────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_kpi_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.6fr;
+    gap: $tt_biz_gap;
+    align-items: start;
+}
+
+// ── lower row layout (row 2) ──────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_lower_row {
+    display: grid;
+    grid-template-columns: $tt_biz_col-left-width 1fr $tt_biz_col-right-width;
+    gap: $tt_biz_gap;
+    align-items: start;
+}
+
+.o_willow_dashboard_action .tt_biz_col_left {
+    display: flex;
+    flex-direction: column;
+    gap: $tt_biz_gap;
+}
+
+.o_willow_dashboard_action .tt_biz_col_center,
+.o_willow_dashboard_action .tt_biz_col_right {
+    display: flex;
+    flex-direction: column;
+    gap: $tt_biz_gap;
+}
+
+// ── shared panel ──────────────────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_panel {
+    background: $o_willow_dashboard_panel-bg;
+    border: 1px solid $o_willow_dashboard_border-soft;
+    border-radius: $tt_biz_card-radius;
+    box-shadow: $tt_biz_card-shadow;
+    overflow: hidden;
+}
+
+.o_willow_dashboard_action .tt_biz_panel_head {
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid $o_willow_dashboard_border-soft;
+}
+
+.o_willow_dashboard_action .tt_biz_panel_title {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+}
+
+.o_willow_dashboard_action .tt_biz_panel_body {
+    padding: 12px 16px;
+}
+
+// ── sales by category ─────────────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_category_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.o_willow_dashboard_action .tt_biz_category_row {
+    display: grid;
+    grid-template-columns: 10px 1fr 80px 52px 36px;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.o_willow_dashboard_action .tt_biz_cat_dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.o_willow_dashboard_action .tt_biz_cat_name {
+    color: #374151;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.o_willow_dashboard_action .tt_biz_cat_bar_wrap {
+    height: 5px;
+    background: #e2e8f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.o_willow_dashboard_action .tt_biz_cat_bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+    min-width: 2px;
+}
+
+.o_willow_dashboard_action .tt_biz_cat_amount {
+    color: #374151;
+    font-weight: 500;
+    font-size: 11.5px;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.o_willow_dashboard_action .tt_biz_cat_pct {
+    color: #64748b;
+    font-size: 11px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+// ── inventory list ────────────────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_inventory_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.o_willow_dashboard_action .tt_biz_inventory_item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid $o_willow_dashboard_border-soft;
+    cursor: pointer;
+    transition: background 0.1s;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+        background: $o_willow_dashboard_panel-tint;
+        border-radius: 4px;
+        outline: none;
+    }
+}
+
+.o_willow_dashboard_action .tt_biz_inv_icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #94a3b8;
+    background: transparent;
+    border: 0;
+    overflow: hidden;
+}
+
+.o_willow_dashboard_action .tt_biz_inv_img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.o_willow_dashboard_action .tt_biz_inv_info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.o_willow_dashboard_action .tt_biz_inv_name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.o_willow_dashboard_action .tt_biz_inv_sku {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.o_willow_dashboard_action .tt_biz_inv_qty {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+    flex-shrink: 0;
+
+    strong {
+        font-size: 13px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    span {
+        font-size: 10.5px;
+        color: #94a3b8;
+    }
+}
+
+// ── transactions table ────────────────────────────────────────────────────────
+
+.o_willow_dashboard_action .tt_biz_transactions_row {
+    .tt_biz_panel_body {
+        padding: 0;
+    }
+}
+
+.o_willow_dashboard_action .tt_biz_txn_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+
+    thead th {
+        padding: 9px 14px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 600;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        background: $o_willow_dashboard_panel-tint;
+        border-bottom: 1px solid $o_willow_dashboard_border-soft;
+        white-space: nowrap;
+
+        &.tt_biz_txn_col_amount {
+            text-align: right;
+        }
+    }
+
+    tbody tr.tt_biz_txn_row {
+        cursor: pointer;
+        transition: background 0.1s;
+
+        &:hover,
+        &:focus-visible {
+            background: $o_willow_dashboard_panel-tint;
+            outline: none;
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid $o_willow_dashboard_border-soft;
+            color: #374151;
+            vertical-align: middle;
+
+            &:first-child {
+                color: #1e293b;
+                font-weight: 500;
+            }
+        }
+
+        &:last-child td {
+            border-bottom: none;
+        }
+    }
+}
+
+.o_willow_dashboard_action .tt_biz_txn_doc {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.o_willow_dashboard_action .tt_biz_txn_type_icon {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 1px;
+    background: var(--wl-erp-primary, var(--wl-primary, #4f6ef7));
+    flex-shrink: 0;
+
+    &::after {
+        content: none;
+    }
+
+    &.is-in_invoice,
+    &.is-purchase_order {
+        background: var(--wl-erp-orange, #f59e0b);
+    }
+
+    &.is-out_refund,
+    &.is-in_refund {
+        background: var(--wl-erp-red, #ef4444);
+    }
+
+    &.is-entry {
+        background: var(--wl-erp-green, #10b981);
+    }
+
+    &.is-sale_order {
+        background: var(--wl-erp-primary, var(--wl-primary, #4f6ef7));
+    }
+}
+
+.o_willow_dashboard_action .tt_biz_txn_party {
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.o_willow_dashboard_action .tt_biz_txn_amount {
+    text-align: right;
+    font-weight: 600;
+    color: #0f172a;
+    white-space: nowrap;
+}
+
+.o_willow_dashboard_action .tt_biz_txn_status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #f1f5f9;
+    color: #64748b;
+    white-space: nowrap;
+
+    &.is-paid {
+        background: color-mix(in srgb, var(--wl-erp-green, #16b978) 16%, var(--wl-erp-card-bg, #ffffff));
+        color: var(--wl-erp-green, #166534);
+    }
+
+    &.is-unpaid {
+        background: color-mix(in srgb, var(--wl-erp-red, #ef4444) 14%, var(--wl-erp-card-bg, #ffffff));
+        color: var(--wl-erp-red, #991b1b);
+    }
+
+    &.is-partial {
+        background: color-mix(in srgb, var(--wl-erp-orange, #f59e0b) 16%, var(--wl-erp-card-bg, #ffffff));
+        color: var(--wl-erp-orange, #92400e);
+    }
+
+    &.is-in_payment {
+        background: color-mix(in srgb, var(--wl-erp-primary, #4f6ef7) 12%, var(--wl-erp-card-bg, #ffffff));
+        color: var(--wl-erp-primary, #1d4ed8);
+    }
+
+    &.is-confirmed,
+    &.is-posted {
+        background: color-mix(in srgb, var(--wl-erp-primary, #4f6ef7) 18%, var(--wl-erp-card-bg, #ffffff));
+        color: var(--wl-erp-primary-dark, var(--wl-erp-primary, #1e40af));
+    }
+
+    &.is-cancelled {
+        background: #f1f5f9;
+        color: #94a3b8;
+        text-decoration: line-through;
+    }
+
+    &.is-done {
+        background: #f0fdf4;
+        color: var(--wl-erp-green, #166534);
+    }
+
+    &.is-to_approve {
+        background: #fef9c3;
+        color: #713f12;
+    }
+}
+
+// ── mobile stacked transactions (hidden on desktop) ───────────────────────────
+
+.o_willow_dashboard_action .tt_biz_txn_mobile {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.o_willow_dashboard_action .tt_biz_txn_mobile_row {
+    padding: 10px 14px;
+    border-bottom: 1px solid $o_willow_dashboard_border-soft;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &:last-child { border-bottom: none; }
+
+    &:hover,
+    &:focus-visible {
+        background: $o_willow_dashboard_panel-tint;
+        outline: none;
+    }
+}
+
+.o_willow_dashboard_action .tt_biz_txn_m_main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 12.5px;
+}
+
+.o_willow_dashboard_action .tt_biz_txn_m_type {
+    font-size: 11px;
+    font-weight: 400;
+    color: #64748b;
+    display: block;
+}
+
+.o_willow_dashboard_action .tt_biz_txn_m_meta {
+    font-size: 11.5px;
+    color: #64748b;
+    display: flex;
+    gap: 12px;
+}
+
+.o_willow_dashboard_action .tt_biz_txn_m_footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2px;
+
+    strong {
+        font-size: 13px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+}
+
+// ── responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: 1199px) {
+    .o_willow_dashboard_action .tt_biz_kpi_row {
+        grid-template-columns: 1fr 1fr;
+
+        .tt_biz_card_wide {
+            grid-column: 1 / -1;
+        }
+    }
+
+    .o_willow_dashboard_action .tt_biz_lower_row {
+        grid-template-columns: 1fr 1fr;
+
+        .tt_biz_col_left {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .tt_biz_col_right {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .o_willow_dashboard_action .tt_biz_kpi_row {
+        grid-template-columns: 1fr 1fr;
+
+        .tt_biz_card_wide {
+            grid-column: 1 / -1;
+        }
+    }
+
+    .o_willow_dashboard_action .tt_biz_lower_row {
+        grid-template-columns: 1fr 1fr;
+
+        .tt_biz_col_left {
+            grid-column: 1 / -1;
+            flex-direction: row;
+        }
+
+        .tt_biz_col_center {
+            grid-column: 1 / -1;
+        }
+
+        .tt_biz_col_right {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .o_willow_dashboard_action .tt_biz_kpi_row {
+        grid-template-columns: 1fr;
+
+        .tt_biz_card_wide { grid-column: auto; }
+    }
+
+    .o_willow_dashboard_action .tt_biz_lower_row {
+        grid-template-columns: 1fr;
+
+        .tt_biz_col_left {
+            flex-direction: column;
+        }
+    }
+
+    .o_willow_dashboard_action .tt_biz_txn_table {
+        display: none;
+    }
+
+    .o_willow_dashboard_action .tt_biz_txn_mobile {
+        display: block;
+    }
+
+    .o_willow_dashboard_action .tt_biz_category_row {
+        grid-template-columns: 10px 1fr 60px 36px;
+
+        .tt_biz_cat_bar_wrap {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .o_willow_dashboard_action .tt_biz_card_actions {
+        flex-direction: column;
+
+        .tt_biz_btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    .o_willow_dashboard_action .tt_biz_sales_metrics {
+        flex-direction: column;
+        gap: 8px;
+
+        .tt_biz_metric {
+            border-right: none;
+            padding-right: 0;
+            margin-right: 0;
+            flex-direction: row;
+            align-items: baseline;
+            gap: 6px;
+        }
+    }
+}
+
+// ─── Dark mode ───────────────────────────────────────────────────────────────
+
+$o_willow_dashboard_canvas-dark: var(--wl-canvas, #0a1128);
+$o_willow_dashboard_canvas-dark-mid: var(--wl-config-dark-header-mid, #0f172a);
+// Prefer preset card tokens over a fixed navy panel paint.
+$o_willow_dashboard_panel-bg-dark: var(--wl-erp-card-bg, #0c182c);
+$o_willow_dashboard_panel-bg-dark-hover: color-mix(in srgb, var(--wl-erp-primary, #6b8aff) 5%, var(--wl-erp-card-bg, #152238));
+
+.o_web_client.wl_sp_theme_dark:has(.o_willow_dashboard_action) > .o_action_manager {
+    background: $o_willow_dashboard_canvas-dark !important;
+}
+
+.o_web_client.wl_sp_theme_dark .o_willow_dashboard_action {
+    background: $o_willow_dashboard_canvas-dark !important;
+    color: var(--wl-erp-text-dark, #e8edf5);
+
+    .wl_erp_theme_page {
+        background-image:
+            linear-gradient(
+                180deg,
+                transparent 0,
+                transparent var(--wl-erp-hero-depth),
+                $o_willow_dashboard_canvas-dark-mid calc(var(--wl-erp-hero-depth) + 1px),
+                $o_willow_dashboard_canvas-dark 100%
+            );
+        background-size: auto;
+        background-repeat: no-repeat;
+        background-position: center top;
+    }
+
+    .wl_erp_dashboard_content,
+    .tt_dashboard_shell {
+        background: transparent;
+    }
+
+    .tt_dashboard_stat {
+        background: $o_willow_dashboard_panel-bg-dark;
+        border-color: var(--wl-erp-border, rgba(255, 255, 255, 0.1));
+        color: var(--wl-erp-text-dark, #e8edf5);
+    }
+
+    .tt_dashboard_panel,
+    .tt_dashboard_pill {
+        background: $o_willow_dashboard_panel-bg-dark;
+        border-color: var(--wl-erp-border, rgba(255, 255, 255, 0.1));
+        color: var(--wl-erp-text-dark, #e8edf5);
+    }
+
+    .wl_erp_card {
+        background: $o_willow_dashboard_panel-bg-dark;
+        border-color: var(--wl-erp-border, rgba(255, 255, 255, 0.12));
+        box-shadow: 0 18px 45px color-mix(in srgb, var(--wl-erp-primary, #6b8aff) 8%, transparent);
+    }
+
+    .wl_erp_progress_track {
+        background: color-mix(in srgb, var(--wl-erp-border, #273449) 70%, var(--wl-erp-card-bg, #111827));
+    }
+
+    .wl_erp_action_button:not(.is-ghost) {
+        background: var(--wl-erp-primary, #6b8aff) !important;
+        border-color: var(--wl-erp-primary, #6b8aff) !important;
+        color: var(--wl-erp-primary-contrast, #ffffff) !important;
+
+        &:hover,
+        &:focus-visible {
+            background: var(--wl-erp-primary-dark, #4054d8) !important;
+            border-color: var(--wl-erp-primary-dark, #4054d8) !important;
+        }
+    }
+
+    .tt_dashboard_button_primary {
+        background: var(--wl-erp-primary, #6b8aff) !important;
+        border-color: var(--wl-erp-primary, #6b8aff) !important;
+        color: var(--wl-erp-primary-contrast, #ffffff) !important;
+
+        &:hover {
+            background: var(--wl-erp-primary-dark, #4054d8) !important;
+            border-color: var(--wl-erp-primary-dark, #4054d8) !important;
+        }
+    }
+
+    .tt_dashboard_stat_value,
+    .tt_dashboard_panel_head h3,
+    .tt_dashboard_bar_label,
+    .tt_dashboard_app_name,
+    .tt_dashboard_summary_text,
+    .tt_dashboard_recent_list strong,
+    .tt_dashboard_upcoming_list strong,
+    .tt_dashboard_table td {
+        color: #f0f4fa;
+    }
+
+    .tt_dashboard_stat_label,
+    .tt_dashboard_stat_meta,
+    .tt_dashboard_panel_head p,
+    .tt_dashboard_empty,
+    .tt_dashboard_graph_labels,
+    .tt_dashboard_week_label,
+    .tt_dashboard_attention_group h4,
+    .tt_dashboard_app_meta,
+    .tt_dashboard_recent_list span,
+    .tt_dashboard_upcoming_list span {
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    .tt_dashboard_graph {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_dashboard_graph_grid line {
+        stroke: rgba(255, 255, 255, 0.12);
+    }
+
+    .tt_dashboard_graph_axis {
+        stroke: rgba(255, 255, 255, 0.18);
+    }
+
+    .tt_dashboard_graph_yaxis text,
+    .tt_dashboard_graph_labels {
+        fill: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .tt_dashboard_graph_tooltip {
+        background: var(--wl-erp-card-bg, rgba(12, 24, 44, 0.98));
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .tt_dashboard_graph_tooltip strong {
+        color: #f0f4fa;
+    }
+
+    .tt_dashboard_graph_tooltip span {
+        color: var(--wl-erp-primary, #93b4ff);
+    }
+
+    .tt_dashboard_graph_points circle {
+        fill: var(--wl-erp-card-bg, rgba(12, 24, 44, 0.98));
+    }
+
+    .tt_dashboard_week_track,
+    .tt_dashboard_bar_track {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_dashboard_week_count,
+    .tt_dashboard_bar_chart li strong {
+        color: #f0f4fa;
+    }
+
+    .tt_dashboard_empty {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tt_dashboard_table thead th {
+        background: var(--wl-erp-card-bg, rgba(12, 24, 44, 0.98));
+    }
+
+    .tt_dashboard_table tbody tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .tt_dashboard_app_tile {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .tt_dashboard_app_tile:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .tt_dashboard_stat.is-clickable:hover {
+        background: $o_willow_dashboard_panel-bg-dark-hover;
+        border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .tt_dashboard_stat.is-urgent {
+        background: $o_willow_dashboard_panel-bg-dark;
+        border-color: var(--wl-erp-border, rgba(255, 255, 255, 0.1));
+    }
+
+    .tt_dashboard_stat.is-urgent .tt_dashboard_stat_label {
+        color: var(--wl-erp-red, #fb7185);
+    }
+
+    .tt_dashboard_stat.is-urgent .tt_dashboard_stat_value {
+        color: var(--wl-erp-text-dark, #f0f4fa);
+    }
+
+    .tt_dashboard_stat_icon {
+        background: transparent;
+        color: var(--wl-erp-primary, #93b4ff);
+    }
+
+    .tt_dashboard_stat_rose .tt_dashboard_stat_icon,
+    .tt_dashboard_stat.is-urgent .tt_dashboard_stat_icon {
+        background: transparent;
+        color: var(--wl-erp-red, #fb7185);
+    }
+
+    .tt_dashboard_stat_green .tt_dashboard_stat_icon {
+        background: transparent;
+        color: var(--wl-erp-green, #34d399);
+    }
+
+    .tt_dashboard_stat_share {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_dashboard_stat_secondary {
+        color: rgba(255, 255, 255, 0.78);
+    }
+
+    .tt_dashboard_quick_col {
+        border-left-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tt_dashboard_lower_section {
+        border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_dashboard_panel_badge {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_dashboard_panel_icon,
+    .tt_dashboard_recent_icon,
+    .tt_dashboard_upcoming_icon,
+    .tt_dashboard_summary_item_icon,
+    .tt_dashboard_status_icon,
+    .tt_dashboard_empty_icon {
+        background: transparent;
+        border: 0;
+    }
+
+    .tt_dashboard_filter_tabs,
+    .tt_dashboard_filter_chip,
+    .tt_dashboard_activity_item,
+    .tt_dashboard_recent_item,
+    .tt_dashboard_upcoming_item,
+    .tt_dashboard_summary_item,
+    .tt_dashboard_skeleton_list li {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tt_dashboard_app_icon {
+        background: transparent;
+        border: 0;
+    }
+
+    .tt_dashboard_filter_tab.is-active,
+    .tt_dashboard_filter_tab:hover,
+    .tt_dashboard_activity_item:hover,
+    .tt_dashboard_recent_item:hover,
+    .tt_dashboard_upcoming_item:hover,
+    .tt_dashboard_app_tile:hover {
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+    }
+
+    .tt_dashboard_status_card {
+        background: linear-gradient(135deg, color-mix(in srgb, var(--wl-erp-primary, #5068f6) 12%, transparent) 0%, color-mix(in srgb, var(--wl-erp-green, #16b978) 8%, transparent) 100%);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tt_dashboard_status_chip {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.82);
+    }
+
+    .tt_dashboard_status_body h4,
+    .tt_dashboard_empty_state h4,
+    .tt_dashboard_summary_item_value,
+    .tt_dashboard_activity_main strong,
+    .tt_dashboard_recent_main strong,
+    .tt_dashboard_upcoming_main strong {
+        color: #f0f4fa;
+    }
+
+    .tt_dashboard_summary_bar .tt_dashboard_panel_compact,
+    .tt_dashboard_summary_overview {
+        background: var(--wl-erp-card-bg, rgba(12, 24, 44, 0.92));
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tt_dashboard_quick_links_pills .tt_dashboard_quick_link {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(147, 180, 255, 0.22);
+    }
+
+    .wl_sp_footer_card {
+        background: var(--wl-erp-card-bg, rgba(12, 24, 44, 0.92)) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        box-shadow: none !important;
+    }
+
+    .tt_dashboard_panel_head {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .tt_dashboard_stat_blue,
+    .tt_dashboard_stat_rose,
+    .tt_dashboard_stat_slate,
+    .tt_dashboard_stat_green {
+        background: $o_willow_dashboard_panel-bg-dark;
+    }
+
+    .wl_sp_dashboard_footer {
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    .wl_sp_footer_row_primary {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .wl_sp_footer_row_secondary {
+        border-top-color: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    .wl_sp_footer_group_user,
+    .wl_sp_footer_group_meta {
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    .wl_sp_footer_company_db {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .wl_sp_footer_sep,
+    .wl_sp_footer_env_sep {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .wl_sp_footer_env_badge.is-production {
+        color: #bbf7d0;
+    }
+
+    .wl_sp_footer_env_badge.is-staging {
+        color: #fed7aa;
+    }
+
+    .wl_sp_footer_env_badge.is-development {
+        color: var(--wl-erp-primary, #93b4ff);
+    }
+
+    .wl_sp_footer_action {
+        color: var(--wl-erp-primary, #93b4ff);
+    }
+
+    .wl_sp_footer_action:hover {
+        color: color-mix(in srgb, var(--wl-erp-primary, #b8ccff) 75%, #ffffff);
+    }
+
+    .wl_sp_footer_refresh_btn {
+        color: var(--wl-erp-primary, #93b4ff);
+    }
+
+    .wl_sp_footer_status strong {
+        color: rgba(255, 255, 255, 0.88);
+    }
+
+    // ── Business Dashboard dark mode ────────────────────────────────────────
+
+    // wl_erp_* cards (actual homepage markup) — override hardcoded light-mode text
+    .wl_erp_section_title,
+    .wl_erp_metric_title,
+    .wl_erp_product_name,
+    .wl_erp_stock_value,
+    .wl_erp_metric_value,
+    .wl_erp_sales_value,
+    .wl_erp_open_po_count,
+    .wl_erp_legend_value,
+    .wl_erp_sales_stat_value,
+    .wl_erp_transactions_table td {
+        color: #e8edf5;
+    }
+
+    .wl_erp_metric_title,
+    .wl_erp_metric_change,
+    .wl_erp_target_text,
+    .wl_erp_product_sku,
+    .wl_erp_stock_unit,
+    .wl_erp_legend_title,
+    .wl_erp_legend_percent,
+    .wl_erp_sales_stat_label,
+    .wl_erp_transactions_table th {
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    .wl_erp_section_title {
+        color: #f0f4fa;
+    }
+
+    .tt_biz_card {
+        background: $o_willow_dashboard_panel-bg-dark;
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_biz_card_amount,
+    .tt_biz_card_count,
+    .tt_biz_metric_value,
+    .tt_biz_inv_name {
+        color: #e8edf5;
+    }
+
+    .tt_biz_card_title,
+    .tt_biz_card_meta,
+    .tt_biz_metric_label,
+    .tt_biz_inv_sku,
+    .tt_biz_cat_pct,
+    .tt_biz_progress_label {
+        color: rgba(255, 255, 255, 0.45);
+    }
+
+    .tt_biz_card.tt_biz_card_receivables:hover,
+    .tt_biz_card.tt_biz_card_payables:hover,
+    .tt_biz_card.tt_biz_card_purchase:hover,
+    .tt_biz_card.tt_biz_card_sales:hover,
+    .tt_biz_card.tt_biz_card_receivables:focus-visible,
+    .tt_biz_card.tt_biz_card_payables:focus-visible,
+    .tt_biz_card.tt_biz_card_sales:focus-visible {
+        background: $o_willow_dashboard_panel-bg-dark-hover;
+        border-color: rgba(147, 180, 255, 0.3);
+        box-shadow: 0 4px 16px color-mix(in srgb, var(--wl-erp-primary, #5068f6) 18%, transparent);
+    }
+
+    .tt_biz_card_icon {
+        background: transparent;
+        color: var(--wl-erp-primary, #93b4ff);
+    }
+
+    .tt_biz_btn.tt_biz_btn_outline {
+        border-color: rgba(255, 255, 255, 0.18);
+        color: rgba(255, 255, 255, 0.7);
+
+        &:hover {
+            border-color: var(--wl-erp-primary, #93b4ff);
+            color: var(--wl-erp-primary, #93b4ff);
+        }
+    }
+
+    .tt_biz_progress_track {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .tt_biz_sales_metrics {
+        border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_biz_metric {
+        border-right-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_biz_panel {
+        background: $o_willow_dashboard_panel-bg-dark;
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_biz_panel_head {
+        border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_biz_panel_title {
+        color: #c8d4e8;
+    }
+
+    .tt_biz_cat_name {
+        color: #c8d4e8;
+    }
+
+    .tt_biz_cat_bar_wrap {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .tt_biz_cat_amount {
+        color: #d4dff0;
+    }
+
+    .tt_biz_inv_icon {
+        background: transparent;
+        border: 0;
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .tt_biz_inventory_item {
+        border-bottom-color: rgba(255, 255, 255, 0.07);
+
+        &:hover,
+        &:focus-visible {
+            background: rgba(255, 255, 255, 0.04);
+        }
+    }
+
+    .tt_biz_inv_qty strong {
+        color: #e8edf5;
+    }
+
+    .tt_biz_inv_qty span {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .tt_biz_txn_table {
+        thead th {
+            background: var(--wl-erp-card-bg, rgba(12, 24, 44, 0.98));
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        tbody tr.tt_biz_txn_row {
+            td {
+                color: rgba(255, 255, 255, 0.7);
+                border-bottom-color: rgba(255, 255, 255, 0.06);
+
+                &:first-child {
+                    color: rgba(255, 255, 255, 0.9);
+                }
+            }
+
+            &:hover,
+            &:focus-visible {
+                background: rgba(255, 255, 255, 0.04);
+            }
+        }
+    }
+
+    .tt_biz_txn_amount {
+        color: #e8edf5;
+    }
+
+    .tt_biz_txn_status {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.6);
+
+        &.is-paid { background: rgba(22, 101, 52, 0.35); color: #86efac; }
+        &.is-unpaid { background: rgba(153, 27, 27, 0.35); color: #fca5a5; }
+        &.is-partial { background: rgba(146, 64, 14, 0.35); color: #fcd34d; }
+        &.is-in_payment { background: rgba(29, 78, 216, 0.35); color: #93c5fd; }
+        &.is-confirmed,
+        &.is-posted { background: rgba(30, 64, 175, 0.3); color: #a5b4fc; }
+        &.is-done { background: rgba(22, 101, 52, 0.3); color: #86efac; }
+        &.is-cancelled { background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.35); }
+    }
+
+    .tt_biz_txn_type_icon {
+        background: var(--wl-erp-primary, #93b4ff);
+
+        &::after { content: none; }
+
+        &.is-in_invoice,
+        &.is-purchase_order {
+            background: #fcd34d;
+        }
+
+        &.is-out_refund,
+        &.is-in_refund {
+            background: #fca5a5;
+        }
+
+        &.is-entry {
+            background: #6ee7b7;
+        }
+
+        &.is-sale_order {
+            background: #93c5fd;
+        }
+    }
+
+    .tt_biz_txn_party {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .tt_biz_txn_mobile_row {
+        border-bottom-color: rgba(255, 255, 255, 0.07);
+
+        &:hover,
+        &:focus-visible {
+            background: rgba(255, 255, 255, 0.04);
+        }
+    }
+
+    .tt_biz_txn_m_main {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .tt_biz_txn_m_type,
+    .tt_biz_txn_m_meta {
+        color: rgba(255, 255, 255, 0.45);
+    }
+
+    .tt_biz_txn_m_footer strong {
+        color: #e8edf5;
+    }
+}

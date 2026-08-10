@@ -1,0 +1,275 @@
+.o-mail-Chatter-top:has(.o-mail-Chatter-sendMessage.active) .o-mail-Composer-send {
+    @extend .btn-danger;
+}
+
+.o-mail-Form-chatter.o-aside {
+    position: relative;
+    overflow: visible;
+    transition: width 0.2s ease;
+
+    .tt_chatter_resize {
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        width: 5px;
+        height: 100%;
+        cursor: col-resize;
+        position: absolute;
+    }
+}
+
+.o-mail-Form-chatter.o-aside {
+    background: #f9fafb;
+    border-left: 1px solid var(--tt-form-border, #e5e7eb);
+}
+
+.o-mail-Form-chatter.o-aside .tt_chatter_collapse {
+    width: 28px;
+    height: 54px;
+    border: 1px solid var(--tt-form-border, #e5e7eb);
+    border-right: 0;
+    border-radius: 8px 0 0 8px;
+    background: inherit;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-100%, -50%);
+    z-index: 2;
+    transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.o-mail-Form-chatter.o-aside .tt_chatter_collapse:hover,
+.o-mail-Form-chatter.o-aside .tt_chatter_collapse:focus {
+    background: inherit;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.18);
+}
+
+.o-mail-Form-chatter.o-aside .tt_chatter_collapse:focus-visible {
+    outline: none;
+}
+
+.o-mail-Form-chatter.o-aside .tt_chatter_collapse_icon {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-color: var(--tt-form-muted, #6b7280);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    transition: transform 0.2s ease;
+}
+
+.o-mail-Form-chatter.o-aside .tt_chatter_collapse:hover .tt_chatter_collapse_icon {
+    background-color: var(--tt-form-primary, #00174d);
+}
+
+.o-mail-Form-chatter.o-aside .tt_chatter_collapse.is-collapsed .tt_chatter_collapse_icon {
+    transform: rotate(180deg);
+}
+
+.o-mail-Form-chatter.o-aside.tt_chatter_collapsed {
+    background-color: color-mix(in srgb, var(--tt-form-primary, #1e3a8a) 5%, #fff);
+    min-width: 0 !important;
+    width: 0 !important;
+    flex: 0 0 0 !important;
+    border-left: 0 !important;
+    background: transparent !important;
+}
+
+.o-mail-Form-chatter.o-aside.tt_chatter_collapsed .tt_chatter_collapse {
+    background-color: color-mix(in srgb, var(--tt-form-primary, #1e3a8a) 5%, #fff);
+    border-right: 1px solid var(--tt-form-border, #e5e7eb);
+    position: fixed;
+    right: 0;
+    left: auto;
+    transform: translateY(-50%);
+    z-index: 20;
+}
+
+.o-mail-Form-chatter.o-aside.tt_chatter_collapsed .tt_chatter_resize,
+.o-mail-Form-chatter.o-aside.tt_chatter_collapsed .o-mail-Chatter {
+    display: none !important;
+}
+
+.o_form_view.o_xxl_form_view:has(.o-mail-Form-chatter.o-aside.tt_chatter_collapsed) {
+    .o_form_renderer,
+    .o_form_view_container,
+    .o_form_sheet_bg,
+    .o_form_sheet {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+    }
+
+    .o_form_renderer,
+    .o_form_view_container,
+    .o_form_sheet_bg {
+        flex: 1 1 auto !important;
+    }
+
+    .o_notebook,
+    .o_notebook > .tab-content,
+    .o_notebook .tab-pane,
+    .o_field_x2many,
+    .o_field_one2many,
+    .o_list_renderer {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .o_field_x2many .o_list_renderer,
+    .o_field_one2many .o_list_renderer {
+        overflow-x: auto;
+    }
+}
+
+.o-mail-Form-chatter:not(.o-aside) {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.o-mail-Form-chatter:not(.o-aside) .o-mail-Chatter {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: inherit !important;
+    overflow: hidden;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Chatter {
+    background-color: color-mix(in srgb, var(--tt-form-primary, #1e3a8a) 5%, #fff);
+    border-radius: 18px;
+    padding: 16px 18px 24px;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Chatter-top,
+.o-mail-Form-chatter:not(.o-aside) .o-mail-Chatter-top {
+    background: var(--tt-form-surface, #ffffff);
+    border: 1px solid var(--tt-form-border, #e5e7eb);
+    border-radius: 10px;
+    padding: 8px 10px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.o-mail-Form-chatter:not(.o-aside) .o-mail-Chatter-top {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Chatter-topbar {
+    align-items: center;
+    gap: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--tt-form-border, #e5e7eb) transparent;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--tt-form-border, #e5e7eb);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--tt-form-muted, #6b7280);
+    }
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Chatter-topbar .btn {
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 6px 12px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Chatter-topbar .btn.btn-primary {
+    background: var(--tt-form-primary, #1e3a8a);
+    border-color: var(--tt-form-primary, #1e3a8a);
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Chatter-topbar .btn.btn-secondary {
+    background: #ffffff;
+    border-color: var(--tt-form-border, #e5e7eb);
+    color: #4b5563;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Chatter-topbar .btn.btn-link {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: var(--tt-form-muted, #6b7280);
+    padding: 4px 6px;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Chatter-follow {
+    color: var(--tt-form-primary, #1e3a8a);
+    font-weight: 600;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Message {
+    padding: 10px 0;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Message-body {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    background: #ffffff;
+    border: 1px solid var(--tt-form-border, #e5e7eb);
+    border-radius: 12px;
+    padding: 10px 12px !important;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Message-body:empty {
+    display: none !important;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Message-header {
+    margin-bottom: 6px;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Message-author strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Message-date {
+    font-size: 11px;
+    color: var(--tt-form-muted, #6b7280);
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Message-avatarContainer {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
+}
+
+.o-mail-Form-chatter.o-aside .o-mail-Message-avatar {
+    border-radius: 999px;
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="webclient_theme_transition" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//meta[@name='viewport']" position="after">
+            <style id="wl_sp_theme_boot_bg">
+                html {
+                    background-color: <t t-if="color_scheme == 'dark'">#0a1120</t><t t-else="">#f3f6fa</t>;
+                }
+                /* Hide Odoo native rounded navbar from first paint (Willow uses wl_sp_topbar). */
+                body.o_web_client .o_navbar,
+                body.o_web_client .o_main_navbar,
+                .o_navbar,
+                nav.o_main_navbar {
+                    display: none !important;
+                }
+                html.wl_sp_theme_reloading body.o_web_client,
+                html.wl_sp_theme_reloading .wl_sp_global_shell {
+                    visibility: hidden !important;
+                }
+            </style>
+            <script type="text/javascript">
+                (function () {
+                    var storageKey = "wl_sp_theme_reloading";
+                    function hasReloadFlag() {
+                        try {
+                            if (sessionStorage.getItem(storageKey) === "1") {
+                                return true;
+                            }
+                        } catch (e) {}
+                        return document.cookie.split(";").some(function (part) {
+                            return part.trim().indexOf(storageKey + "=1") === 0;
+                        });
+                    }
+                    var pending = hasReloadFlag();
+                    if (pending) {
+                        document.documentElement.classList.add("wl_sp_theme_reloading");
+                    }
+                })();
+            </script>
+        </xpath>
+    </template>
+
+    <template id="webclient_willow_favicon" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//meta[@name='viewport']" position="after">
+            <t t-set="wl_company" t-value="request.env.company.sudo()"/>
+            <link
+                t-if="wl_company.willow_favicon"
+                rel="icon"
+                type="image/png"
+                t-att-href="'/web/image/res.company/%s/willow_favicon?unique=%s' % (wl_company.id, wl_company.write_date)"
+            />
+        </xpath>
+    </template>
+
+    <template id="login_willow_background" inherit_id="web.login_layout">
+        <xpath expr="//div[hasclass('container')]" position="before">
+            <t t-set="wl_company" t-value="request.env.company.sudo()"/>
+            <t t-set="wl_is_dark" t-value="request.httprequest.cookies.get('color_scheme') == 'dark'"/>
+            <t t-set="wl_login_field" t-value="'willow_login_background_dark' if wl_is_dark else 'willow_login_background'"/>
+            <style t-if="wl_company[wl_login_field]">
+                body.bg-100 {
+                    background-image: url("/web/image/res.company/<t t-esc='wl_company.id'/>/<t t-esc='wl_login_field'/>?unique=<t t-esc='wl_company.write_date'/>");
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+            </style>
+        </xpath>
+    </template>
+</odoo>

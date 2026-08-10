@@ -1,0 +1,63 @@
+/* tablet.scss */
+/* Targets tablet screens (md breakpoint: max-width 991.98px) */
+
+@media (max-width: 991.98px) {
+    /* Mirror Pine/Kraken md-down shell: hamburger + compact brand; menus in drawer. */
+    .o_web_client .wl_sp_global_shell .wl_sp_topbar {
+        height: auto;
+        min-height: var(--wl-tablet-topbar-height, 56px);
+        flex-flow: row nowrap;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 12px;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_topbar_left {
+        gap: 8px;
+    }
+
+    .o_web_client .wl_sp_global_shell :is(
+        .wl_sp_brand_copy,
+        .wl_sp_brand_apps_btn,
+        .wl_sp_tabs_cluster,
+        .wl_sp_tabs_scroll
+    ) {
+        display: none;
+    }
+
+    /* Form Views */
+    .o_form_view {
+        .o_form_statusbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .o_form_sheet_bg {
+            padding: 0;
+
+            .o_form_sheet {
+                border-radius: 0;
+                margin: 0;
+                border-left: none;
+                border-right: none;
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    }
+
+    /* Kanban Views */
+    .o_kanban_view {
+        .o_kanban_renderer {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+    }
+
+    /* Control Panel */
+    .o_control_panel {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}

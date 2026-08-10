@@ -1,0 +1,1357 @@
+.o_web_client {
+    --wl-light-primary: var(--wl-config-light-primary, #4f6ef7);
+    --wl-light-primary-contrast: var(--wl-config-light-primary-contrast, #ffffff);
+    --wl-light-text: #1e293b;
+    --tt-form-primary: var(--wl-light-primary);
+    --wl-command-palette-accent: var(--wl-light-primary);
+    --wl-shell-gutter: 14px;
+    --wl-view-stack-gap: 12px;
+    background: var(--wl-canvas, #f8f9fa);
+    color: var(--wl-light-text);
+}
+
+html.wl_sp_theme_reloading .o_navbar,
+body.wl_sp_theme_reloading .o_navbar,
+html.wl_sp_theme_reloading .wl_sp_global_shell,
+body.wl_sp_theme_reloading .wl_sp_global_shell {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+// Willow replaces Odoo's native navbar with wl_sp_topbar; keep it in DOM for systray mounting only.
+body.o_web_client .o_navbar,
+body.o_web_client .o_main_navbar {
+    display: none !important;
+}
+
+.o_web_client .o_navbar {
+    margin: 10px var(--wl-shell-gutter) 0;
+    border: 0;
+    background: transparent;
+}
+
+.o_web_client .o_navbar .o_main_navbar {
+    background: #f7f8fa;
+    border: 1px solid #dbe1e8;
+    border-radius: 18px;
+    padding: 6px 10px;
+    min-height: 58px;
+    box-shadow: 0 8px 18px rgba(22, 29, 37, 0.08);
+}
+
+.o_web_client .o_main_navbar .o_menu_sections .dropdown-toggle,
+.o_web_client .o_main_navbar .o_menu_sections .o_nav_entry,
+.o_web_client .o_main_navbar .o_menu_systray .dropdown-toggle,
+.o_web_client .o_main_navbar .o_menu_systray .o-dropdown {
+    border-radius: 12px;
+}
+
+.o_web_client .o_main_navbar .o_menu_sections .dropdown-toggle:hover,
+.o_web_client .o_main_navbar .o_menu_sections .o_nav_entry:hover,
+.o_web_client .o_main_navbar .o_menu_systray .dropdown-toggle:hover {
+    background: #eceff3;
+}
+
+.o_web_client > .o_action_manager {
+    min-width: 0;
+    background: var(--wl-canvas, #f8f9fa);
+}
+
+.o_web_client .o_action {
+    min-width: 0;
+}
+
+.o_web_client > .o_action_manager > .o_action > .o_content {
+    min-width: 0;
+    margin: 0 var(--wl-shell-gutter) var(--wl-view-stack-gap);
+    border-radius: 0;
+}
+
+.o_web_client > .o_action_manager > .o_action > .o_content.o_component_with_search_panel {
+    gap: var(--wl-view-stack-gap);
+}
+
+.o_web_client > .o_action_manager > .o_action > .o_content > :is(
+    .o_form_view,
+    .o_form_view_container,
+    .o_list_view,
+    .o_list_renderer,
+    .o_kanban_view,
+    .o_kanban_renderer,
+    .o_renderer,
+    .o_renderer_with_searchpanel,
+    .o_search_panel
+) {
+    min-width: 0;
+}
+
+.o_web_client .o_control_panel {
+    min-height: 56px;
+    border-radius: 0;
+    border: 1px solid #d9e0e8;
+    background: #ffffff;
+    box-shadow: 0 10px 24px rgba(20, 27, 35, 0.06);
+    margin: 0 var(--wl-shell-gutter) var(--wl-view-stack-gap);
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    padding-inline: 18px !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.o_web_client .o_control_panel .o_control_panel_main {
+    min-height: 38px;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.o_web_client .o_control_panel .o_control_panel_breadcrumbs {
+    min-height: 38px;
+    padding: 0;
+    align-items: center;
+}
+
+.o_web_client .o_control_panel .o_control_panel_main_buttons,
+.o_web_client .o_control_panel .o_control_panel_actions,
+.o_web_client .o_control_panel .o_control_panel_navigation {
+    gap: 8px;
+}
+
+.o_web_client .o_control_panel .breadcrumb,
+.o_web_client .o_control_panel .o_breadcrumb,
+.o_web_client .o_control_panel .o_last_breadcrumb_item {
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #56616b;
+}
+
+.o_web_client .o_control_panel .o_breadcrumb {
+    flex-direction: row !important;
+    align-self: center !important;
+    justify-content: flex-start !important;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 0;
+}
+
+.o_web_client .o_control_panel .o_breadcrumb > .breadcrumb,
+.o_web_client .o_control_panel .o_breadcrumb > .d-flex.gap-1.text-truncate {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 0;
+    line-height: 1;
+}
+
+.o_web_client .o_control_panel .o_breadcrumb > .d-flex.gap-1.text-truncate {
+    gap: 4px !important;
+    min-height: 0;
+    line-height: 1;
+    height: 1em;
+    padding: 0;
+}
+
+.o_web_client .o_control_panel .o_last_breadcrumb_item {
+    align-items: center;
+    min-height: 0;
+    line-height: 1;
+}
+
+.o_web_client .o_control_panel .breadcrumb-item,
+.o_web_client .o_control_panel .breadcrumb-item a,
+.o_web_client .o_control_panel .o_back_button a,
+.o_web_client .o_control_panel .o_last_breadcrumb_item {
+    color: #5e6975;
+    font-size: 13px;
+    line-height: 1;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 0;
+    font-weight: 600;
+}
+
+.o_web_client .o_control_panel .o_last_breadcrumb_item,
+.o_web_client .o_control_panel .o_last_breadcrumb_item > .min-w-0.text-truncate,
+.o_web_client .o_control_panel .breadcrumb-item a {
+    height: 1em;
+    display: inline-flex;
+    align-items: center;
+}
+
+.o_web_client .o_control_panel .breadcrumb-item.active,
+.o_web_client .o_control_panel .o_last_breadcrumb_item {
+    color: #1f252b;
+}
+
+.o_web_client .o_control_panel .breadcrumb-item + .breadcrumb-item::before {
+    color: #9aa5b1;
+}
+
+.o_web_client .o_control_panel :is(
+    .o_control_panel_main_buttons .btn:not(.o_unselect_all),
+    .o_control_panel_actions .btn:not(.o_unselect_all),
+    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_pager_previous):not(.o_pager_next),
+    .o_cp_action_menus .btn:not(.o_unselect_all),
+    .o_cp_switch_buttons .btn:not(.o_unselect_all)
+) {
+    min-height: 34px;
+    border-radius: 0;
+    border: 1px solid #d8e0e8;
+    background: transparent;
+    color: #334155;
+    box-shadow: none;
+    padding-inline: 14px;
+    font-weight: 600;
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease,
+        box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.o_web_client .o_control_panel :is(
+    .o_control_panel_main_buttons .btn:not(.o_unselect_all):hover,
+    .o_control_panel_actions .btn:not(.o_unselect_all):hover,
+    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_pager_previous):not(.o_pager_next):hover,
+    .o_cp_action_menus .btn:not(.o_unselect_all):hover,
+    .o_cp_switch_buttons .btn:not(.o_unselect_all):hover
+):not(:disabled) {
+    background: #ffffff;
+    border-color: #c5d0dd;
+    color: #0f172a;
+    box-shadow: 0 6px 14px rgba(36, 46, 58, 0.08);
+    transform: translateY(-1px);
+}
+
+.o_web_client .o_control_panel :is(
+    .o_control_panel_main_buttons .btn:not(.o_unselect_all):focus-visible,
+    .o_control_panel_actions .btn:not(.o_unselect_all):focus-visible,
+    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_pager_previous):not(.o_pager_next):focus-visible,
+    .o_cp_action_menus .btn:not(.o_unselect_all):focus-visible,
+    .o_cp_switch_buttons .btn:not(.o_unselect_all):focus-visible
+) {
+    border-color: #9fb6d4;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.12);
+    outline: none;
+}
+
+.o_web_client .o_control_panel :is(
+    .o_control_panel_main_buttons .btn.btn-primary,
+    .o_control_panel_actions .btn.btn-primary,
+    .o_control_panel_navigation .btn.btn-primary
+) {
+    border-color: transparent;
+    background: var(--wl-light-primary);
+    color: var(--wl-light-primary-contrast);
+}
+
+.o_web_client .o_control_panel :is(
+    .o_control_panel_main_buttons .btn.btn-primary:hover,
+    .o_control_panel_actions .btn.btn-primary:hover,
+    .o_control_panel_navigation .btn.btn-primary:hover
+):not(:disabled) {
+    border-color: transparent;
+    background: var(--wl-light-primary);
+    color: var(--wl-light-primary-contrast);
+}
+
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.active,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.active:hover {
+    border-color: transparent;
+    background: var(--wl-light-primary);
+    color: var(--wl-light-primary-contrast);
+    box-shadow: 0 8px 18px rgba(21, 27, 35, 0.16);
+    transform: none;
+}
+
+.o_web_client .o_control_panel .o_cp_action_menus,
+.o_web_client .o_control_panel .o_control_panel_main_buttons,
+.o_web_client .o_control_panel .o_control_panel_navigation {
+    align-items: center;
+}
+
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm {
+    --bs-btn-bg: transparent;
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-active-bg: transparent;
+    --bs-btn-focus-shadow-rgb: transparent;
+    min-height: 0;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown:hover,
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown:focus,
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown:focus-visible,
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown:active,
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown.show,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm:hover,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm:focus,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm:focus-visible,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm:active,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm.show {
+    border: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    transform: none;
+}
+
+.o_web_client .o_control_panel .o_cp_pager {
+    min-height: 34px;
+    padding: 0 4px 0 10px;
+    border: 1px solid #dde3ea;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.o_web_client .o_control_panel .o_cp_pager .btn {
+    min-height: 26px;
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    padding-inline: 10px;
+}
+
+.o_web_client .o_control_panel .o_cp_pager .btn:hover:not(:disabled),
+.o_web_client .o_control_panel .o_cp_pager .btn:focus-visible:not(:disabled) {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.o_web_client .o_base_settings_view .o_form_button_save,
+.o_web_client .o_base_settings_view .o_form_statusbar .o_form_button_save,
+.o_web_client .o_base_settings_view .o_control_panel .o_form_button_save {
+    border-color: transparent;
+    background: var(--wl-light-primary);
+    color: var(--wl-light-primary-contrast);
+}
+
+.o_web_client .o_base_settings_view .o_form_button_save:hover:not(:disabled) {
+    background: var(--wl-light-primary);
+    color: var(--wl-light-primary-contrast);
+}
+
+.o_web_client .o_base_settings_view,
+.o_web_client .o_base_settings_view .o_setting_container,
+.o_web_client .o_base_settings_view .o_setting_right_pane,
+.o_web_client .o_base_settings_view .o_form_label,
+.o_web_client .o_base_settings_view .o_setting_container .settings_tab .tab:not(.selected):not(:hover),
+.o_web_client .o_base_settings_view .o_setting_container .settings_tab .tab:not(.selected):not(:hover) .app_name,
+.o_web_client .o_base_settings_view .o_setting_container .settings_tab .tab:not(.selected):not(:hover) span:not(.icon) {
+    color: #111827 !important;
+}
+
+.o_web_client .o_base_settings_view .text-muted,
+.o_web_client .o_base_settings_view .o_setting_right_pane .text-muted,
+.o_web_client .o_base_settings_view .o_setting_right_pane small {
+    color: #4b5563 !important;
+}
+
+.o_web_client .o_base_settings_view .form-check-input,
+.o_web_client .o_base_settings_view input[type="checkbox"],
+.o_web_client .o_base_settings_view input[type="radio"] {
+    border-color: #111827;
+    background-color: #ffffff;
+    color: #111827;
+}
+
+.o_web_client .o_base_settings_view .form-check-input:checked,
+.o_web_client .o_base_settings_view input[type="checkbox"]:checked,
+.o_web_client .o_base_settings_view input[type="radio"]:checked {
+    border-color: var(--wl-light-primary);
+    background-color: var(--wl-light-primary);
+}
+
+.o_web_client .o_base_settings_view .form-check-input:focus,
+.o_web_client .o_base_settings_view input[type="checkbox"]:focus,
+.o_web_client .o_base_settings_view input[type="radio"]:focus {
+    border-color: var(--wl-light-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--wl-light-primary) 20%, transparent);
+}
+
+.o_web_client .o_base_settings_view .o_form_button_save:disabled,
+.o_web_client .o_base_settings_view .o_form_button_save.disabled {
+    border-color: #d8e0e8;
+    background: #eef2f7;
+    color: #9aa5b1;
+    opacity: 1;
+}
+
+.o_web_client .o_base_settings_view .o_form_button_cancel,
+.o_web_client .o_base_settings_view .o_form_statusbar .o_form_button_cancel,
+.o_web_client .o_base_settings_view .o_control_panel .o_form_button_cancel {
+    border-color: #d8e0e8;
+    background: #ffffff;
+    color: #334155;
+}
+
+.o_web_client .o_content {
+    background: transparent;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_form_view_container {
+    background: transparent;
+    min-width: 0;
+}
+
+// Form Layout nests o_control_panel + o_content inside .o_form_view_container (not direct .o_action > .o_content).
+.o_web_client .o_form_view .o_form_view_container > .o_content {
+    margin: 0 var(--wl-shell-gutter) var(--wl-view-stack-gap);
+}
+
+.o_web_client > .o_action_manager > .o_action .o_form_view .o_form_sheet_bg,
+.o_web_client .o_form_view_container .o_form_sheet_bg {
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    padding-top: 0;
+    padding-inline: 0;
+}
+
+.o_web_client > .o_action_manager > .o_action .o_form_view .o_form_sheet,
+.o_web_client .o_form_view_container .o_form_sheet {
+    margin: 0;
+    border-width: 1px;
+    border-radius: 0;
+}
+
+.o_web_client > .o_action_manager > .o_action .o_form_view .o_form_statusbar,
+.o_web_client .o_form_view_container .o_form_statusbar {
+    margin-inline: 0;
+    padding-inline: 16px;
+    background: var(--tt-form-surface, #ffffff);
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_breadcrumb {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    gap: 1px;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel,
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_control_panel_main,
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_control_panel_breadcrumbs {
+    min-width: 0;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_control_panel_main {
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_control_panel_breadcrumbs {
+    flex: 0 1 420px;
+    width: 34vw;
+    max-width: 420px;
+    overflow: hidden;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_control_panel_actions {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    justify-content: flex-start !important;
+    overflow: hidden;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_control_panel_actions .o-form-buttonbox {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    flex-wrap: nowrap;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_control_panel_navigation {
+    flex: 0 0 auto;
+    margin-inline-start: auto;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_breadcrumb > .breadcrumb {
+    order: 1;
+    height: 1em;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_breadcrumb > .d-flex.gap-1.text-truncate {
+    order: 2;
+    gap: 6px !important;
+    margin-top: 0;
+    align-items: center;
+    height: 1em;
+    line-height: 1;
+    padding: 0;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_last_breadcrumb_item {
+    min-height: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .breadcrumb-item,
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .breadcrumb-item a,
+.o_web_client > .o_action_manager > .o_action.o_form_view .o_control_panel .o_back_button a {
+    font-size: 12px;
+    font-weight: 500;
+    color: #7a8794;
+}
+
+.o_web_client .o_form_view .o_form_sheet_bg,
+.o_web_client .o_kanban_view .o_kanban_record,
+.o_web_client .o_list_view .o_list_renderer,
+.o_web_client .o_pivot_view .o_pivot,
+.o_web_client .o-search-panel {
+    border-radius: 0;
+    border: 1px solid #dde3ea;
+    box-shadow: 0 8px 14px rgba(22, 30, 39, 0.05);
+    background: #f9fbfc;
+}
+
+.o_web_client .o_form_view .o_form_sheet_bg {
+    background: var(--tt-form-surface, #ffffff);
+}
+
+.o_web_client .o_pivot_view {
+    min-width: 0;
+}
+
+.o_web_client .o_pivot_view .o_renderer,
+.o_web_client .o_pivot_view .o_renderer_with_searchpanel {
+    min-width: 0;
+}
+
+.o_web_client .o_pivot_view .o_pivot {
+    width: 100%;
+    min-width: 100%;
+    margin-inline: 0;
+    padding: 10px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.o_web_client .o_pivot_view .o_pivot table {
+    width: 100%;
+    min-width: 100%;
+    background: #ffffff;
+}
+
+.o_web_client .o_pivot_view .o_pivot th,
+.o_web_client .o_pivot_view .o_pivot td {
+    white-space: nowrap;
+}
+
+.o_form_view .o_form_renderer {
+    margin-inline: 0;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.o_web_client .o_list_view .table {
+    --table-bg: transparent;
+}
+
+.o_web_client .o_searchview {
+    min-height: 38px;
+    padding-inline: 10px;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #d6dee8;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.o_web_client .o_searchview:hover {
+    border-color: #c2cfdb;
+    background: #ffffff;
+}
+
+.o_web_client .o_searchview:focus-within {
+    border-color: #d6dee8;
+    background: #ffffff;
+    box-shadow: none !important;
+    outline: 0 !important;
+}
+
+.o_web_client .o_searchview .o_searchview_input:focus,
+.o_web_client .o_searchview .o_searchview_input:focus-visible,
+.o_web_client .o_searchview .o_searchview_input_container:focus-within {
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: 0 !important;
+}
+
+.o_web_client .o_searchview .o_searchview_icon {
+    color: #000000;
+}
+
+.o_web_client .o_searchview .o_searchview_input {
+    min-height: 28px;
+    border-radius: 0;
+    color: #000000;
+    background: transparent;
+}
+
+.o_web_client .o_searchview .o_searchview_input::placeholder {
+    color: #94a3b8;
+}
+
+.o_web_client .o_searchview .o_searchview_facet {
+    align-self: center;
+    min-height: 30px;
+    border: 1px solid #d7e0ea;
+    border-radius: 0 !important;
+    background: #f4f7fa;
+    color: #000000;
+    box-shadow: none;
+}
+
+.o_web_client .o_searchview .o_searchview_facet .o_searchview_facet_label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    min-height: 30px;
+    padding-inline: 8px !important;
+    border: 0 !important;
+    background: #e8eef5;
+    color: #000000;
+    border-radius: 0 !important;
+    font-weight: 600;
+    box-shadow: none !important;
+}
+
+.o_web_client .o_searchview .o_searchview_facet .o_searchview_facet_label:hover,
+.o_web_client .o_searchview .o_searchview_facet .o_searchview_facet_label:focus,
+.o_web_client .o_searchview .o_searchview_facet .o_searchview_facet_label:active {
+    background: #dde6ef;
+    color: #000000;
+}
+
+.o_web_client .o_searchview .o_searchview_facet .o_searchview_facet_label .fa,
+.o_web_client .o_searchview .o_searchview_facet .o_searchview_facet_label .oi,
+.o_web_client .o_searchview .o_searchview_facet .o_searchview_facet_label small {
+    line-height: 1;
+}
+
+.o_web_client .o_searchview .o_searchview_facet .o_searchview_facet_label > span.position-absolute {
+    display: none !important;
+}
+
+.o_web_client .o_searchview .o_searchview_facet .o_facet_value {
+    color: #000000;
+    font-weight: 600;
+}
+
+.o_web_client .o_searchview .o_searchview_facet .o_facet_values {
+    min-height: 30px;
+    padding-right: 4px;
+    background: transparent;
+    transition: background-color 0.16s ease;
+}
+
+.o_web_client .o_searchview .o_searchview_facet > .position-absolute.bg-view {
+    background: rgba(255, 255, 255, 0.28) !important;
+    border-color: rgba(214, 222, 232, 0.55) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client .o_searchview .o_searchview_facet:hover .o_facet_values,
+.o_web_client .o_searchview .o_searchview_facet:focus-within .o_facet_values {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.o_web_client .o_searchview .o_searchview_facet:hover .o_facet_value,
+.o_web_client .o_searchview .o_searchview_facet:focus-within .o_facet_value {
+    color: #000000;
+}
+
+.o_web_client .o_searchview .o_searchview_facet .o_facet_remove {
+    color: #000000 !important;
+}
+
+.o_web_client .o_searchview > .btn,
+.o_web_client .o_searchview .o_facet_remove {
+    --bs-btn-bg: transparent;
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-active-bg: transparent;
+    --bs-btn-focus-shadow-rgb: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-active-border-color: transparent;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.o_web_client .o_searchview > .btn:hover,
+.o_web_client .o_searchview > .btn:focus,
+.o_web_client .o_searchview > .btn:focus-visible,
+.o_web_client .o_searchview > .btn:active,
+.o_web_client .o_searchview .o_facet_remove:hover,
+.o_web_client .o_searchview .o_facet_remove:focus,
+.o_web_client .o_searchview .o_facet_remove:focus-visible,
+.o_web_client .o_searchview .o_facet_remove:active {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.o_web_client .o_searchview + .o_searchview_dropdown_toggler,
+.o_web_client .o_control_panel .o_searchview_dropdown_toggler {
+    min-height: 38px;
+    border-radius: 0;
+    border: 1px solid #d6dee8;
+    border-left: 0;
+    background: rgba(248, 250, 252, 0.96);
+    color: #000000;
+    box-shadow: none;
+}
+
+.o_web_client .o_cp_searchview {
+    position: relative;
+    align-items: stretch;
+    gap: 0;
+    // Reserve caret width; positioning target is absolute over the full bar.
+    padding-inline-end: 52px;
+}
+
+// Dropdown positioning target: full search bar rect so bottom-start pins under the left edge.
+.o_web_client .o_cp_searchview .wl_cp_search_menu_position_target {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.o_web_client .o_cp_searchview .wl_cp_search_menu_anchor {
+    position: relative;
+    width: 52px;
+    min-width: 52px;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    border: 1px solid #d6dee8;
+    border-left: 1px solid #d6dee8;
+    border-radius: 0;
+    background: rgba(248, 250, 252, 0.96);
+    overflow: hidden;
+    flex: 0 0 52px;
+    pointer-events: auto;
+}
+
+.o_web_client .o_cp_searchview .wl_cp_search_menu_anchor .o_searchview_dropdown_toggler {
+    width: 100%;
+    min-width: 52px;
+    min-height: 38px;
+    padding: 0;
+    border: 0 !important;
+    border-radius: 0;
+    background: transparent !important;
+    color: #000000;
+    justify-content: center;
+    box-shadow: none !important;
+}
+
+.o_web_client .o_cp_searchview .wl_cp_search_menu_anchor .o_searchview_dropdown_toggler::after {
+    content: "\f0d7";
+    font-family: FontAwesome;
+    display: block;
+    margin: 0;
+    line-height: 1;
+}
+
+.o_web_client .o_searchview:focus-within + .o_searchview_dropdown_toggler,
+.o_web_client .o_control_panel .o_searchview_dropdown_toggler:focus,
+.o_web_client .o_control_panel .o_searchview_dropdown_toggler:focus-visible {
+    box-shadow: none;
+}
+
+.o_web_client .o_control_panel .o_search_options {
+    gap: 8px;
+}
+
+.o_web_client .o_control_panel .o-dropdown--menu,
+.o_web_client .o_control_panel .dropdown-menu {
+    padding: 8px;
+}
+
+.o_web_client .o_control_panel .dropdown-item,
+.o_web_client .o_control_panel .o-dropdown-item {
+    border-radius: 0;
+    min-height: 34px;
+    font-weight: 500;
+}
+
+.o_web_client .o_control_panel .dropdown-item:hover,
+.o_web_client .o_control_panel .o-dropdown-item:hover {
+    background: #eef3f8;
+}
+
+.o_web_client .o_search_bar_menu {
+    border: 1px solid var(--tt-form-border, #e5e7eb);
+    border-radius: 0;
+    background: linear-gradient(
+        -45deg,
+        color-mix(in srgb, var(--tt-form-primary, #1e3a8a), transparent 95%),
+        color-mix(in srgb, #ffffff, transparent 10%)
+    );
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+    color: var(--my-theme-text, #0f172a);
+    padding: 10px 8px;
+    overflow: hidden;
+}
+
+.o_web_client .o_search_bar_menu::before,
+.o_web_client .o_search_bar_menu::after {
+    display: none;
+}
+
+.o_web_client .o_search_bar_menu .o_dropdown_container {
+    border-color: color-mix(in srgb, var(--tt-form-border, #e5e7eb) 92%, transparent) !important;
+}
+
+.o_web_client .o_search_bar_menu .dropdown-divider {
+    border-color: color-mix(in srgb, var(--tt-form-border, #e5e7eb) 92%, transparent);
+}
+
+.o_web_client .o_search_bar_menu .dropdown-item,
+.o_web_client .o_search_bar_menu .o-dropdown-item {
+    border-radius: 0;
+    min-height: 36px;
+    color: #000000;
+}
+
+.o_web_client .o_search_bar_menu .dropdown-item:hover,
+.o_web_client .o_search_bar_menu .o-dropdown-item:hover {
+    background: color-mix(in srgb, var(--tt-form-primary, #1e3a8a) 12%, #fff);
+    color: var(--tt-form-primary, #1e3a8a);
+}
+
+// Sharp corners for all popovers / dropdown menus (theme-wide).
+.o_web_client :is(
+    .dropdown-menu,
+    .o-dropdown--menu,
+    .o_popover,
+    .popover,
+    .o-autocomplete--dropdown-menu,
+    .o_search_bar_menu,
+    .o_model_field_selector_popover
+),
+body:has(.o_web_client) :is(
+    .dropdown-menu,
+    .o-dropdown--menu,
+    .o_popover,
+    .popover,
+    .o-autocomplete--dropdown-menu,
+    .o_search_bar_menu,
+    .o_model_field_selector_popover,
+    .wl_sp_submenu_popover_wrap,
+    .wl_sp_topbar_search_popover,
+    .wl_sp_systray_overflow_menu,
+    .wl_erp_hero_dropdown
+),
+.o_web_client :is(
+    .dropdown-menu,
+    .o-dropdown--menu,
+    .o_popover,
+    .popover,
+    .o_search_bar_menu
+) :is(.dropdown-item, .o-dropdown-item),
+body:has(.o_web_client) :is(
+    .wl_sp_submenu_popover .dropdown-item,
+    .wl_sp_topbar_search_popover_item,
+    .wl_sp_topbar_search_popover_icon
+) {
+    border-radius: 0 !important;
+}
+
+.o_web_client .dropdown-menu,
+.o_web_client .o-dropdown--menu {
+    border-radius: 0;
+    border: 1px solid #dbe2ea;
+    box-shadow: 0 14px 24px rgba(21, 29, 37, 0.1);
+}
+
+body:has(.o_web_client) .o_popover {
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(100, 116, 139, 0.34) transparent;
+}
+
+body:has(.o_web_client) .o_popover::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+body:has(.o_web_client) .o_popover::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body:has(.o_web_client) .o_popover::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: rgba(100, 116, 139, 0.32);
+    background-clip: content-box;
+}
+
+body:has(.o_web_client) .o_popover::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.5);
+    background-clip: content-box;
+}
+
+main.modal-body:has(.o_command_palette_search) {
+    padding: 0;
+    overflow: hidden;
+    border-radius: var(--wl-command-palette-radius, 16px);
+    background: var(--wl-command-palette-bg, linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%));
+    color: var(--wl-command-palette-text, #111827);
+}
+
+main.modal-body:has(.o_command_palette_search) > div {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_search {
+    gap: 12px;
+    margin: 0 !important;
+    padding: 16px 18px !important;
+    border-bottom: 1px solid var(--wl-command-palette-border, #e2e8f0) !important;
+    background: var(--wl-command-palette-header-bg, rgba(255, 255, 255, 0.82));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_search .form-control {
+    min-height: 42px;
+    padding: 0 2px !important;
+    background: transparent;
+    color: var(--wl-command-palette-text, #111827);
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: none;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_search .form-control::placeholder {
+    color: var(--wl-command-palette-muted, #94a3b8);
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_search .input-group-text {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    color: var(--wl-command-palette-muted-strong, #64748b);
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_listbox {
+    max-height: 58vh;
+    padding: 8px;
+    background: var(--wl-command-palette-list-bg, #f8fafc);
+    scrollbar-width: thin;
+    scrollbar-color: var(--wl-command-palette-scrollbar, rgba(100, 116, 139, 0.42)) transparent;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_listbox::-webkit-scrollbar {
+    width: 8px;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_listbox::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_listbox::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: var(--wl-command-palette-scrollbar, rgba(100, 116, 139, 0.36));
+    background-clip: content-box;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_category {
+    display: grid;
+    gap: 4px;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_listbox hr {
+    margin: 8px 4px !important;
+    border-color: var(--wl-command-palette-border, #e2e8f0);
+    opacity: 1;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command {
+    border-radius: 10px;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command > a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    border-radius: inherit;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_default,
+main.modal-body:has(.o_command_palette_search) .o_command_hotkey {
+    min-height: 44px;
+    padding: 10px 12px !important;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command:hover .o_command_default,
+main.modal-body:has(.o_command_palette_search) .o_command:hover .o_command_hotkey,
+main.modal-body:has(.o_command_palette_search) .o_command.focused .o_command_default,
+main.modal-body:has(.o_command_palette_search) .o_command.focused .o_command_hotkey,
+main.modal-body:has(.o_command_palette_search) .o_command[aria-selected="true"] .o_command_default,
+main.modal-body:has(.o_command_palette_search) .o_command[aria-selected="true"] .o_command_hotkey {
+    border-color: var(--wl-command-palette-row-border-active, #d7e0ec);
+    background: var(--wl-command-palette-row-bg-active, #ffffff);
+    box-shadow: var(--wl-command-palette-row-shadow-active, 0 8px 20px rgba(15, 23, 42, 0.08));
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_name {
+    color: var(--wl-command-palette-text, #172033);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command kbd {
+    min-width: 28px;
+    padding: 4px 8px !important;
+    border: 1px solid var(--wl-command-palette-kbd-border, #d7e0ec);
+    border-bottom-color: var(--wl-command-palette-kbd-border-bottom, #c4cfdd);
+    border-radius: 7px;
+    background: var(--wl-command-palette-kbd-bg, #f8fafc);
+    color: var(--wl-command-palette-kbd-text, #475569);
+    box-shadow: var(--wl-command-palette-kbd-shadow, inset 0 -1px 0 rgba(15, 23, 42, 0.08));
+    font-size: 11px;
+    font-weight: 700;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_footer {
+    margin: 0 !important;
+    padding: 12px 18px !important;
+    border-top: 1px solid var(--wl-command-palette-border, #e2e8f0) !important;
+    border-radius: 0 !important;
+    background: var(--wl-command-palette-footer-bg, #ffffff) !important;
+    color: var(--wl-command-palette-muted-strong, #64748b) !important;
+    font-size: 13px;
+}
+
+main.modal-body:has(.o_command_palette_search) .o_command_palette_footer .text-primary,
+main.modal-body:has(.o_command_palette_search) .o_command_palette_footer .btn-link {
+    color: var(--wl-command-palette-accent, var(--o-brand-primary, var(--my-primary, #0f3b8f))) !important;
+}
+
+@media (max-width: 991.98px) {
+    .o_web_client {
+        --wl-shell-gutter: 8px;
+    }
+
+    .o_web_client .o_navbar {
+        margin: 6px 8px 0;
+    }
+
+    .o_web_client .o_navbar .o_main_navbar {
+        min-height: 48px;
+        padding: 4px 8px;
+        border-radius: 14px;
+    }
+
+    .o_web_client .o_main_navbar .o_menu_toggle {
+        min-width: 38px;
+        min-height: 38px;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    .o_web_client .o_main_navbar .o_navbar_breadcrumbs {
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .o_web_client .o_main_navbar .o_navbar_breadcrumbs .o_breadcrumb {
+        min-width: 0;
+        max-width: 100%;
+        flex-wrap: nowrap;
+    }
+
+    .o_web_client .o_main_navbar .o_navbar_breadcrumbs :is(
+        .breadcrumb,
+        .breadcrumb-item,
+        .o_last_breadcrumb_item
+    ) {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .o_web_client .o_main_navbar .o_menu_systray {
+        gap: 2px;
+        max-width: 46%;
+        overflow: hidden;
+    }
+
+    .o_web_client .o_main_navbar .o_menu_systray :is(.oe_topbar_name, .o_user_name) {
+        display: none !important;
+    }
+
+    .o_web_client .o_control_panel {
+        margin: 0 var(--wl-shell-gutter) var(--wl-view-stack-gap);
+        padding: 6px 8px !important;
+        border-radius: 14px;
+        min-height: 0;
+    }
+
+    .o_web_client .o_control_panel .o_control_panel_main {
+        align-items: center !important;
+        gap: 6px !important;
+        min-height: 0;
+    }
+
+    .o_web_client .o_control_panel .o_control_panel_breadcrumbs {
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
+    }
+
+    .o_web_client .o_control_panel .o_control_panel_main_buttons {
+        flex: 0 0 auto;
+    }
+
+    .o_web_client .o_control_panel .o_control_panel_actions {
+        width: 100%;
+        justify-content: flex-start !important;
+        min-width: 0;
+    }
+
+    .o_web_client .o_control_panel .o_control_panel_navigation {
+        // The template keeps this compact navigation group on the main toolbar.
+        min-width: 0;
+    }
+
+    .o_web_client .o_control_panel .o_cp_pager {
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .o_web_client .o_cp_searchview {
+        width: 100%;
+        min-width: 0;
+        padding-inline-end: 36px;
+    }
+
+    .o_web_client .o_searchview {
+        min-width: 0;
+        flex: 1 1 auto;
+        border-radius: 0;
+    }
+
+    .o_web_client .o_searchview .o_searchview_facet {
+        max-width: 100%;
+    }
+
+    .o_web_client .o_searchview .o_facet_values,
+    .o_web_client .o_searchview .o_facet_value {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .o_web_client .o_cp_searchview .wl_cp_search_menu_anchor {
+        width: 36px;
+        min-width: 36px;
+        flex-basis: 36px;
+        border-radius: 0;
+    }
+
+    .o_web_client .o_cp_searchview .wl_cp_search_menu_anchor .o_searchview_dropdown_toggler {
+        min-width: 36px;
+    }
+
+    .o_web_client .o_control_panel .btn,
+    .o_web_client .o_control_panel .o_cp_action_menus .dropdown-toggle,
+    .o_web_client .o_control_panel .o_cp_switch_buttons button {
+        min-height: 34px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .o_web_client {
+        --wl-shell-gutter: 6px;
+    }
+
+    .o_web_client .o_control_panel {
+        margin: 0 var(--wl-shell-gutter) 4px;
+        padding: 4px 6px !important;
+        gap: 4px;
+    }
+
+    .o_web_client .o_control_panel .o_control_panel_main {
+        gap: 4px !important;
+    }
+
+    // With the ControlPanel's mobile row layout, breadcrumbs contain only the
+    // primary buttons. Let that group use its content width so navigation fits beside it.
+    .o_web_client .o_control_panel .o_control_panel_breadcrumbs {
+        width: auto;
+    }
+
+    // Primary actions stay at the start; push pager, view switcher, and search
+    // together to the toolbar end once both mobile groups fit on one row.
+    .o_web_client .o_control_panel > .o_control_panel_navigation {
+        // Odoo's utility classes can reset flex-item margins; this must win so
+        // the navigation group consumes the free space at the toolbar end.
+        margin-inline-start: auto !important;
+    }
+
+    // Prevent horizontal page overflow on phone; keep list/form scroll local.
+    // Kanban needs stage swipe — exclude it from the clip.
+    .o_web_client.wl_sp_global_mode:not(:has(.o_kanban_view)) {
+        overflow-x: hidden;
+    }
+
+    .o_web_client.wl_sp_global_mode:not(:has(.o_kanban_view)) > .o_action_manager {
+        min-width: 0;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .o_web_client.wl_sp_global_mode:has(.o_kanban_view) > .o_action_manager {
+        min-width: 0;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .o_web_client.wl_sp_global_mode .o_action:not(.o_spreadsheet_dashboard_action) {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .o_web_client.wl_sp_global_mode .o_list_renderer,
+    .o_web_client.wl_sp_global_mode .o_form_view {
+        max-width: 100%;
+    }
+
+    // Prefer AM page-margin; drop shell-gutter on kanban content.
+    .o_web_client.wl_sp_global_mode .o_action.o_kanban_view > .o_content,
+    .o_web_client.wl_sp_global_mode .o_action:has(.o_kanban_renderer) > .o_content {
+        margin-inline: 0;
+        margin-bottom: 0;
+    }
+}
+
+// Busy-state loading chip (web.LoadingIndicator) — replace flush $o-brand-odoo
+// purple box with a floating Willow surface + primary spinner. Keep z-index.
+.o_loading_indicator {
+    bottom: 18px;
+    right: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    padding: 0 16px 0 14px;
+    border: 1px solid var(--wl-card-border, #e8ecf2);
+    border-radius: 0;
+    background: color-mix(in srgb, var(--wl-card, #ffffff) 92%, transparent);
+    color: var(--wl-header-text, #122033);
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+    box-shadow: 0 12px 28px rgba(10, 17, 40, 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    &::before {
+        content: "";
+        width: 14px;
+        height: 14px;
+        flex: 0 0 14px;
+        border: 2px solid color-mix(
+            in srgb,
+            var(--wl-light-primary, var(--wl-primary, #4f6ef7)) 22%,
+            transparent
+        );
+        border-top-color: var(--wl-light-primary, var(--wl-primary, #4f6ef7));
+        border-radius: 50%;
+        animation: wl_sp_loading_spin 0.65s linear infinite;
+    }
+}
+
+@keyframes wl_sp_loading_spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Fix navbar / settings / control panel dropdown menu active/selected items in light mode
+:not(.dropstart) > .dropdown-item,
+.dropdown-item,
+.o-dropdown-item,
+.o_nav_entry,
+.o_menu_entry,
+.dropdown-menu .dropdown-item,
+.o-dropdown--menu .dropdown-item,
+.o-dropdown > .dropdown-item {
+    &.active,
+    &.selected,
+    &:active,
+    &[aria-selected="true"] {
+        background: transparent !important;
+        background-color: transparent !important;
+        color: var(--wl-primary, #00174d) !important;
+        font-weight: 600 !important;
+
+        &:hover,
+        &:focus {
+            background-color: color-mix(in srgb, var(--wl-primary, #00174d) 8%, transparent) !important;
+            color: var(--wl-primary, #00174d) !important;
+        }
+
+        &::before,
+        &::after,
+        &:before,
+        &:after {
+            content: none !important;
+            display: none !important;
+        }
+
+        :is(span, a, div, p, i, strong, b) {
+            color: var(--wl-primary, #00174d) !important;
+        }
+    }
+}
+
+

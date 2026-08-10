@@ -1,0 +1,172 @@
+/* mobile.scss */
+/* Targets mobile screens (sm/xs breakpoints: max-width 767.98px) */
+
+@media (max-width: 767.98px) {
+    /* Pine/Kraken mobile contract: one compact row plus an off-canvas app sidebar. */
+    .o_web_client .wl_sp_global_shell .wl_sp_topbar {
+        min-height: var(--wl-mobile-topbar-height, 52px);
+        height: auto;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 6px 8px;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_topbar_left {
+        width: auto;
+        flex: 0 1 auto;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 6px;
+        overflow: visible;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_mobile_menu_slot {
+        display: flex;
+        min-height: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_mobile_menu_btn {
+        width: 36px;
+        height: 36px;
+        border: 1px solid var(--wl-hero-chrome-border);
+        border-radius: 0;
+        background: var(--wl-hero-chrome-surface);
+        color: var(--wl-hero-chrome-text);
+        box-shadow: none;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_mobile_menu_btn:is(:hover, :focus-visible),
+    .o_web_client .wl_sp_global_shell .wl_sp_mobile_menu_btn[aria-expanded="true"] {
+        border-color: color-mix(in srgb, var(--wl-erp-primary, #4f6ef7) 45%, var(--wl-hero-chrome-border));
+        background: var(--wl-hero-chrome-surface-strong, var(--wl-hero-chrome-surface));
+        color: var(--wl-hero-chrome-text);
+    }
+
+    .o_web_client .wl_sp_global_shell :is(.wl_sp_mobile_menu_btn, .wl_sp_mobile_sidebar_close, .wl_sp_rail_btn):focus-visible {
+        outline: 2px solid color-mix(in srgb, var(--wl-erp-primary, #4f6ef7) 62%, transparent);
+        outline-offset: 2px;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_brand_section {
+        min-width: 0;
+        max-width: none;
+        min-height: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+    }
+
+    .o_web_client .wl_sp_global_shell :is(.wl_sp_brand_apps_btn, .wl_sp_brand_copy, .wl_sp_tabs_cluster, .wl_sp_tabs_scroll) {
+        display: none;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_brand_logo {
+        width: 36px;
+        height: 36px;
+        max-width: 36px;
+        object-fit: contain;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_right_section {
+        width: auto;
+        flex: 0 0 auto;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        gap: 6px;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_right_section :is(.wl_sp_theme_toggle, .wl_theme_settings_trigger) {
+        display: none;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_topbar_icons {
+        min-width: 0;
+        min-height: 0;
+        padding: 0;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_systray_overflow {
+        display: inline-flex;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_topbar_search:not(.is-expanded) {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* Expanded mobile search overlays the row instead of increasing navbar height. */
+    .o_web_client .wl_sp_global_shell .wl_sp_topbar_search.is-expanded {
+        position: absolute;
+        inset-block-start: 6px;
+        inset-inline: 52px 8px;
+        width: auto;
+        height: 40px;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_profile {
+        min-height: 36px;
+        max-width: 36px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+    }
+
+    .o_web_client .wl_sp_global_shell .wl_sp_user_avatar {
+        width: 28px;
+        height: 28px;
+        object-fit: cover;
+    }
+
+    /* Forms */
+    .o_form_view {
+        .o_form_sheet {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .o_inner_group {
+            .o_group_col_6 {
+                width: 100% !important;
+                display: block !important;
+            }
+        }
+
+        .o_statusbar_status {
+            overflow-x: auto !important;
+            white-space: nowrap !important;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+
+    /* Lists */
+    .o_list_view {
+        .o_list_renderer {
+            overflow-x: auto !important;
+            overflow-y: visible !important;
+        }
+    }
+
+    /* Control Panel densify */
+    .o_control_panel {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+
+        .o_control_panel_breadcrumbs {
+            .o_breadcrumb {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                min-width: 0;
+                max-width: 100%;
+            }
+        }
+    }
+}

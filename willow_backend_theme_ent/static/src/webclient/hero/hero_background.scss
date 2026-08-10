@@ -1,0 +1,134 @@
+// Reactive SVG hero background — colors follow Willow preset tokens.
+// Raster override is gated by .wl_sp_hero_custom (set when the active mode has an upload).
+
+.o_web_client.wl_sp_global_mode {
+    // Light preset surfaces / accents (hex fallbacks for color-mix).
+    // Stronger primary mixes so Forest/Sunset/Ocean read clearly while staying pale.
+    --hero-surface-start: #e8eefe;
+    --hero-surface-start: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 28%, #ffffff);
+    --hero-surface-mid: #f5f7fb;
+    --hero-surface-mid: color-mix(
+        in srgb,
+        color-mix(in srgb, var(--wl-config-light-canvas, #f8f9fa) 80%, #ffffff) 88%,
+        var(--wl-light-primary, #4f6ef7)
+    );
+    --hero-surface-end: #f8f9fa;
+    --hero-surface-end: color-mix(in srgb, var(--wl-config-light-canvas, #f8f9fa) 40%, #ffffff);
+    --hero-accent-strong: #738cf9;
+    --hero-accent-strong: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 82%, #ffffff);
+    --hero-accent: #9aabfa;
+    --hero-accent: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 55%, #ffffff);
+    --hero-accent-soft: #c5d0fb;
+    --hero-accent-soft: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 28%, #ffffff);
+    --hero-highlight: #eef1fe;
+    --hero-highlight: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 12%, #ffffff);
+    --hero-seam: #ffffff;
+    --hero-seam-opacity: 0.9;
+}
+
+.o_web_client.wl_sp_global_mode.wl_sp_theme_dark {
+    // Surfaces stay near-neutral; primary is reserved for accents (buttons, active chrome).
+    --hero-surface-start: color-mix(in srgb, var(--wl-config-dark-header-base, #020817) 42%, #020817);
+    --hero-surface-mid: color-mix(in srgb, var(--wl-config-dark-header-mid, #0f172a) 42%, #0f172a);
+    --hero-surface-end: color-mix(in srgb, var(--wl-config-dark-canvas, #0b1120) 36%, #0b1120);
+    --hero-accent-strong: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 38%, #0b1120);
+    --hero-accent: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 22%, #0b1120);
+    --hero-accent-soft: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 12%, #0b1120);
+    --hero-highlight: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 8%, #1e293b);
+    --hero-seam: rgba(255, 255, 255, 0.45);
+    --hero-seam-opacity: 0.28;
+}
+
+.wl_erp_hero_art {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: var(--wl-erp-hero-depth, 280px);
+    overflow: hidden;
+    isolation: isolate;
+    pointer-events: none;
+    background: var(--hero-surface-mid, #fafbfc);
+    transition: background-color 450ms ease;
+}
+
+.wl_erp_hero_art_svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.wl_erp_hero_art_svg stop,
+.wl_erp_hero_art_svg path,
+.wl_erp_hero_art_svg rect,
+.wl_erp_hero_art_svg ellipse,
+.wl_erp_hero_art_svg g {
+    transition:
+        stop-color 450ms ease,
+        fill 450ms ease,
+        stroke 450ms ease,
+        opacity 450ms ease;
+}
+
+// Shell-mounted art sits behind topbar chrome (shell itself is transparent on apps).
+.wl_sp_global_shell > .wl_erp_hero_art {
+    z-index: 0;
+}
+
+// Apps: only the band art on .o_web_client paints. Shell must stay visually transparent
+// so the negative-margin action_manager pull-up is not covered by an opaque shell layer.
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .wl_sp_global_shell > .wl_erp_hero_art {
+    display: none;
+}
+
+// Home: theme-page + shell arts cover the band; hide the apps band mount.
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) > .wl_erp_hero_art {
+    display: none;
+}
+
+// Home already paints hero inside .wl_erp_theme_page — shell art must not stack a second tall band.
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) .wl_sp_global_shell > .wl_erp_hero_art {
+    display: none;
+}
+
+// Home theme page: art scrolls with the page under the header content.
+.wl_erp_theme_page {
+    position: relative;
+}
+
+.wl_erp_theme_page > .wl_erp_hero_art {
+    // Theme page already pads for topbar; art starts at the top of the page box.
+    top: 0;
+}
+
+@media (max-width: 760px) {
+    .wl_erp_hero_art_svg {
+        width: 178%;
+        max-width: none;
+        transform: translateX(-17%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wl_erp_hero_art,
+    .wl_erp_hero_art_svg stop,
+    .wl_erp_hero_art_svg path,
+    .wl_erp_hero_art_svg rect,
+    .wl_erp_hero_art_svg ellipse,
+    .wl_erp_hero_art_svg g {
+        transition: none;
+    }
+}
+
+// Custom raster override for the active profile — hide SVG, keep image paint.
+.o_web_client.wl_sp_global_mode.wl_sp_hero_custom .wl_erp_hero_art {
+    display: none;
+}
+
+// Website Builder: do not show the SVG hero band behind the preview.
+body.o_web_client.wl_sp_global_mode:has(.o_website_preview) > .wl_erp_hero_art,
+body.o_web_client.wl_sp_global_mode:has(.o_website_preview) .wl_sp_global_shell > .wl_erp_hero_art {
+    display: none;
+}

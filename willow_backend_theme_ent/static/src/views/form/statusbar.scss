@@ -1,0 +1,64 @@
+.o_field_statusbar {
+    > .o_statusbar_status {
+        --o-statusbar-radius: 0;
+
+        --o-statusbar-padding-x: calc(var(--o-statusbar-caret-width) * 1.35);
+        --o-statusbar-padding-y: calc(#{$btn-padding-y} * 1.5 + #{$btn-border-width});
+        --o-statusbar-border: transparent;
+        --o-statusbar-border-active: transparent;
+        --o-statusbar-border-width: 0;
+        --o-statusbar-background-active: var(--tt-form-primary, #00174d);
+        --o-statusbar-background-hover: color-mix(in srgb, var(--tt-form-primary, #00174d) 15%, #fff);
+
+        @media (max-width: 991.98px) {
+            align-self: auto !important;
+            justify-content: flex-end;
+            margin-left: 0 !important;
+            max-width: 100%;
+            min-width: 0;
+            width: 100%;
+
+            > .dropdown {
+                max-width: 100%;
+                min-width: 0;
+            }
+
+            .dropdown-toggle {
+                max-width: 100%;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                border-radius: 0 !important;
+            }
+        }
+
+        .o_arrow_button:not(.d-none) {
+            font-size: 0.85rem;
+            font-weight: 500;
+            background-color: color-mix(in srgb, var(--tt-form-primary, #00174d) 25%, #fff);
+            color: #111;
+            margin-left: calc(-1 * var(--o-statusbar-caret-width) + 2px);
+            border-radius: 0 !important;
+        }
+
+        .o_arrow_button,
+        .o_arrow_button::before {
+            border-radius: 0 !important;
+        }
+
+        .o_arrow_button.o_last {
+            margin-left: 0;
+        }
+
+        .o_arrow_button:disabled:not(.o_arrow_button_current) {
+            color: #111 !important;
+        }
+
+        .o_arrow_button.o_arrow_button_current {
+            background-color: var(--o-statusbar-background-active);
+            color: #fff;
+            border-radius: 0 !important;
+        }
+    }
+}

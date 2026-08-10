@@ -1,0 +1,263 @@
+// Willow Form View — Kraken dark mode form design system (Sharp aesthetics: border-radius: 0 !important).
+
+.o_form_view {
+    background: transparent !important;
+    color: #e5e7eb !important;
+}
+
+.o_content:has(.o_form_view),
+.o_web_client > .o_action_manager > .o_action.o_form_view,
+.o_web_client > .o_action_manager > .o_action.o_form_view > .o_content,
+.o_form_view .o_form_renderer,
+.o_form_view .o_form_view_container,
+.o_form_view .o_form_sheet_bg {
+    background: #18212f !important;
+    color: #e5e7eb;
+}
+
+.o_content:has(.o_form_view),
+.o_web_client > .o_action_manager > .o_action.o_form_view,
+.o_web_client > .o_action_manager > .o_action.o_form_view > .o_content,
+.o_form_view .o_form_renderer,
+.o_form_view .o_form_view_container {
+    background: transparent !important;
+}
+
+.o_web_client > .o_action_manager > .o_action.o_form_view > .o_content {
+    border-color: #2b3647 !important;
+}
+
+.o_form_view .o_form_sheet {
+    background: #18212f !important;
+    border-color: #2b3647 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    color: #e5e7eb !important;
+}
+
+.o_form_view .o_form_sheet_bg > .alert {
+    border-radius: 0 !important;
+    background-color: color-mix(in srgb, var(--wl-dark-accent) 14%, transparent);
+    border-color: color-mix(in srgb, var(--wl-dark-accent) 28%, transparent);
+    color: #fed7aa;
+}
+
+// Wizard & Technical form alerts rendered directly on the form or inside dialogs
+.o_form_view > .alert,
+:is(.modal-body, .o_dialog .modal-body, .o_dialog main) .alert {
+    border-radius: 0 !important;
+
+    &.alert-warning {
+        --bs-alert-color: #fde68a;
+        --bs-alert-bg: rgba(245, 158, 11, 0.16);
+        --bs-alert-border-color: rgba(245, 158, 11, 0.38);
+        background-color: rgba(245, 158, 11, 0.16) !important;
+        border-color: rgba(245, 158, 11, 0.38) !important;
+        color: #fde68a !important;
+
+        :is(p, span, div, strong) {
+            color: inherit !important;
+        }
+    }
+
+    &.alert-danger {
+        --bs-alert-color: #fecaca;
+        --bs-alert-bg: rgba(127, 29, 29, 0.48);
+        --bs-alert-border-color: rgba(248, 113, 113, 0.42);
+        background-color: rgba(127, 29, 29, 0.48) !important;
+        border-color: rgba(248, 113, 113, 0.42) !important;
+        color: #fecaca !important;
+    }
+
+    &.alert-info {
+        --bs-alert-color: #bae6fd;
+        --bs-alert-bg: rgba(12, 74, 110, 0.48);
+        --bs-alert-border-color: rgba(56, 189, 248, 0.38);
+        background-color: rgba(12, 74, 110, 0.48) !important;
+        border-color: rgba(56, 189, 248, 0.38) !important;
+        color: #bae6fd !important;
+    }
+}
+
+// Ensure all headings (h1-h6) in form view, wizards, and modals have light readable text in dark mode
+.o_form_view :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6),
+:is(.modal-body, .o_dialog .modal-body, .o_dialog main) .o_form_view :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6),
+.o_form_view .oe_title > h1,
+.o_form_view .oe_title > h1 .o_input,
+.o_form_view .oe_title > h2,
+.o_form_view .bd-highlight {
+    color: #f8fafc !important;
+}
+
+.o_form_view .o_form_label,
+.o_form_view .text-muted {
+    color: #9ca3af;
+}
+
+.o_form_view .oe_stat_button .o_stat_value,
+.o_form_view .oe_stat_button .o_stat_text {
+    color: #ffffff !important;
+}
+
+.o_form_view .oe_stat_button .o_button_icon,
+.o_form_view .oe_stat_button .fa,
+.o_form_view .oe_stat_button .oi {
+    color: var(--wl-dark-accent) !important;
+}
+
+.o_form_view .o-form-buttonbox .oe_stat_button {
+    border-radius: 0 !important;
+    background: #202b3a !important;
+    border-color: #2b3647 !important;
+}
+
+.o_form_view .oe_avatar img,
+.o_form_view .oe_avatar .img {
+    border-radius: 0 !important;
+    border-color: #2b3647 !important;
+}
+
+.o_form_view:not(.o_field_highlight) .o_field_widget:not(.o_field_invalid):not(.o_field_highlight) .o_input:not(:hover):not(:focus) {
+    --o-input-border-color: #2b3647;
+}
+
+.o_form_view:not(.o_field_highlight) .o_required_modifier.o_field_widget:not(.o_field_invalid):not(.o_field_highlight) .o_input:not(:hover):not(:focus) {
+    --o-input-border-color: #3b495e;
+}
+
+.o_form_view .o_field_widget:focus-within {
+    --o-input-border-color: var(--wl-dark-accent);
+}
+
+// Field Inputs: Underlined with bottom line slightly darker than form background (#2b3647), transparent background
+.o_form_view .o_input,
+.o_form_view .form-control,
+.o_form_view input:not(.form-check-input):not([type="checkbox"]):not([type="radio"]),
+.o_form_view select,
+.o_form_view textarea {
+    --o-input-background-color: transparent;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid #2b3647 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    color: #e5e7eb !important;
+}
+
+.o_form_view .o_required_modifier .o_input,
+.o_form_view .o_required_modifier.o_field_widget .o_input,
+.o_form_view .o_required_modifier.o_field_widget input {
+    border-bottom-color: #3b495e !important;
+}
+
+.o_form_view .o_input::placeholder,
+.o_form_view input::placeholder,
+.o_form_view textarea::placeholder {
+    color: #6b7280;
+}
+
+.o_form_view .o_input:hover,
+.o_form_view .form-control:hover,
+.o_form_view input:not(.form-check-input):hover,
+.o_form_view select:hover,
+.o_form_view textarea:hover {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--wl-dark-accent, #38bdf8) !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+}
+
+.o_form_view .o_input:focus,
+.o_form_view .form-control:focus,
+.o_form_view input:not(.form-check-input):focus,
+.o_form_view select:focus,
+.o_form_view textarea:focus {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-bottom: 2px solid var(--wl-dark-accent, #38bdf8) !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+}
+
+.o_form_view .o_form_uri,
+.o_form_view .o_form_uri > span:first-child,
+.o_form_view .o_notebook .o_notebook_headers .nav-tabs .nav-item > .nav-link.active,
+.o_form_view .o_notebook .o_notebook_headers .nav-tabs .nav-item > .nav-link:hover {
+    color: var(--wl-dark-accent) !important;
+}
+
+// Notebook Tabs: Force transparent background
+.o_form_view .o_notebook,
+.o_form_view .o_notebook .o_notebook_headers,
+.o_form_view .o_notebook .o_notebook_headers .nav-tabs,
+.o_form_view .o_notebook .o_notebook_headers .nav-tabs .nav-item,
+.o_form_view .o_notebook .o_notebook_headers .nav-tabs .nav-item > .nav-link,
+.o_form_view .o_notebook > .tab-content {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.o_form_view .o_notebook .o_notebook_headers .nav-tabs .nav-item > .nav-link {
+    border-radius: 0 !important;
+    color: #9ca3af !important;
+}
+
+.o_form_view .o_notebook .o_notebook_headers .nav-tabs .nav-item > .nav-link.active {
+    background-image: linear-gradient(var(--wl-dark-accent), var(--wl-dark-accent));
+    background-size: 100% 3px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    border-radius: 0 !important;
+}
+
+// Organigram / Organization Chart Widget & Badges in Dark Mode
+.o_form_view .o_org_chart,
+.o_form_view .o_field_org_chart,
+.o_org_chart,
+.o_field_org_chart,
+.o_org_chart_entry,
+.o_org_chart_group {
+    color: #e5e7eb !important;
+
+    :is(.badge, .rounded-circle, .rounded-pill, .o_org_chart_entry_sub, .o_org_chart_entry_self, .o_org_chart_entry_manager, span:not(.text-muted)) {
+        color: #f8fafc !important;
+        background-color: #202b3a !important;
+        border-color: #2b3647 !important;
+    }
+
+    :is(.o_media_heading, .o_org_chart_title, strong, b, a) {
+        color: #f8fafc !important;
+    }
+
+    .text-muted, small {
+        color: #9ca3af !important;
+    }
+}
+
+// Generic badges inside form view in dark mode
+.o_form_view :is(.badge, .rounded-pill, .rounded-circle):not(.text-bg-danger):not(.text-bg-warning):not(.text-bg-success):not(.text-bg-info):not(.text-bg-primary) {
+    color: #f8fafc !important;
+    background-color: #202b3a !important;
+    border-color: #2b3647 !important;
+}
+
+// Wizard / technical modal forms (e.g. module uninstall) — content sits outside o_form_sheet_bg
+body:has(.o_web_client) :is(.modal-body, .o_dialog .modal-body, .o_dialog main) .o_form_view {
+    background: transparent !important;
+    color: #e5e7eb !important;
+}
+
+body:has(.o_web_client) :is(.modal-body, .o_dialog .modal-body, .o_dialog main) .o_form_view :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6),
+body:has(.o_web_client) :is(.modal-body, .o_dialog .modal-body, .o_dialog main) .o_form_view .bd-highlight {
+    color: #f8fafc !important;
+}
+
+// Dialog / Modal Form Footer Buttons
+.o_dialog footer .btn,
+.modal-footer .btn {
+    border-radius: 0 !important;
+}

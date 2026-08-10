@@ -1,0 +1,733 @@
+body.wl_sp_theme_dark,
+.o_web_client.wl_sp_theme_dark {
+    background: var(--wl-config-dark-canvas, #111827);
+}
+
+.wl_sp_action_shell,
+.wl_sp_dashboard_scroll,
+.o_web_client.wl_sp_global_mode .o_action_manager,
+.o_web_client.wl_sp_global_mode:has(.o-mail-Discuss) .o_action_manager,
+.o_web_client.wl_sp_global_mode:has(.o-mail-Discuss) .o_action_manager > .o_action {
+    background: var(--wl-config-dark-canvas, #111827);
+    color: var(--wl-config-dark-body-text, #e5e7eb);
+}
+
+// Do not fill .wl_sp_global_shell with the canvas color — that opaque layer sat
+// above hero-overlap content and hid the control panel under a tall blue band.
+// App-page hero paint is on .o_web_client::before; Home keeps shell image via
+// willow_design.scss :has(.wl_erp_theme_page) rules.
+.wl_sp_global_shell {
+    background-image: none !important;
+    background-color: transparent !important;
+    color: var(--wl-config-dark-body-text, #e5e7eb);
+}
+
+.wl_sp_topbar {
+    color: #e5e7eb;
+}
+
+.wl_sp_topbar,
+.wl_sp_topbar:hover,
+.wl_sp_topbar:focus-within {
+    border-color: #2b3647 !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode .o_control_panel,
+.o_web_client.wl_sp_global_mode .o_control_panel:hover,
+.o_web_client.wl_sp_global_mode .o_control_panel:focus-within {
+    border-color: var(--wl-erp-cp-glass-border, #2b3647) !important;
+    background: var(--wl-erp-cp-glass-bg, rgba(15, 23, 42, 0.36)) !important;
+    box-shadow: var(--wl-erp-cp-glass-shadow, none) !important;
+}
+
+.wl_sp_topbar::before,
+.wl_sp_topbar::after,
+.o_web_client.wl_sp_global_mode .o_control_panel::before,
+.o_web_client.wl_sp_global_mode .o_control_panel::after {
+    display: none !important;
+}
+
+.wl_sp_global_shell .wl_sp_brand_section,
+.wl_sp_global_shell .wl_sp_topbar_icons {
+    border: 0;
+    background: transparent !important;
+    box-shadow: none;
+}
+
+.wl_sp_mobile_menu_slot {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.wl_sp_rail_group,
+.wl_sp_workspace_dialog,
+.wl_sp_pending_dashboard_content,
+.wl_sp_pending_grid article,
+.wl_sp_pending_dashboard_cards article,
+.wl_sp_pending_dashboard_chart,
+.wl_sp_pending_dashboard_tables article {
+    border-color: #2b3647;
+    background: #18212f;
+    box-shadow: none;
+}
+
+.wl_sp_tabs_cluster,
+.wl_sp_tabs_section {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.wl_sp_mobile_menu_btn {
+    background: var(--wl-dark-accent);
+    color: var(--wl-dark-accent-contrast);
+    box-shadow: none;
+}
+
+.wl_sp_mobile_menu_btn:hover,
+.wl_sp_mobile_menu_btn:focus-visible {
+    background: var(--wl-dark-accent);
+    color: var(--wl-dark-accent-contrast);
+}
+
+.wl_sp_mobile_sidebar_backdrop {
+    background: rgba(2, 6, 23, 0.42);
+}
+
+.wl_sp_mobile_sidebar_panel {
+    border-color: rgba(43, 54, 71, 0.7);
+    background: #111827;
+    box-shadow: 18px 0 38px rgba(0, 0, 0, 0.32);
+    color: #e5e7eb;
+}
+
+.wl_sp_mobile_sidebar_head,
+.wl_sp_mobile_sidebar_title {
+    color: #f8fafc;
+}
+
+.wl_sp_mobile_sidebar_close {
+    background: #202b3a;
+    color: #cbd5e1;
+}
+
+.wl_sp_mobile_sidebar_close:hover,
+.wl_sp_mobile_sidebar_close:focus-visible {
+    background: #2b3647;
+    color: #ffffff;
+}
+
+.wl_sp_mobile_search_box {
+    border-color: #2b3647;
+    background: #18212f;
+}
+
+.wl_sp_mobile_search_input {
+    color: #f8fafc;
+}
+
+.wl_sp_mobile_search_input::placeholder,
+.wl_sp_mobile_search_box .fa-search,
+.wl_sp_mobile_profile_label,
+.wl_sp_mobile_profile_icon {
+    color: #94a3b8;
+}
+
+.wl_sp_mobile_app_card {
+    border-color: #2b3647;
+    background: #18212f;
+    color: #e5e7eb;
+}
+
+.wl_sp_mobile_app_card:hover,
+.wl_sp_mobile_app_card:focus-visible {
+    border-color: #475569;
+    background: #202b3a;
+}
+
+.wl_sp_mobile_app_icon {
+    border-color: #2b3647;
+    background: #111827;
+}
+
+.wl_sp_mobile_bottom {
+    border-top-color: #2b3647;
+    background: #111827;
+}
+
+.wl_sp_mobile_profile_item {
+    color: #e5e7eb;
+}
+
+.wl_sp_mobile_profile_item:hover,
+.wl_sp_mobile_profile_item:focus-visible {
+    background: rgba(79, 110, 247, 0.12);
+}
+
+.wl_sp_mobile_profile_item.wl_sp_theme_toggle {
+    border: 0;
+    background: transparent;
+    color: #e5e7eb;
+    box-shadow: none;
+}
+
+.wl_sp_mobile_profile_item.wl_sp_theme_toggle:hover,
+.wl_sp_mobile_profile_item.wl_sp_theme_toggle:focus-visible {
+    border: 0;
+    background: rgba(79, 110, 247, 0.12);
+    color: #e5e7eb;
+}
+
+.wl_sp_global_shell .wl_sp_systray_overflow_btn {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.wl_sp_global_shell .wl_sp_systray_overflow_btn:hover,
+.wl_sp_global_shell .wl_sp_systray_overflow_btn:focus-visible,
+.wl_sp_global_shell .wl_sp_systray_overflow.is-open .wl_sp_systray_overflow_btn {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+}
+
+.wl_sp_systray_overflow_btn {
+    background: #202b3a;
+    color: #cbd5e1;
+}
+
+.wl_sp_systray_overflow_btn:hover,
+.wl_sp_systray_overflow_btn:focus-visible,
+.wl_sp_systray_overflow.is-open .wl_sp_systray_overflow_btn {
+    background: var(--wl-dark-accent);
+    color: var(--wl-dark-accent-contrast);
+}
+
+.wl_sp_systray_overflow_menu {
+    border-color: #2b3647;
+    background: rgba(24, 33, 47, 0.96);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
+}
+
+.wl_sp_right_section {
+    background: transparent;
+}
+
+.wl_sp_profile {
+    border-color: #2b3647;
+    background: #18212f;
+    color: #e5e7eb;
+    box-shadow: none;
+}
+
+.wl_sp_profile:hover,
+.wl_sp_profile:focus-within {
+    border-color: color-mix(in srgb, var(--wl-dark-accent) 48%, transparent);
+    background: #202b3a;
+}
+
+.wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item),
+.wl_theme_settings_trigger {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item):hover,
+.wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item):focus-visible,
+.wl_theme_settings_trigger:hover,
+.wl_theme_settings_trigger:focus-visible {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+}
+
+.wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item) .fa,
+.wl_theme_settings_trigger .fa {
+    font-size: 16px;
+    line-height: 1;
+    color: inherit;
+}
+
+.wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item) .wl_sp_sun_icon {
+    color: inherit;
+}
+
+.wl_sp_user_avatar {
+    border-color: #2b3647;
+}
+
+.wl_sp_user_name {
+    color: #f8fafc;
+}
+
+.wl_sp_user_meta {
+    color: #9ca3af;
+}
+
+.wl_sp_user_meta.is-db-badge {
+    border-color: color-mix(in srgb, var(--wl-dark-accent) 48%, transparent);
+    background: color-mix(in srgb, var(--wl-dark-accent) 16%, transparent);
+    color: #fed7aa;
+}
+
+.wl_sp_user_meta.is-db-badge .fa-database {
+    color: var(--wl-dark-accent);
+}
+
+.wl_sp_profile_menu_mount .dropdown-menu,
+.wl_sp_profile_menu_mount .o-dropdown--menu,
+.wl_sp_profile_menu .dropdown-menu,
+.wl_sp_profile_menu .o-dropdown--menu,
+.wl_sp_topbar_icons .o_menu_systray .dropdown-menu,
+.wl_sp_topbar_icons .o_menu_systray .o-dropdown--menu,
+.wl_sp_topbar_icons .o_menu_systray .o_popover {
+    border-color: #2b3647;
+    background: #18212f;
+    color: #e5e7eb;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+.wl_sp_profile_menu_mount .dropdown-item,
+.wl_sp_profile_menu_mount .o-dropdown-item,
+.wl_sp_profile_menu .dropdown-item,
+.wl_sp_profile_menu .o-dropdown-item,
+.wl_sp_topbar_icons .o_menu_systray .dropdown-item,
+.wl_sp_topbar_icons .o_menu_systray .o-dropdown-item {
+    color: #e5e7eb;
+}
+
+.wl_sp_profile_menu_mount .dropdown-item:hover,
+.wl_sp_profile_menu_mount .dropdown-item:focus,
+.wl_sp_profile_menu_mount .o-dropdown-item:hover,
+.wl_sp_profile_menu_mount .o-dropdown-item:focus,
+.wl_sp_profile_menu .dropdown-item:hover,
+.wl_sp_profile_menu .dropdown-item:focus,
+.wl_sp_profile_menu .o-dropdown-item:hover,
+.wl_sp_profile_menu .o-dropdown-item:focus,
+.wl_sp_topbar_icons .o_menu_systray .dropdown-item:hover,
+.wl_sp_topbar_icons .o_menu_systray .dropdown-item:focus,
+.wl_sp_topbar_icons .o_menu_systray .o-dropdown-item:hover,
+.wl_sp_topbar_icons .o_menu_systray .o-dropdown-item:focus {
+    background: #202b3a;
+    color: #ffffff;
+}
+
+.o-mail-ActivityMenu,
+.o-mail-MessagingMenu,
+.o-mail-ActivityMenu .list-group,
+.o-mail-MessagingMenu .list-group,
+.o-mail-MessagingMenu-list {
+    border-color: #2b3647 !important;
+    background: #18212f !important;
+    color: #e5e7eb;
+}
+
+.o-mail-ActivityMenu .border-bottom,
+.o-mail-ActivityMenu .border-top,
+.o-mail-MessagingMenu .border-bottom,
+.o-mail-MessagingMenu .border-top,
+.o-mail-MessagingMenu-header {
+    border-color: #2b3647 !important;
+}
+
+.o-mail-ActivityMenu .list-group-item,
+.o-mail-MessagingMenu .list-group-item,
+.o-mail-ActivityMenu a,
+.o-mail-MessagingMenu a {
+    background: transparent !important;
+    color: #e5e7eb;
+}
+
+.o-mail-ActivityMenu .list-group-item:hover,
+.o-mail-MessagingMenu .list-group-item:hover {
+    background: #202b3a !important;
+}
+
+.o-mail-ActivityMenu .text-muted,
+.o-mail-MessagingMenu .text-muted {
+    color: #9ca3af !important;
+}
+
+.wl_sp_brand_name,
+.wl_sp_brand_apps_btn {
+    color: var(--wl-dark-text);
+}
+
+.wl_sp_global_shell .wl_sp_brand_apps_btn {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff;
+}
+
+.wl_sp_global_shell .wl_sp_brand_apps_btn:hover,
+.wl_sp_global_shell .wl_sp_brand_apps_btn:focus-visible {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: #ffffff;
+}
+
+.wl_sp_brand_apps_btn {
+    border-color: #334155;
+    background: #202b3a;
+    color: var(--wl-dark-muted);
+}
+
+.wl_sp_brand_apps_btn:hover,
+.wl_sp_brand_apps_btn:focus-visible {
+    border-color: #475569;
+    background: #273449;
+    color: var(--wl-dark-text);
+}
+.wl_sp_apps_modal_title {
+    color: #f8fafc;
+}
+
+.wl_sp_search_btn {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.wl_sp_topbar_search {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.72) !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.wl_sp_topbar_search_input {
+    color: #f8fafc;
+}
+
+.wl_sp_topbar_search_input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.wl_sp_topbar_search_popover {
+    border-color: #2b3647;
+    background: rgba(24, 33, 47, 0.98);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
+    color: #e5e7eb;
+}
+
+.wl_sp_topbar_search_popover_hint {
+    color: #9aa7ba;
+}
+
+.wl_sp_topbar_search_popover_item {
+    color: #e5e7eb;
+}
+
+.wl_sp_topbar_search_popover_item:hover,
+.wl_sp_topbar_search_popover_item:focus-visible {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+}
+
+.wl_sp_topbar_search_popover_icon {
+    background: rgba(255, 255, 255, 0.06);
+    color: #9aa7ba;
+}
+
+.wl_sp_tabs span,
+.wl_sp_tabs a,
+.wl_sp_tabs .wl_sp_submenu_btn,
+.wl_sp_theme_dark .wl_sp_tabs span,
+.wl_sp_theme_dark .wl_sp_tabs a,
+.wl_sp_theme_dark .wl_sp_tabs .wl_sp_submenu_btn {
+    border: 0;
+    background: transparent;
+    color: #ffffff !important;
+}
+
+.wl_sp_topbar_icons .o_menu_systray > button,
+.wl_sp_topbar_icons .o_menu_systray > * > button,
+.wl_sp_topbar_icons .o_menu_systray > * .dropdown > button,
+.wl_sp_topbar_icons .o_menu_systray button.o-dropdown,
+.wl_sp_topbar_icons .o_menu_systray button:has(.fa-clock-o) {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.wl_sp_tabs .wl_sp_submenu_btn:hover,
+.wl_sp_theme_dark .wl_sp_tabs .wl_sp_submenu_btn:hover {
+    border: 0;
+    background: transparent;
+    color: #ffffff !important;
+}
+
+.wl_sp_search_btn:hover,
+.wl_sp_topbar_icons .o_menu_systray > button:hover,
+.wl_sp_topbar_icons .o_menu_systray > * > button:hover,
+.wl_sp_topbar_icons .o_menu_systray > * .dropdown > button:hover,
+.wl_sp_topbar_icons .o_menu_systray button.o-dropdown:hover,
+.wl_sp_topbar_icons .o_menu_systray button:has(.fa-clock-o):hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+}
+
+.wl_sp_tabs .wl_sp_submenu_btn.is-active,
+.wl_sp_tabs .is-active,
+.wl_sp_tabs .wl_sp_submenu_btn.is-active:hover,
+.wl_sp_tabs .is-active:hover,
+.wl_sp_theme_dark .wl_sp_tabs .wl_sp_submenu_btn.is-active,
+.wl_sp_theme_dark .wl_sp_tabs .is-active,
+.wl_sp_theme_dark .wl_sp_tabs .wl_sp_submenu_btn.is-active:hover,
+.wl_sp_theme_dark .wl_sp_tabs .is-active:hover {
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.wl_sp_tabs_scroll {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.wl_sp_tabs_scroll:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+body:has(.o_web_client) .wl_sp_submenu_popover_wrap,
+body:has(.o_web_client) .wl_sp_submenu_popover.popover-body,
+.wl_sp_submenu_popover_wrap,
+.wl_sp_submenu_popover.popover-body {
+    border-color: #2b3647;
+    background: #18212f;
+    color: #e5e7eb;
+    scrollbar-color: #475569 transparent;
+}
+
+body:has(.o_web_client) .wl_sp_submenu_popover.popover-body::-webkit-scrollbar-thumb,
+.wl_sp_submenu_popover.popover-body::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+body:has(.o_web_client) .wl_sp_submenu_popover.popover-body::-webkit-scrollbar-thumb:hover,
+.wl_sp_submenu_popover.popover-body::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+.wl_sp_submenu_group_title,
+.wl_sp_submenu_popover .dropdown-item {
+    color: #e5e7eb;
+}
+
+.wl_sp_submenu_group_title.is-active::before,
+.wl_sp_submenu_popover .dropdown-item:hover,
+.wl_sp_submenu_popover .dropdown-item:focus {
+    color: var(--wl-dark-accent);
+}
+
+.wl_sp_submenu_popover .dropdown-item:hover,
+.wl_sp_submenu_popover .dropdown-item:focus {
+    background: color-mix(in srgb, var(--wl-dark-accent) 14%, transparent);
+}
+
+.wl_sp_rail_group button,
+.wl_sp_rail_btn {
+    background: #18212f;
+    color: #9ca3af;
+}
+
+.wl_sp_rail_group button:hover,
+.wl_sp_rail_btn:hover {
+    background: #202b3a;
+    color: #ffffff;
+}
+
+.wl_sp_rail_group button.is-active,
+.wl_sp_rail_btn.is-active {
+    background: var(--wl-dark-accent);
+    color: var(--wl-dark-accent-contrast);
+}
+
+.wl_sp_workspace_modal.is-open {
+    color: #ffffff;
+}
+
+.wl_sp_workspace_backdrop {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(79, 110, 247, 0.16) 0%, transparent 42%),
+        rgba(2, 6, 23, 0.78);
+}
+
+.wl_sp_workspace_dialog {
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    background:
+        linear-gradient(180deg, rgba(17, 27, 51, 0.98) 0%, rgba(10, 17, 40, 0.98) 100%) !important;
+    box-shadow:
+        0 28px 80px rgba(2, 6, 23, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+    color: #ffffff !important;
+}
+
+.wl_sp_apps_modal_head {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.wl_sp_apps_modal_eyebrow {
+    color: rgba(255, 255, 255, 0.52);
+}
+
+.wl_sp_apps_modal_title,
+.wl_sp_apps_modal_meta,
+.wl_sp_apps_tile_label {
+    color: #ffffff;
+}
+
+.wl_sp_apps_modal_meta {
+    color: rgba(255, 255, 255, 0.58);
+}
+
+.wl_sp_apps_modal_close {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.wl_sp_apps_modal_close:hover,
+.wl_sp_apps_modal_close:focus-visible {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+.wl_sp_apps_modal_search_icon {
+    color: rgba(255, 255, 255, 0.42);
+}
+
+.wl_sp_apps_modal_search {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.wl_sp_apps_modal_search::placeholder {
+    color: rgba(255, 255, 255, 0.38);
+}
+
+.wl_sp_apps_modal_search:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.wl_sp_apps_modal_search:focus {
+    border-color: rgba(79, 110, 247, 0.72);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.18);
+}
+
+.wl_sp_apps_modal_empty {
+    border-color: rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.52);
+}
+
+.wl_sp_apps_tile {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+}
+
+.wl_sp_apps_tile:has(.wl_sp_apps_tile_body:hover),
+.wl_sp_apps_tile:has(.wl_sp_apps_tile_body:focus-visible) {
+    border-color: rgba(79, 110, 247, 0.55);
+    background: rgba(79, 110, 247, 0.14);
+    box-shadow: 0 12px 28px rgba(2, 6, 23, 0.28);
+    color: #ffffff;
+}
+
+.wl_sp_apps_tile_favorite {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(15, 23, 42, 0.82);
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.wl_sp_apps_tile_favorite:hover,
+.wl_sp_apps_tile_favorite:focus-visible {
+    border-color: rgba(250, 204, 21, 0.55);
+    background: rgba(250, 204, 21, 0.16);
+    color: #fde68a;
+}
+
+.wl_sp_apps_tile_favorite.is-active {
+    border-color: rgba(250, 204, 21, 0.72);
+    background: rgba(250, 204, 21, 0.2);
+    color: #facc15;
+}
+
+.wl_sp_apps_tile_icon {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 8px 18px rgba(2, 6, 23, 0.18);
+}
+
+.wl_sp_pending_header span,
+.wl_sp_pending_header strong,
+.wl_sp_pending_header em,
+.wl_sp_pending_grid article,
+.wl_sp_pending_dashboard_content,
+.wl_sp_pending_dashboard_content aside span,
+.wl_sp_pending_dashboard_content aside strong,
+.wl_sp_pending_dashboard_content aside em,
+.wl_sp_pending_dashboard_cards article,
+.wl_sp_pending_dashboard_chart,
+.wl_sp_pending_dashboard_tables article {
+    background: linear-gradient(90deg, #1f2937 0%, #2b3647 44%, #1f2937 88%);
+    background-size: 220% 100%;
+}
+
+.o_web_client.wl_sp_global_mode .o-mail-Discuss {
+    background: #111827;
+}
+
+.o_web_client.wl_sp_global_mode .o-mail-DiscussSidebar-resizablePanelContainer,
+.o_web_client.wl_sp_global_mode .o-mail-DiscussSidebar,
+.o_web_client.wl_sp_global_mode .o-mail-DiscussContent-header {
+    background: #18212f !important;
+    color: #e5e7eb;
+}
+
+.o_web_client.wl_sp_global_mode .o-mail-DiscussContent,
+.o_web_client.wl_sp_global_mode .o-mail-DiscussContent-core {
+    background: #111827 !important;
+    color: #e5e7eb;
+}
+
+@media (max-width: 991.98px) {
+    .wl_sp_global_shell .wl_sp_brand_section,
+    .wl_sp_global_shell .wl_sp_topbar_icons {
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .wl_sp_global_shell .wl_sp_topbar_icons {
+        min-height: 0;
+        padding: 0;
+    }
+}
+
+.o_web_client.wl_sp_theme_dark .o_spreadsheet_dashboard_action .o_control_panel_navigation .wl_sp_open_willow_dashboard_btn {
+    background: var(--wl-config-dark-primary, var(--wl-dark-primary, #6b8aff));
+    color: var(--wl-config-dark-primary-contrast, #111827);
+}
+
+.o_web_client.wl_sp_theme_dark .o_spreadsheet_dashboard_action .o_control_panel_navigation .wl_sp_open_willow_dashboard_btn:hover,
+.o_web_client.wl_sp_theme_dark .o_spreadsheet_dashboard_action .o_control_panel_navigation .wl_sp_open_willow_dashboard_btn:focus-visible {
+    filter: brightness(1.08);
+}

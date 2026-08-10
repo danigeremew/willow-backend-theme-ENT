@@ -1,0 +1,176 @@
+.o_web_client,
+body:has(.o_web_client) {
+    --wl-accent: var(--wl-light-primary);
+    --wl-accent-contrast: var(--wl-light-primary-contrast);
+    --wl-accent-rgb: var(--wl-light-primary-rgb, 0, 0, 0);
+    --wl-body-text: var(--wl-light-text, #000000);
+    --wl-body-text-rgb: 0, 0, 0;
+    --body-color: var(--wl-body-text);
+    --bs-body-color: var(--wl-body-text);
+    --bs-body-color-rgb: var(--wl-body-text-rgb);
+    --bs-emphasis-color: var(--wl-body-text);
+    --bs-emphasis-color-rgb: var(--wl-body-text-rgb);
+    --bs-primary: var(--wl-accent);
+    --bs-primary-rgb: var(--wl-accent-rgb);
+    --bs-link-color: var(--wl-accent);
+    --bs-link-color-rgb: var(--wl-accent-rgb);
+    --bs-link-hover-color: var(--wl-accent);
+    --bs-link-hover-color-rgb: var(--wl-accent-rgb);
+    --bs-focus-ring-color: rgba(var(--wl-accent-rgb), 0.25);
+    --o-brand-primary: var(--wl-accent);
+    --o-action: var(--wl-accent);
+    --primary: var(--wl-accent);
+    color: var(--wl-body-text);
+}
+
+.o_web_client :is(
+    a:not(.btn):not(.dropdown-item):not(.page-link):not(.nav-link):not(.text-danger):not(.text-warning):not(.text-success):not(.text-info):not(.text-muted):not(.wl_sp_submenu_btn):not(.wl_erp_submenu_item),
+    .btn-link:not(.o_unselect_all):not(.text-danger):not(.text-warning):not(.text-success):not(.text-info):not(.text-muted),
+    .text-primary,
+    .text-action,
+    .oe-link,
+    .o_form_uri,
+    .o_external_button,
+    .o_search_panel_section_icon.text-primary
+),
+body:has(.o_web_client) :is(.modal, .o_dialog, .popover, .o_popover, .dropdown-menu, .o-dropdown--menu) :is(
+    a:not(.btn):not(.dropdown-item):not(.page-link):not(.nav-link):not(.text-danger):not(.text-warning):not(.text-success):not(.text-info):not(.text-muted):not(.wl_sp_submenu_btn):not(.wl_erp_submenu_item),
+    .btn-link:not(.o_unselect_all):not(.text-danger):not(.text-warning):not(.text-success):not(.text-info):not(.text-muted),
+    .text-primary,
+    .text-action,
+    .oe-link,
+    .o_form_uri,
+    .o_external_button
+) {
+    color: var(--wl-accent) !important;
+}
+
+.o_web_client :is(
+    .btn-primary,
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:focus-visible,
+    .btn-primary:active,
+    .btn-primary.active,
+    .btn-primary.show,
+    .btn-primary:disabled,
+    .btn-primary.disabled
+),
+body:has(.o_web_client) :is(.modal, .o_dialog, .popover, .o_popover, .dropdown-menu, .o-dropdown--menu) :is(
+    .btn-primary,
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:focus-visible,
+    .btn-primary:active,
+    .btn-primary.active,
+    .btn-primary.show,
+    .btn-primary:disabled,
+    .btn-primary.disabled
+) {
+    --bs-btn-bg: var(--wl-accent);
+    --bs-btn-border-color: var(--wl-accent);
+    --bs-btn-color: var(--wl-accent-contrast);
+    --bs-btn-hover-bg: var(--wl-accent);
+    --bs-btn-hover-border-color: var(--wl-accent);
+    --bs-btn-hover-color: var(--wl-accent-contrast);
+    --bs-btn-active-bg: var(--wl-accent);
+    --bs-btn-active-border-color: var(--wl-accent);
+    --bs-btn-active-color: var(--wl-accent-contrast);
+    --bs-btn-disabled-bg: var(--wl-accent);
+    --bs-btn-disabled-border-color: var(--wl-accent);
+    --bs-btn-disabled-color: var(--wl-accent-contrast);
+    border-color: var(--wl-accent) !important;
+    background-color: var(--wl-accent) !important;
+    color: var(--wl-accent-contrast) !important;
+}
+
+.o_web_client :is(.border-primary, .border-action),
+body:has(.o_web_client) :is(.modal, .o_dialog, .popover, .o_popover) :is(.border-primary, .border-action) {
+    border-color: var(--wl-accent) !important;
+}
+
+.o_web_client :is(.bg-primary, .bg-action, .text-bg-primary),
+body:has(.o_web_client) :is(.modal, .o_dialog, .popover, .o_popover) :is(.bg-primary, .bg-action, .text-bg-primary) {
+    background-color: var(--wl-accent) !important;
+    color: var(--wl-accent-contrast) !important;
+}
+
+.o_web_client :is(
+    .list-group-item.active,
+    .page-link.active,
+    .active > .page-link,
+    .nav-pills .nav-link.active
+) {
+    border-color: var(--wl-accent) !important;
+    background-color: var(--wl-accent) !important;
+    color: var(--wl-accent-contrast) !important;
+}
+
+.o_web_client :is(.dropdown-item, .o-dropdown-item):is(.active, :active, .selected, [aria-selected="true"]) {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--wl-primary, #00174d) !important;
+    font-weight: 600 !important;
+
+    :is(span, a, div, p, i, strong, b) {
+        color: var(--wl-primary, #00174d) !important;
+    }
+}
+
+.o_web_client :is(.form-check-input:checked, .form-check-input:indeterminate) {
+    border-color: var(--wl-accent) !important;
+    background-color: var(--wl-accent) !important;
+}
+
+.o_web_client :is(.form-check-input:focus, .form-control:focus, .form-select:focus, .o_input:focus, .btn:focus-visible, .page-link:focus) {
+    border-color: color-mix(in srgb, var(--wl-accent) 55%, transparent) !important;
+    box-shadow: 0 0 0 0.2rem rgba(var(--wl-accent-rgb), 0.22) !important;
+}
+
+.o_web_client :is(.o_willow_dashboard_action, .wl_sp_dashboard_content) {
+    --wl-accent: var(--wl-dashboard-primary);
+    --wl-accent-contrast: var(--wl-dashboard-primary-contrast);
+    --wl-accent-rgb: var(--wl-dashboard-primary-rgb, var(--wl-config-dashboard-primary-rgb, 0, 0, 0));
+    --bs-primary: var(--wl-accent);
+    --bs-primary-rgb: var(--wl-accent-rgb);
+    --bs-link-color: var(--wl-accent);
+    --bs-link-color-rgb: var(--wl-accent-rgb);
+    --bs-link-hover-color: var(--wl-accent);
+    --bs-link-hover-color-rgb: var(--wl-accent-rgb);
+    --o-brand-primary: var(--wl-accent);
+    --o-action: var(--wl-accent);
+    --primary: var(--wl-accent);
+}
+
+.o_web_client .o_selection_box .list-group-item.active .o_unselect_all.btn-link,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_selection_box .list-group-item.active .o_unselect_all.btn-link {
+    --bs-btn-color: var(--wl-accent-contrast);
+    --bs-btn-hover-color: var(--wl-accent-contrast);
+    --bs-btn-active-color: var(--wl-accent-contrast);
+    color: var(--wl-accent-contrast) !important;
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1;
+}
+
+.o_web_client .o_selection_box .list-group-item.active .o_unselect_all.btn-link:hover,
+.o_web_client .o_selection_box .list-group-item.active .o_unselect_all.btn-link:focus,
+.o_web_client .o_selection_box .list-group-item.active .o_unselect_all.btn-link:focus-visible,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_selection_box .list-group-item.active .o_unselect_all.btn-link:hover,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_selection_box .list-group-item.active .o_unselect_all.btn-link:focus,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_selection_box .list-group-item.active .o_unselect_all.btn-link:focus-visible {
+    color: var(--wl-accent-contrast) !important;
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1;
+}
+
+.o_web_client .o_selection_box .list-group-item.active .o_unselect_all.btn-link .oi,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_selection_box .list-group-item.active .o_unselect_all.btn-link .oi {
+    color: var(--wl-accent-contrast) !important;
+}

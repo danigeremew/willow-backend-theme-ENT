@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.log
+.DS_Store
+.idea/
+.vscode/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+node_modules/
+dist/
+build/

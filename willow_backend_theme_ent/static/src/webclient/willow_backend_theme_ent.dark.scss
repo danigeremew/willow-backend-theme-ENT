@@ -1,0 +1,1210 @@
+.o_web_client {
+    --wl-dark-primary: var(--wl-config-dark-primary, #6b8aff);
+    --wl-dark-primary-contrast: var(--wl-config-dark-primary-contrast, #111827);
+    --my-theme-bg: var(--wl-config-dark-canvas, #111827);
+    --my-theme-text: var(--wl-config-dark-body-text, #e5e7eb);
+    --tt-form-surface: var(--wl-config-dark-card, #18212f);
+    --tt-form-border: var(--wl-config-dark-card-border, #2b3647);
+    --tt-form-muted: var(--wl-config-dark-body-muted, #9ca3af);
+    --tt-form-primary: var(--wl-dark-primary);
+    --tt-form-shadow: none;
+    --wl-dark-bg: var(--wl-config-dark-canvas, #111827);
+    --wl-dark-surface: var(--wl-config-dark-card, #18212f);
+    --wl-dark-surface-soft: #202b3a;
+    --wl-dark-border: var(--wl-config-dark-card-border, #2b3647);
+    --wl-dark-text: var(--wl-config-dark-body-text, #ffffff);
+    --wl-dark-muted: var(--wl-config-dark-body-muted, #9ca3af);
+    --wl-dark-accent: var(--wl-dark-primary);
+    --wl-dark-accent-contrast: var(--wl-dark-primary-contrast);
+    background: var(--wl-dark-bg);
+    color: var(--wl-dark-text);
+    color-scheme: dark;
+}
+
+.o_web_client :is(.text-dark, .text-black, .text-body, .text-reset, .text-secondary, .text-body-secondary) {
+    color: var(--wl-dark-text) !important;
+}
+
+.o_web_client :is(.text-muted, .text-body-tertiary, .text-secondary-emphasis) {
+    color: var(--wl-dark-muted) !important;
+}
+
+.o_web_client :is(.bg-white, .bg-light, .bg-body, .bg-view, .bg-100, .text-bg-light, .text-bg-100) {
+    background-color: var(--wl-dark-surface) !important;
+    color: var(--wl-dark-text) !important;
+}
+
+.o_web_client :is(.border, .border-top, .border-bottom, .border-start, .border-end) {
+    border-color: var(--wl-dark-border) !important;
+}
+
+.o_web_client.wl_sp_global_mode > .o_action_manager,
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_action,
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_action > .o_content {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.o_web_client > .o_action_manager,
+.o_web_client .o_action,
+.o_web_client .o_content {
+    background: var(--wl-dark-bg);
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_navbar .o_main_navbar,
+.o_web_client .o_control_panel {
+    border-color: var(--wl-dark-border);
+    background: rgba(24, 33, 47, 0.96);
+    box-shadow: none;
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_main_navbar .o_menu_sections .dropdown-toggle,
+.o_web_client .o_main_navbar .o_menu_sections .o_nav_entry,
+.o_web_client .o_main_navbar .o_menu_systray .dropdown-toggle,
+.o_web_client .o_main_navbar .o_menu_systray .o-dropdown {
+    color: var(--wl-dark-muted);
+}
+
+.o_web_client .o_main_navbar .o_menu_sections .dropdown-toggle:hover,
+.o_web_client .o_main_navbar .o_menu_sections .o_nav_entry:hover,
+.o_web_client .o_main_navbar .o_menu_systray .dropdown-toggle:hover {
+    background: #202b3a;
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_control_panel .breadcrumb,
+.o_web_client .o_control_panel .o_breadcrumb,
+.o_web_client .o_control_panel .breadcrumb-item,
+.o_web_client .o_control_panel .breadcrumb-item a,
+.o_web_client .o_control_panel .o_back_button a,
+.o_web_client .o_control_panel .o_last_breadcrumb_item {
+    color: var(--wl-dark-muted);
+}
+
+.o_web_client .o_control_panel .breadcrumb-item.active,
+.o_web_client .o_control_panel .o_last_breadcrumb_item {
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_control_panel .breadcrumb-item + .breadcrumb-item::before {
+    color: #64748b;
+}
+
+.o_web_client .o_control_panel :is(
+    .o_control_panel_main_buttons .btn:not(.o_unselect_all),
+    .o_control_panel_actions .btn:not(.o_unselect_all),
+    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_pager_previous):not(.o_pager_next),
+    .o_cp_action_menus .btn:not(.o_unselect_all):not(.o-dropdown),
+    .o_cp_switch_buttons .btn:not(.o_unselect_all)
+) {
+    border-color: var(--wl-dark-border);
+    background: #18212f;
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_control_panel :is(
+    .o_control_panel_main_buttons .btn:not(.o_unselect_all):hover,
+    .o_control_panel_actions .btn:not(.o_unselect_all):hover,
+    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_pager_previous):not(.o_pager_next):hover,
+    .o_cp_action_menus .btn:not(.o_unselect_all):not(.o-dropdown):hover,
+    .o_cp_switch_buttons .btn:not(.o_unselect_all):hover
+):not(:disabled) {
+    border-color: #3c4a60;
+    background: #202b3a;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+// Keep settings/cog icon chip-free in dark control panels too.
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown:hover,
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown:focus,
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown:active,
+.o_web_client .o_control_panel .o_cp_action_menus .btn.o-dropdown.show,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm:hover,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm:focus,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm:active,
+.o_web_client .o_control_panel .o_cp_action_menus button.border-0.lh-sm.show {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.o_web_client .o_control_panel :is(
+    .o_control_panel_main_buttons .btn.btn-primary,
+    .o_control_panel_actions .btn.btn-primary,
+    .o_control_panel_navigation .btn.btn-primary
+) {
+    border-color: transparent;
+    background: var(--wl-dark-accent);
+    color: var(--wl-dark-accent-contrast);
+    box-shadow: none;
+}
+
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.active,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.active:hover,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.show,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn:active {
+    border-color: transparent !important;
+    background: var(--wl-dark-accent) !important;
+    color: var(--wl-dark-accent-contrast) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.active i,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.show i,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn:active i {
+    color: var(--wl-dark-accent-contrast) !important;
+}
+
+.o_web_client .o_control_panel .o_cp_switch_buttons .o_switch_view,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.o_switch_view,
+.o_web_client .o_control_panel .o_cp_switch_buttons > .btn {
+    width: 38px;
+    min-width: 38px;
+    max-width: 38px;
+    height: 38px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 38px;
+}
+
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.active,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.active:hover,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn.show,
+.o_web_client .o_control_panel .o_cp_switch_buttons .btn:active {
+    width: 38px;
+    min-width: 38px;
+    max-width: 38px;
+    box-shadow: none;
+    transform: none;
+}
+
+.o_web_client .o_control_panel .o_cp_pager {
+    border-color: var(--wl-dark-border);
+    background: #18212f;
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_control_panel .o_cp_pager .btn {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: inherit !important;
+}
+
+.o_web_client .o_control_panel .o_cp_pager .btn:hover:not(:disabled),
+.o_web_client .o_control_panel .o_cp_pager .btn:focus-visible:not(:disabled) {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.o_web_client .o_searchview {
+    border-color: var(--wl-dark-border);
+    background: #111827;
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_searchview:hover,
+.o_web_client .o_searchview:focus-within {
+    border-color: #475569;
+    background: #18212f;
+    box-shadow: none;
+}
+
+.o_web_client .o_searchview .o_searchview_icon,
+.o_web_client .o_searchview .o_searchview_input::placeholder,
+.o_web_client .o_searchview .o_facet_values,
+.o_web_client .o_searchview .o_facet_remove {
+    color: var(--wl-dark-muted);
+}
+
+.o_web_client .o_searchview .o_searchview_input,
+.o_web_client .o_searchview .o_facet_value {
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_searchview .o_searchview_facet {
+    background: #202b3a;
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_searchview .o_searchview_facet .o_searchview_facet_label {
+    background: var(--wl-dark-accent);
+    color: var(--wl-dark-accent-contrast);
+}
+
+.o_web_client .o_searchview + .o_searchview_dropdown_toggler,
+.o_web_client .o_control_panel .o_searchview_dropdown_toggler {
+    border-color: var(--wl-dark-border);
+    background: #18212f;
+    color: var(--wl-dark-muted);
+}
+
+.o_web_client .o_search_bar_menu,
+.o_web_client .dropdown-menu,
+.o_web_client .o-dropdown--menu,
+.o_web_client .o_popover {
+    border-color: var(--wl-dark-border);
+    background: #18212f;
+    color: var(--wl-dark-text);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+.o_popover:has(.o-mail-ActivityMenu),
+.o_popover:has(.o-mail-MessagingMenu),
+.o-dropdown--menu:has(.o-mail-ActivityMenu),
+.o-dropdown--menu:has(.o-mail-MessagingMenu),
+.dropdown-menu:has(.o-mail-ActivityMenu),
+.dropdown-menu:has(.o-mail-MessagingMenu),
+.dropdown-menu:has(.o_user_menu),
+.o-dropdown--menu:has(.o_user_menu) {
+    border-color: var(--wl-dark-border) !important;
+    background: #18212f !important;
+    color: var(--wl-dark-text);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+.o-mail-ActivityMenu,
+.o-mail-MessagingMenu {
+    border-color: var(--wl-dark-border) !important;
+    background: #18212f !important;
+    color: var(--wl-dark-text);
+}
+
+.o-mail-ActivityMenu .list-group,
+.o-mail-ActivityMenu .list-group-item,
+.o-mail-ActivityMenu .list-group-item-action,
+.o-mail-MessagingMenu .list-group,
+.o-mail-MessagingMenu .list-group-item,
+.o-mail-MessagingMenu .list-group-item-action,
+.o-mail-MessagingMenu-list {
+    border-color: var(--wl-dark-border) !important;
+    background: #18212f !important;
+    color: var(--wl-dark-text);
+}
+
+.o-mail-ActivityMenu .list-group-item:hover,
+.o-mail-ActivityMenu .list-group-item-action:hover,
+.o-mail-MessagingMenu .list-group-item:hover,
+.o-mail-MessagingMenu .list-group-item-action:hover {
+    background: #202b3a !important;
+    color: #ffffff;
+}
+
+.o-mail-ActivityMenu .btn-link,
+.o-mail-MessagingMenu .btn-link,
+.o-mail-ActivityMenu .text-primary,
+.o-mail-MessagingMenu .text-primary {
+    color: var(--wl-dark-accent) !important;
+}
+
+.o-mail-ActivityMenu .text-muted,
+.o-mail-MessagingMenu .text-muted {
+    color: var(--wl-dark-muted) !important;
+}
+
+.o_web_client .dropdown-item,
+.o_web_client .o-dropdown-item,
+.o_web_client .o_search_bar_menu .dropdown-item {
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .dropdown-item:hover,
+.o_web_client .dropdown-item:focus,
+.o_web_client .o-dropdown-item:hover,
+.o_web_client .o-dropdown-item:focus {
+    background: #202b3a;
+    color: #ffffff;
+}
+
+.o_web_client :is(.btn-light, .btn-secondary) {
+    border-color: var(--wl-dark-border);
+    background-color: #18212f;
+    color: var(--wl-dark-text);
+}
+
+.o_web_client :is(.btn-light, .btn-secondary):hover,
+.o_web_client :is(.btn-light, .btn-secondary):focus-visible {
+    border-color: color-mix(in srgb, var(--wl-dark-accent) 48%, transparent);
+    background-color: #202b3a;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.o_web_client :is(.btn-primary, .btn-primary:disabled, .btn-primary.disabled) {
+    border-color: transparent;
+    background-color: var(--wl-dark-accent);
+    color: var(--wl-dark-accent-contrast);
+}
+
+.o_web_client :is(.alert-secondary, .bg-primary-subtle, .text-bg-secondary) {
+    border-color: var(--wl-dark-border) !important;
+    background-color: #202b3a !important;
+    color: var(--wl-dark-text) !important;
+}
+
+.o_web_client .o_switch_company_menu_dropdown,
+.o_web_client .o_switch_company_menu_items,
+.o_web_client .o_switch_company_menu_buttons {
+    border-color: var(--wl-dark-border) !important;
+    background: #18212f !important;
+    color: var(--wl-dark-text);
+}
+
+.o_web_client .o_switch_company_menu_dropdown {
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+.o_web_client .o_switch_company_item {
+    background: transparent !important;
+    color: var(--wl-dark-text) !important;
+}
+
+.o_web_client .o_switch_company_item:hover,
+.o_web_client .o_switch_company_item:focus-within {
+    background: #202b3a !important;
+    color: #ffffff !important;
+}
+
+.o_web_client .o_switch_company_item.alert-secondary,
+.o_web_client .o_switch_company_item.bg-primary-subtle,
+.o_web_client .o_switch_company_item.border-primary {
+    border-color: color-mix(in srgb, var(--wl-dark-accent) 50%, transparent) !important;
+    background: color-mix(in srgb, var(--wl-dark-accent) 16%, transparent) !important;
+    color: #fed7aa !important;
+}
+
+.o_web_client .o_switch_company_item .company_label,
+.o_web_client .o_switch_company_item .log_into,
+.o_web_client .o_switch_company_item .btn,
+.o_web_client .o_switch_company_item label {
+    color: inherit !important;
+}
+
+.o_web_client .o_switch_company_item .form-check-input {
+    border-color: #64748b;
+    background-color: #111827;
+}
+
+.o_web_client .o_switch_company_item .form-check-input:checked {
+    border-color: var(--wl-dark-accent);
+    background-color: var(--wl-dark-accent);
+}
+
+.o_web_client .o_form_view .o_form_sheet_bg,
+.o_web_client .o_kanban_view .o_kanban_record,
+.o_web_client .o_list_view .o_list_renderer,
+.o_web_client .o_pivot_view .o_pivot,
+.o_web_client .o-search-panel {
+    border-color: var(--wl-dark-border);
+    background: var(--wl-dark-surface);
+    color: var(--wl-dark-text);
+    box-shadow: none;
+}
+
+.o_web_client .o_pivot_view .o_pivot th,
+.o_web_client .o_pivot_view .o_pivot td {
+    border-color: var(--wl-dark-border);
+    color: var(--wl-dark-text);
+}
+
+body:has(.o_web_client) .modal:not(.s_popup),
+body:has(.o_web_client) .o_dialog,
+body:has(.o_web_client) .o_technical_modal {
+    color: #e5e7eb;
+}
+
+body:has(.o_web_client) .modal-backdrop,
+body:has(.o_web_client) .modal:not([data-bs-backdrop="false"]) {
+    background-color: rgba(2, 6, 23, 0.72) !important;
+}
+
+.modal-content,
+body:has(.o_web_client) .modal-content,
+body:has(.o_web_client) .o_dialog .modal-content,
+body:has(.o_web_client) .o_technical_modal .modal-content,
+body:has(.o_web_client) .o_error_dialog .modal-content,
+body:has(.o_web_client) .o_install_prompt {
+    border: 1px solid #2b3647 !important;
+    background: #18212f !important;
+    color: #e5e7eb !important;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.42) !important;
+}
+
+.modal-header,
+.modal-footer,
+.modal-content > .modal-header,
+.modal-content > .modal-footer,
+.modal-header.bg-white,
+.modal-header.bg-light,
+.modal-header.bg-body,
+.modal-header.bg-100,
+.modal-footer.bg-white,
+.modal-footer.bg-light,
+.modal-footer.bg-body,
+.modal-footer.bg-100,
+body:has(.o_web_client) .modal-header,
+body:has(.o_web_client) .modal-footer,
+body:has(.o_web_client) .o_dialog .modal-header,
+body:has(.o_web_client) .o_dialog .modal-footer {
+    border-color: #2b3647 !important;
+    background: #18212f !important;
+    background-color: #18212f !important;
+    color: #e5e7eb !important;
+}
+
+.modal-header :is(.modal-title, h1, h2, h3, h4, h5, h6, label, span, p),
+.modal-footer :is(.modal-title, h1, h2, h3, h4, h5, h6, label, span, p),
+body:has(.o_web_client) .modal-header :is(.modal-title, h1, h2, h3, h4, h5, h6, label, span, p),
+body:has(.o_web_client) .modal-footer :is(.modal-title, h1, h2, h3, h4, h5, h6, label, span, p) {
+    color: inherit !important;
+}
+
+.modal-body,
+body:has(.o_web_client) .modal-body,
+body:has(.o_web_client) .o_dialog .modal-body,
+.modal-title,
+body:has(.o_web_client) .modal-title,
+body:has(.o_web_client) .o_dialog .modal-title,
+body:has(.o_web_client) .o_error_dialog,
+body:has(.o_web_client) .o_error_dialog :is(pre, code, p, div, span, label),
+:is(.modal-body, .o_dialog .modal-body, .o_dialog main) :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6) {
+    color: #e5e7eb !important;
+}
+
+// Wizard / technical modal forms (e.g. module uninstall) — content sits outside o_form_sheet_bg
+body:has(.o_web_client) :is(.modal-body, .o_dialog .modal-body, .o_dialog main) .o_form_view {
+    background: transparent !important;
+    color: #e5e7eb !important;
+}
+
+body:has(.o_web_client) :is(.modal-body, .o_dialog .modal-body, .o_dialog main) .o_form_view :is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6),
+body:has(.o_web_client) :is(.modal-body, .o_dialog .modal-body, .o_dialog main) .o_form_view .bd-highlight {
+    color: #f8fafc !important;
+}
+
+.modal-body :is(.text-dark, .text-body, .text-black, .text-reset),
+body:has(.o_web_client) .modal-body :is(.text-dark, .text-body, .text-black, .text-reset),
+body:has(.o_web_client) .o_dialog :is(.text-dark, .text-body, .text-black, .text-reset) {
+    color: #e5e7eb !important;
+}
+
+.modal-body :is(.text-muted, .text-secondary, .text-body-secondary),
+body:has(.o_web_client) .modal-body :is(.text-muted, .text-secondary, .text-body-secondary),
+body:has(.o_web_client) .o_dialog :is(.text-muted, .text-secondary, .text-body-secondary) {
+    color: #9ca3af !important;
+}
+
+.modal-body :is(.bg-white, .bg-light, .bg-body, .bg-view, .bg-100, .text-bg-light, .text-bg-100),
+.modal-header :is(.bg-white, .bg-light, .bg-body, .bg-view, .bg-100, .text-bg-light, .text-bg-100),
+.modal-footer :is(.bg-white, .bg-light, .bg-body, .bg-view, .bg-100, .text-bg-light, .text-bg-100),
+body:has(.o_web_client) .modal-body :is(.bg-white, .bg-light, .bg-body, .bg-view, .bg-100),
+body:has(.o_web_client) .o_dialog :is(.bg-white, .bg-light, .bg-body, .bg-view, .bg-100) {
+    background: #111827 !important;
+    color: #e5e7eb !important;
+}
+
+.modal :is(.card, .card-header, .card-body, .card-footer, .list-group, .list-group-item, .table, table, thead, tbody, tr, th, td),
+.o_dialog :is(.card, .card-header, .card-body, .card-footer, .list-group, .list-group-item, .table, table, thead, tbody, tr, th, td),
+.o_error_dialog :is(pre, code, .card, .table, table, thead, tbody, tr, th, td),
+.o_modal_changes,
+.o_modal_changes :is(thead, tbody, tr, th, td),
+.o_export_data_dialog :is(.o_export_tree_item, .o_export_field_sortable > *:not(.o_remove_field), .o_exported_lists, .o_exported_lists_select),
+.o_kanban_examples_dialog :is(.o_kanban_examples_ghost, .card, .bg-white, .bg-100),
+.o_kanban_cover_container,
+.o_kanban_cover_image,
+.o_barcode_mobile_container,
+.o_barcode_video,
+.o_translation_dialog,
+.o_translation_dialog :is(.o_field_translate, .o_translation_value, .table, table, tr, td, th),
+.o_domain_selector_debug_container,
+.o_expression_editor_debug_container,
+.o_modal_container,
+.o_act_window.modal-body {
+    border-color: #2b3647 !important;
+    background: #111827 !important;
+    background-color: #111827 !important;
+    color: #e5e7eb !important;
+}
+
+.modal :is(.table-striped > tbody > tr:nth-of-type(odd) > *, .table-hover > tbody > tr:hover > *),
+.o_dialog :is(.table-striped > tbody > tr:nth-of-type(odd) > *, .table-hover > tbody > tr:hover > *),
+.o_modal_changes :is(.table-striped > tbody > tr:nth-of-type(odd) > *, tr:hover > *) {
+    --bs-table-bg-type: #18212f;
+    --bs-table-hover-bg: #202b3a;
+    background-color: #18212f !important;
+    color: #e5e7eb !important;
+}
+
+.modal :is(pre, code, .font-monospace),
+.o_dialog :is(pre, code, .font-monospace),
+.o_error_dialog :is(pre, code),
+.o_domain_selector_debug_container,
+.o_expression_editor_debug_container {
+    border-color: #2b3647 !important;
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+}
+
+// Close icon is a black SVG background. Dark modal chrome uses bare `.modal-*`
+// selectors (body itself is `.o_web_client`), so btn-close must not rely on
+// `body:has(.o_web_client)` — that never matches and left the X invisible.
+.modal .btn-close,
+.o_dialog .btn-close,
+.o_technical_modal .btn-close,
+.o_notification_close,
+body.o_web_client .modal .btn-close,
+body.o_web_client .o_dialog .btn-close,
+body.o_web_client .o_notification_close,
+body:has(.o_web_client) .modal .btn-close,
+body:has(.o_web_client) .o_dialog .btn-close,
+body:has(.o_web_client) .o_notification_close {
+    // Odoo 19 Bootstrap uses --btn-close-* (no bs- prefix).
+    --btn-close-color: #e5e7eb;
+    --btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23e5e7eb'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+    background: transparent var(--btn-close-bg) center / 1em auto no-repeat;
+    filter: none;
+    opacity: 0.85;
+}
+
+.modal .btn-close:hover,
+.o_dialog .btn-close:hover,
+.o_technical_modal .btn-close:hover,
+.o_notification_close:hover,
+body.o_web_client .modal .btn-close:hover,
+body.o_web_client .o_dialog .btn-close:hover,
+body.o_web_client .o_notification_close:hover,
+body:has(.o_web_client) .modal .btn-close:hover,
+body:has(.o_web_client) .o_dialog .btn-close:hover,
+body:has(.o_web_client) .o_notification_close:hover {
+    opacity: 1;
+}
+
+body:has(.o_web_client) .modal :is(.form-control, .form-select, .o_input, input, textarea, select),
+body:has(.o_web_client) .o_dialog :is(.form-control, .form-select, .o_input, input, textarea, select) {
+    border-color: #2b3647;
+    background-color: #111827;
+    color: #e5e7eb;
+}
+
+body:has(.o_web_client) .modal :is(.form-control, .form-select, .o_input, input, textarea, select)::placeholder,
+body:has(.o_web_client) .o_dialog :is(.form-control, .form-select, .o_input, input, textarea, select)::placeholder {
+    color: #9ca3af;
+}
+
+body:has(.o_web_client) .modal .btn:not(.btn-primary):not(.btn-link):not(.btn-danger):not(.btn-success),
+body:has(.o_web_client) .o_dialog .btn:not(.btn-primary):not(.btn-link):not(.btn-danger):not(.btn-success),
+body:has(.o_web_client) .popover .btn:not(.btn-primary):not(.btn-link):not(.btn-danger):not(.btn-success),
+body:has(.o_web_client) .o_popover .btn:not(.btn-primary):not(.btn-link):not(.btn-danger):not(.btn-success) {
+    border-color: #2b3647;
+    background: #202b3a;
+    color: #e5e7eb;
+}
+
+body:has(.o_web_client) .modal .btn:not(.btn-primary):not(.btn-link):not(.btn-danger):not(.btn-success):hover,
+body:has(.o_web_client) .o_dialog .btn:not(.btn-primary):not(.btn-link):not(.btn-danger):not(.btn-success):hover,
+body:has(.o_web_client) .popover .btn:not(.btn-primary):not(.btn-link):not(.btn-danger):not(.btn-success):hover,
+body:has(.o_web_client) .o_popover .btn:not(.btn-primary):not(.btn-link):not(.btn-danger):not(.btn-success):hover {
+    border-color: color-mix(in srgb, var(--wl-dark-accent) 48%, transparent);
+    background: #263244;
+    color: #ffffff;
+}
+
+body:has(.o_web_client) .modal .btn-primary,
+body:has(.o_web_client) .o_dialog .btn-primary {
+    border-color: transparent;
+    background: var(--wl-dark-accent);
+    color: var(--wl-dark-accent-contrast);
+}
+
+.dropdown-menu,
+.o-dropdown--menu,
+.o_select_menu_menu,
+.o_time_picker_dropdown,
+.o_datetime_picker,
+.o_date_picker,
+.o_date_item_picker,
+.o_colorpicker_widget,
+.o_font_color_selector,
+.o_colorpicker_section,
+.o_color_section,
+.o_web_sign_name_and_signature,
+.o_web_sign_signature_container,
+.o_tree_editor_condition,
+.o_record_selector,
+.o_bottom_sheet,
+.o_bottom_sheet_body,
+body:has(.o_web_client) .popover,
+body:has(.o_web_client) .o_popover,
+body:has(.o_web_client) .o_model_field_selector_popover,
+body:has(.o_web_client) .o-autocomplete--dropdown-menu,
+body:has(.o_web_client) .ui-autocomplete,
+body:has(.o_web_client) .tooltip-inner {
+    border-color: #2b3647 !important;
+    background: #18212f !important;
+    color: #e5e7eb !important;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+.dropdown-menu :is(.dropdown-item, .o-dropdown-item, .btn, a, span, label, h1, h2, h3, h4, h5, h6, .o_dropdown_title),
+.o-dropdown--menu :is(.dropdown-item, .o-dropdown-item, .btn, a, span, label, h1, h2, h3, h4, h5, h6, .o_dropdown_title),
+.o_select_menu_menu :is(.dropdown-item, .o-dropdown-item, .o_select_menu_item, .btn, a, span, label),
+.o_datetime_picker :is(.btn, button, span, label, td, th),
+.o_time_picker_dropdown :is(.btn, button, span, label),
+.o_web_sign_name_and_signature :is(label, span, p, div),
+.o_tree_editor :is(.bg-100, .bg-white, .bg-light),
+body:has(.o_web_client) .dropdown-menu :is(.dropdown-item, .o-dropdown-item, .btn, a, span, label, h1, h2, h3, h4, h5, h6, .o_dropdown_title),
+body:has(.o_web_client) .o-dropdown--menu :is(.dropdown-item, .o-dropdown-item, .btn, a, span, label, h1, h2, h3, h4, h5, h6, .o_dropdown_title),
+body:has(.o_web_client) .o_select_menu_menu :is(.dropdown-item, .o-dropdown-item, .o_select_menu_item, .btn, a, span, label) {
+    color: #e5e7eb !important;
+}
+
+.dropdown-menu :is(.dropdown-item, .o-dropdown-item):hover,
+.dropdown-menu :is(.dropdown-item, .o-dropdown-item):focus,
+.dropdown-menu :is(.dropdown-item, .o-dropdown-item).active,
+.o-dropdown--menu :is(.dropdown-item, .o-dropdown-item):hover,
+.o-dropdown--menu :is(.dropdown-item, .o-dropdown-item):focus,
+.o-dropdown--menu :is(.dropdown-item, .o-dropdown-item).active,
+.o_select_menu_menu :is(.dropdown-item, .o-dropdown-item, .o_select_menu_item):hover,
+.o_select_menu_menu :is(.dropdown-item, .o-dropdown-item, .o_select_menu_item):focus,
+.o_select_menu_menu :is(.dropdown-item, .o-dropdown-item, .o_select_menu_item).active,
+.o_datetime_picker :is(.btn, button):hover,
+.o_datetime_picker :is(.btn, button).active,
+body:has(.o_web_client) .dropdown-menu :is(.dropdown-item, .o-dropdown-item):hover,
+body:has(.o_web_client) .o-dropdown--menu :is(.dropdown-item, .o-dropdown-item):hover,
+body:has(.o_web_client) .o_select_menu_menu :is(.dropdown-item, .o-dropdown-item, .o_select_menu_item):hover {
+    background: #202b3a !important;
+    color: #ffffff !important;
+}
+
+body:has(.o_web_client) .modal :is(.border, .border-top, .border-bottom, .border-start, .border-end),
+body:has(.o_web_client) .o_dialog :is(.border, .border-top, .border-bottom, .border-start, .border-end),
+.modal :is(.border, .border-top, .border-bottom, .border-start, .border-end),
+.o_dialog :is(.border, .border-top, .border-bottom, .border-start, .border-end),
+.dropdown-menu :is(.border, .border-top, .border-bottom, .border-start, .border-end),
+.o-dropdown--menu :is(.border, .border-top, .border-bottom, .border-start, .border-end),
+.o_select_menu_menu :is(.border, .border-top, .border-bottom, .border-start, .border-end) {
+    border-color: #2b3647 !important;
+}
+
+body:has(.o_web_client) .popover-header,
+body:has(.o_web_client) .popover-body,
+body:has(.o_web_client) .o_popover .popover-header,
+body:has(.o_web_client) .o_popover .popover-body,
+body:has(.o_web_client) .o_model_field_selector_popover_title,
+body:has(.o_web_client) .o_model_field_selector_popover_footer {
+    border-color: #2b3647 !important;
+    background: #18212f !important;
+    color: #e5e7eb !important;
+}
+
+body:has(.o_web_client) .popover-arrow::before,
+body:has(.o_web_client) .popover-arrow::after,
+body:has(.o_web_client) .o_popover > .popover-arrow::before,
+body:has(.o_web_client) .o_popover > .popover-arrow::after {
+    border-top-color: #18212f !important;
+    border-right-color: #18212f !important;
+    border-bottom-color: #18212f !important;
+    border-left-color: #18212f !important;
+}
+
+body:has(.o_web_client) .o_popover {
+    scrollbar-color: rgba(71, 85, 105, 0.72) transparent;
+}
+
+body:has(.o_web_client) .o_popover::-webkit-scrollbar-thumb {
+    background: rgba(71, 85, 105, 0.68);
+    background-clip: content-box;
+}
+
+body:has(.o_web_client) .o_popover::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.82);
+    background-clip: content-box;
+}
+
+body:has(.o_web_client) .o_model_field_selector_popover_item,
+body:has(.o_web_client) .o_model_field_selector_popover_item .btn,
+body:has(.o_web_client) .o-autocomplete--dropdown-item,
+body:has(.o_web_client) .ui-menu-item,
+body:has(.o_web_client) .ui-menu-item-wrapper {
+    border-color: #2b3647 !important;
+    background: #18212f !important;
+    color: #e5e7eb !important;
+}
+
+body:has(.o_web_client) .o_model_field_selector_popover_item:hover,
+body:has(.o_web_client) .o_model_field_selector_popover_item.active,
+body:has(.o_web_client) .o-autocomplete--dropdown-item:hover,
+body:has(.o_web_client) .ui-menu-item-wrapper:hover,
+body:has(.o_web_client) .ui-state-active {
+    background: #202b3a !important;
+    color: #ffffff !important;
+}
+
+.toast,
+.toast-header,
+.o_notification,
+.o_notification > div,
+body:has(.o_web_client) .toast,
+body:has(.o_web_client) .toast-header,
+body:has(.o_web_client) .o_notification,
+body:has(.o_web_client) .o_notification > div {
+    --Notification__background-color: #18212f;
+    border-color: #2b3647 !important;
+    background: #18212f !important;
+    background-color: #18212f !important;
+    color: #e5e7eb !important;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+.o_notification_manager,
+body:has(.o_web_client) .o_notification_manager {
+    color: #e5e7eb;
+}
+
+.o_notification :is(.border, .border-top, .border-bottom, .border-start, .border-end),
+body:has(.o_web_client) .o_notification :is(.border, .border-top, .border-bottom, .border-start, .border-end) {
+    border-color: #2b3647 !important;
+}
+
+.o_notification :is(.text-dark, .text-body, .text-black, .text-reset),
+body:has(.o_web_client) .o_notification :is(.text-dark, .text-body, .text-black, .text-reset) {
+    color: #e5e7eb !important;
+}
+
+.o_notification :is(.text-muted, .text-secondary, .text-body-secondary),
+body:has(.o_web_client) .o_notification :is(.text-muted, .text-secondary, .text-body-secondary) {
+    color: #9ca3af !important;
+}
+
+body:has(.o_web_client) .o_notification_body,
+body:has(.o_web_client) .o_notification_content,
+.o_notification_body,
+.o_notification_content,
+.toast-body,
+body:has(.o_web_client) .toast-body {
+    color: #e5e7eb !important;
+}
+
+.o_notification_buttons .btn,
+body:has(.o_web_client) .o_notification_buttons .btn {
+    border-color: #2b3647 !important;
+    background: #202b3a !important;
+    color: #e5e7eb !important;
+}
+
+.o_notification_buttons .btn:hover,
+body:has(.o_web_client) .o_notification_buttons .btn:hover {
+    border-color: color-mix(in srgb, var(--wl-dark-accent) 48%, transparent) !important;
+    background: #263244 !important;
+    color: #ffffff !important;
+}
+
+.o-bus-ConnectionAlert {
+    border-color: color-mix(in srgb, var(--wl-dark-accent) 52%, transparent) !important;
+}
+
+.o-bus-ConnectionAlert-failure {
+    border: 1px solid #2b3647;
+    background: #18212f !important;
+    color: #e5e7eb !important;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+.o-bus-ConnectionAlert-label {
+    color: #e5e7eb !important;
+}
+
+@keyframes o-bus-ConnectionAlert-borderAnimation {
+    from {
+        border-color: transparent;
+    }
+
+    to {
+        border-color: color-mix(in srgb, var(--wl-dark-accent) 52%, transparent);
+    }
+}
+
+@keyframes o-bus-ConnectionAlert-failureAnimation {
+    from {
+        opacity: 0%;
+        background-color: rgba(24, 33, 47, 0.5);
+    }
+
+    to {
+        opacity: 100%;
+        background-color: #18212f;
+    }
+}
+
+body:has(.o_web_client) .alert {
+    border-color: #2b3647;
+    background: #18212f;
+    color: #e5e7eb;
+}
+
+body:has(.o_web_client) .alert-warning {
+    border-color: rgba(245, 158, 11, 0.38);
+    background: rgba(245, 158, 11, 0.16);
+    color: #fde68a;
+}
+
+body:has(.o_web_client) .alert-danger {
+    border-color: rgba(248, 113, 113, 0.42);
+    background: rgba(127, 29, 29, 0.48);
+    color: #fecaca;
+}
+
+body:has(.o_web_client) .alert-info {
+    border-color: rgba(56, 189, 248, 0.38);
+    background: rgba(12, 74, 110, 0.48);
+    color: #bae6fd;
+}
+
+body:has(.o_web_client) .alert-success {
+    border-color: rgba(74, 222, 128, 0.38);
+    background: rgba(20, 83, 45, 0.44);
+    color: #bbf7d0;
+}
+
+:root:has(.o_web_client),
+body:has(.o_web_client) {
+    --wl-command-palette-bg: #111827;
+    --wl-command-palette-header-bg: rgba(24, 33, 47, 0.96);
+    --wl-command-palette-list-bg: #111827;
+    --wl-command-palette-footer-bg: #18212f;
+    --wl-command-palette-border: #2b3647;
+    --wl-command-palette-text: #e5e7eb;
+    --wl-command-palette-muted: #9ca3af;
+    --wl-command-palette-muted-strong: #9ca3af;
+    --wl-command-palette-accent: var(--wl-dark-accent);
+    --wl-command-palette-scrollbar: #475569;
+    --wl-command-palette-row-border-active: #3c4a60;
+    --wl-command-palette-row-bg-active: #202b3a;
+    --wl-command-palette-row-shadow-active: none;
+    --wl-command-palette-kbd-border: #3c4a60;
+    --wl-command-palette-kbd-border-bottom: #475569;
+    --wl-command-palette-kbd-bg: #18212f;
+    --wl-command-palette-kbd-text: #e5e7eb;
+    --wl-command-palette-kbd-shadow: none;
+    --wl-command-palette-radius: 16px;
+}
+
+.o_command_palette,
+body:has(.o_web_client) .o_command_palette,
+.o_command_palette_search,
+body:has(.o_web_client) .o_command_palette_search,
+.o_command,
+body:has(.o_web_client) .o_command,
+.o_command_default,
+body:has(.o_web_client) .o_command_default {
+    border-color: #2b3647 !important;
+    background: #18212f !important;
+    color: #e5e7eb !important;
+}
+
+.o_command:hover,
+body:has(.o_web_client) .o_command:hover,
+.o_command.focused,
+body:has(.o_web_client) .o_command.focused,
+.o_command_default:hover,
+body:has(.o_web_client) .o_command_default:hover,
+.o_command_default.focused,
+body:has(.o_web_client) .o_command_default.focused {
+    background: #202b3a !important;
+    color: #ffffff !important;
+}
+
+.modal-content:has(.o_command_palette_search),
+.modal-body.o_command_palette,
+.o_command_palette.modal-body,
+.o_command_palette:has(.o_command_palette_search),
+body:has(.o_web_client) .modal-content:has(.o_command_palette_search),
+body:has(.o_web_client) .modal-body:has(.o_command_palette_search),
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) {
+    border-color: #2b3647 !important;
+    border-radius: 16px !important;
+    background: #111827 !important;
+    color: #e5e7eb !important;
+    overflow: hidden !important;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42) !important;
+}
+
+.o_command_palette > div,
+body:has(.o_web_client) .o_command_palette > div,
+.o_command_palette:has(.o_command_palette_search) > div,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) > div {
+    overflow: hidden !important;
+    border-radius: inherit !important;
+    background: #111827 !important;
+}
+
+.o_command_palette .o_command_palette_search,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_search {
+    border-bottom-color: #2b3647 !important;
+    background: rgba(24, 33, 47, 0.96) !important;
+    color: #e5e7eb !important;
+}
+
+.o_command_palette .border-top,
+.o_command_palette .border-bottom,
+.o_command_palette .border-start,
+.o_command_palette .border-end,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .border-top,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .border-bottom,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .border-start,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .border-end {
+    border-color: #2b3647 !important;
+}
+
+.o_command_palette .o_command_palette_search .form-control,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_search .form-control {
+    background: transparent !important;
+    color: #e5e7eb !important;
+    caret-color: var(--wl-dark-accent);
+}
+
+.o_command_palette .o_command_palette_search .form-control::placeholder,
+.o_command_palette .o_command_palette_search .input-group-text,
+.o_command_palette .o_command_category .text-muted,
+.o_command_palette .o_command_palette_listbox_empty,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_search .form-control::placeholder,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_search .input-group-text,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_category .text-muted,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_listbox_empty {
+    color: #9ca3af !important;
+}
+
+.o_command_palette .o_command_palette_listbox,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_listbox {
+    background: #111827 !important;
+    color: #e5e7eb !important;
+    scrollbar-color: #475569 transparent;
+}
+
+.o_command_palette .o_command_palette_listbox::-webkit-scrollbar-thumb,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_listbox::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.o_command_palette .o_command_palette_listbox hr,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_listbox hr {
+    opacity: 1 !important;
+    border-color: #2b3647 !important;
+}
+
+.o_command_palette .o_command_default,
+.o_command_palette .o_command_hotkey,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_default,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_hotkey {
+    border-color: transparent !important;
+    background: transparent !important;
+    color: #e5e7eb !important;
+    box-shadow: none !important;
+}
+
+.o_command_palette .o_command > a,
+.o_command_palette .o_command_name,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command > a,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_name {
+    color: #e5e7eb !important;
+}
+
+.o_command_palette .o_command:hover .o_command_default,
+.o_command_palette .o_command:hover .o_command_hotkey,
+.o_command_palette .o_command.focused .o_command_default,
+.o_command_palette .o_command.focused .o_command_hotkey,
+.o_command_palette .o_command[aria-selected="true"] .o_command_default,
+.o_command_palette .o_command[aria-selected="true"] .o_command_hotkey,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command:hover .o_command_default,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command:hover .o_command_hotkey,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command.focused .o_command_default,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command.focused .o_command_hotkey,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command[aria-selected="true"] .o_command_default,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command[aria-selected="true"] .o_command_hotkey {
+    border-color: #3c4a60 !important;
+    background: #202b3a !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.o_command_palette .o_command kbd,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command kbd {
+    border-color: #3c4a60 !important;
+    border-bottom-color: #475569 !important;
+    background: #18212f !important;
+    color: #e5e7eb !important;
+    box-shadow: none !important;
+}
+
+.o_command_palette .o_command_palette_footer,
+.o_command_palette .o_command_palette_footer.bg-100,
+.o_command_palette .o_command_palette_footer.text-muted,
+body:has(.o_web_client) .o_command_palette .o_command_palette_footer,
+body:has(.o_web_client) .o_command_palette .o_command_palette_footer.bg-100,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_footer {
+    border-top-color: #2b3647 !important;
+    background: #111827 !important;
+    background-color: #111827 !important;
+    color: #9ca3af !important;
+}
+
+.o_command_palette .o_command_palette_footer .text-primary,
+.o_command_palette .o_command_palette_footer .btn-link,
+.o_command_palette .o_command_palette_footer .o_namespace,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_footer .text-primary,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_footer .btn-link,
+body:has(.o_web_client) main.modal-body:has(.o_command_palette_search) .o_command_palette_footer .o_namespace {
+    color: var(--wl-dark-accent) !important;
+}
+
+// Dark busy chip — navy surface, accent spinner (not $o-brand-odoo purple)
+.o_loading_indicator {
+    border-color: var(--wl-config-dark-card-border, #273449);
+    background: color-mix(in srgb, var(--wl-config-dark-card, #111827) 94%, transparent);
+    color: var(--wl-config-dark-header-text, #f8fafc);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
+
+    &::before {
+        border-color: color-mix(
+            in srgb,
+            var(--wl-dark-primary, var(--wl-dark-accent, #6b8aff)) 28%,
+            transparent
+        );
+        border-top-color: var(--wl-dark-primary, var(--wl-dark-accent, #6b8aff));
+    }
+}
+
+// ============================================================================
+// Website Builder Modals Dark Mode Styling (Page Properties, SEO, Edit Menu)
+// ============================================================================
+:is(body.o_web_client, body:has(.o_web_client)) {
+    :is(.modal, .o_dialog, .o_form_view, .o_page_properties_dialog_form) {
+        .input-group-text,
+        div.input-group-text,
+        span.input-group-text,
+        .o_field_page_url .input-group-text,
+        .o_field_widget .input-group-text,
+        :is(.form-control, .o_input, input, textarea, select):disabled,
+        :is(.form-control, .o_input, input, textarea, select)[readonly] {
+            border-color: #2b3647 !important;
+            background: #1b2636 !important;
+            background-color: #1b2636 !important;
+            color: #94a3b8 !important;
+        }
+
+        :is(.alert, .alert-info, .alert-warning, .alert-success, .bg-info, .bg-info-subtle, .text-bg-info) {
+            background-color: rgba(56, 189, 248, 0.12) !important;
+            border-color: rgba(56, 189, 248, 0.3) !important;
+            color: #e0f2fe !important;
+
+            a, button, span, i {
+                color: #38bdf8 !important;
+            }
+        }
+
+        .btn-link {
+            color: #38bdf8 !important;
+
+            &:hover {
+                color: #7dd3fc !important;
+            }
+        }
+    }
+}
+
+.oe_seo_configuration {
+    --seo__preview-title-color: #38bdf8;
+
+    :is(.oe_seo_preview_g, .o_seo_preview_rc) {
+        background-color: #151e2b !important;
+        border-color: #2b3647 !important;
+        color: #e2e8f0 !important;
+
+        :is(h1, h2, h3, h4, h5, h6, .o_seo_preview_title, a) {
+            color: #38bdf8 !important;
+        }
+        :is(p, span, div, small, .text-muted, .o_seo_preview_url) {
+            color: #94a3b8 !important;
+        }
+    }
+
+    .o_seo_og_image :is(.o_meta_img, .o_meta_img_upload) {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+        color: #cbd5e1 !important;
+
+        &.o_active_image {
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.4) !important;
+        }
+    }
+
+    :is(.table, table, .o_seo_keyword_row) {
+        color: #e2e8f0 !important;
+        border-color: #2b3647 !important;
+
+        th, td {
+            background-color: transparent !important;
+            color: #e2e8f0 !important;
+            border-color: #2b3647 !important;
+        }
+    }
+}
+
+// Fix navbar / settings / control panel dropdown menu active/selected items in dark mode
+:not(.dropstart) > .dropdown-item,
+.dropdown-item,
+.o-dropdown-item,
+.o_nav_entry,
+.o_menu_entry,
+.dropdown-menu .dropdown-item,
+.o-dropdown--menu .dropdown-item,
+.o-dropdown > .dropdown-item {
+    &.active,
+    &.selected,
+    &:active,
+    &[aria-selected="true"] {
+        background: transparent !important;
+        background-color: transparent !important;
+        color: var(--wl-dark-accent, #38bdf8) !important;
+        font-weight: 600 !important;
+
+        &:hover,
+        &:focus {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            color: var(--wl-dark-accent, #38bdf8) !important;
+        }
+
+        &::before,
+        &::after,
+        &:before,
+        &:after {
+            content: none !important;
+            display: none !important;
+        }
+
+        :is(span, a, div, p, i, strong, b) {
+            color: var(--wl-dark-accent, #38bdf8) !important;
+        }
+    }
+}
+
+

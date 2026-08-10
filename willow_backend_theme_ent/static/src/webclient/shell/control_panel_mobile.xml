@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!--
+        Odoo's ControlPanel root is explicitly `flex-column`.  Willow's mobile
+        chrome keeps the primary action and navigation controls on one toolbar;
+        full-width search/actions retain their own row when present.
+    -->
+    <t t-inherit="web.ControlPanel" t-inherit-mode="extension">
+        <xpath expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' o_control_panel ')]" position="attributes">
+            <attribute name="class">o_control_panel d-flex gap-3 px-3 pt-2 pb-3</attribute>
+            <attribute name="t-att-class">{'flex-row flex-wrap': env.isSmall, 'flex-column': !env.isSmall}</attribute>
+        </xpath>
+        <!-- The stock flex-grow utilities force both toolbar groups onto their own row. -->
+        <xpath expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' o_control_panel_main ')]" position="attributes">
+            <attribute name="class">o_control_panel_main d-flex flex-wrap flex-lg-nowrap justify-content-between align-items-lg-start gap-2 gap-lg-3</attribute>
+            <attribute name="t-att-class">{'flex-grow-1': !env.isSmall}</attribute>
+        </xpath>
+        <xpath expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' o_control_panel_navigation ')]" position="attributes">
+            <attribute name="class">o_control_panel_navigation d-flex flex-wrap flex-md-nowrap justify-content-end gap-1 gap-xl-3 order-1 order-lg-2</attribute>
+            <attribute name="t-att-class">{'flex-grow-1': !env.isSmall}</attribute>
+        </xpath>
+    </t>
+</templates>

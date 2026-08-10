@@ -1,0 +1,241 @@
+// Willow Backend Theme — Website Builder compatibility
+// Scoped exclusively to when the Website action is active (`.o_website_preview`
+// in the DOM). No effect on other modules.
+// Pattern: Kraken / skill docs/compatibility/website-integration.md
+// Browse = theme chrome visible; Edit (`o_builder_open`) / fullscreen
+// (`o_website_fullscreen`) = hide shell + zero offsets.
+
+// ── 1. Browse mode: reset content card treatment ───────────────────────────
+body.o_web_client:has(.o_website_preview) > .o_action_manager > .o_action > .o_content {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+}
+
+// Drop hero-overlap pull + page gutters so the preview fills under the topbar.
+body.o_web_client.wl_sp_global_mode:has(.o_website_preview) > .o_action_manager,
+body.o_web_client:has(.o_website_preview) > .o_action_manager {
+    margin-top: 0 !important;
+    padding: 0 !important;
+}
+
+// ── 2. Height chain / overflow ─────────────────────────────────────────────
+// `.o_website_preview { height: 100% }` needs a defined-height ancestor chain.
+body.o_web_client:has(.o_website_preview) {
+    > .o_action_manager {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden !important;
+    }
+
+    .o_action:has(.o_website_preview) {
+        flex: 1 1 auto;
+        min-height: 0;
+        height: auto !important;
+        overflow: hidden !important;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .o_action:has(.o_website_preview) > .o_content {
+        flex: 1 1 auto;
+        min-height: 0;
+        height: auto !important;
+        overflow: hidden !important;
+        position: relative !important;
+        padding: 0 !important;
+    }
+
+    .o_action:has(.o_website_preview) .o_website_preview,
+    .o_action:has(.o_website_preview) .d-flex.h-100 {
+        height: 100%;
+        min-height: 0;
+    }
+}
+
+// ── 3. Website systray in Willow topbar ─────────────────────────────────────
+body:has(.o_website_preview) .wl_sp_topbar_icons .o_menu_systray {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    overflow: visible;
+
+    .o_menu_systray_item {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    // Match account-cluster chrome height (theme toggle / settings / profile = 40px).
+    // Keep width:auto so labeled New/Edit/switcher are not forced into 40×40 squares.
+    // Never put !important on display — Bootstrap d-md-none must still win.
+    > * > button,
+    > * .dropdown > button,
+    > * .o-dropdown > button,
+    > * > a,
+    > * .dropdown-toggle,
+    > * button.o-dropdown,
+    > * button.dropdown-toggle,
+    .o_menu_systray_item > button,
+    .o_menu_systray_item > a {
+        box-sizing: border-box;
+        width: auto !important;
+        min-width: 40px;
+        // Same height as .wl_sp_theme_toggle / .wl_theme_settings_trigger / .wl_sp_profile
+        height: 40px !important;
+        min-height: 40px;
+        max-height: 40px;
+        // Kill website navbar.scss negative vertical margins that stretch items
+        margin: 0 !important;
+        padding: 0 12px !important;
+        // visible so New/switcher carets are not clipped inside the fixed 40px box
+        overflow: visible;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        color: inherit;
+        line-height: 1 !important;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    // Icon-only mobile preview: keep a true 40×40 square like the right chrome.
+    .o_mobile_preview > a.o_nav_entry {
+        width: 40px !important;
+        min-width: 40px;
+        padding: 0 !important;
+    }
+
+    .o_mobile_preview .fa-2x {
+        // fa-2x overflows the 40px chrome; scale to match other topbar icons
+        font-size: 16px !important;
+        line-height: 1;
+    }
+
+    > * > button:hover,
+    > * .dropdown > button:hover,
+    > * .o-dropdown > button:hover,
+    > * > a:hover,
+    > * .dropdown-toggle:hover,
+    > * button.o-dropdown:hover,
+    > * button.dropdown-toggle:hover,
+    .o_menu_systray_item > button:hover,
+    .o_menu_systray_item > a:hover {
+        background: rgba(255, 255, 255, 0.16);
+        border-color: rgba(255, 255, 255, 0.28) !important;
+    }
+
+    .o_website_switcher_container {
+        flex: 0 1 auto;
+        min-width: 0;
+        max-width: 160px;
+        overflow: hidden;
+
+        [class*="text-truncate"] {
+            max-width: 110px !important;
+        }
+    }
+
+    .o_website_publish_container {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .o_website_systray_separator {
+        display: block !important;
+        align-self: stretch;
+        width: 0;
+        margin: 6px 4px;
+        border-left: 1px solid var(--wl-hero-chrome-border, rgba(255, 255, 255, 0.22));
+    }
+}
+
+// Free topbar space for website controls (switcher, publish, edit, new).
+body:has(.o_website_preview) .wl_sp_topbar .wl_sp_topbar_search {
+    display: none !important;
+}
+
+body:has(.o_website_preview) .wl_sp_tabs_section,
+body:has(.o_website_preview) .wl_sp_tabs_cluster {
+    // Pass through to CSS min(); Sass min() cannot mix px and vw at compile time.
+    max-width: unquote("min(420px, 40vw)");
+}
+
+// Compact the ERP hero band for Website browse.
+// Normal apps use --wl-erp-hero-depth (~280px) + negative overlap on .o_action_manager.
+// website_compat zeros that overlap so the preview is not under chrome — without also
+// collapsing the hero, a large empty dark band remains above the iframe.
+body:has(.o_website_preview) {
+    .wl_sp_global_shell,
+    #wl_sp_global_shell {
+        min-height: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .wl_erp_app_hero,
+    .wl_erp_app_hero.wl_erp_app_hero--compact {
+        min-height: 0 !important;
+        padding-top: 0;
+        padding-bottom: 4px;
+    }
+
+    .wl_erp_app_hero .wl_erp_submenus {
+        min-height: 0;
+        padding: 4px 0 10px;
+    }
+
+    .wl_erp_app_hero .wl_erp_submenus.wl_erp_submenus--empty {
+        display: none;
+        padding: 0;
+    }
+}
+
+// App-page hero paint is on .o_web_client::before (raster) or .wl_erp_hero_art (SVG).
+body.o_web_client.wl_sp_global_mode:has(.o_website_preview)::before {
+    content: none;
+    display: none;
+}
+
+body.o_web_client.wl_sp_global_mode:has(.o_website_preview) > .wl_erp_hero_art {
+    display: none;
+}
+
+// ── 4. Edit / fullscreen: hide Willow chrome + reset offsets ───────────────
+body.o_web_client.o_builder_open,
+body.o_web_client.o_website_fullscreen {
+    #wl_sp_global_shell,
+    .wl_sp_global_shell {
+        display: none !important;
+    }
+
+    .wl_sp_rail_group,
+    .wl_sp_action_shell .wl_sp_rail_group {
+        display: none !important;
+    }
+
+    // Class is on <body>, not a nested wrapper — use body.o_web_client > …
+    > .o_action_manager,
+    .o_action_manager {
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        margin-inline-start: 0 !important;
+        padding: 0 !important;
+        padding-top: 0 !important;
+        padding-inline-start: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        left: 0 !important;
+    }
+
+    &.wl_sp_global_mode > .o_action_manager {
+        padding: 0 !important;
+        margin-top: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}

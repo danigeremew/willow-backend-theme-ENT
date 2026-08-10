@@ -1,0 +1,83 @@
+.o_field_statusbar > .o_statusbar_status {
+    --o-statusbar-background-active: var(--wl-dark-accent);
+    --o-statusbar-background-hover: color-mix(in srgb, var(--wl-dark-accent) 14%, transparent);
+    --o-statusbar-border: transparent;
+    --o-statusbar-border-active: transparent;
+}
+
+.o_field_statusbar > .o_statusbar_status .o_arrow_button,
+.o_field_statusbar > .o_statusbar_status .o_arrow_button::before {
+    background-color: #202b3a;
+    color: #dbeafe !important;
+}
+
+.o_field_statusbar > .o_statusbar_status .o_arrow_button:not(.d-none) {
+    background-color: #263244;
+    color: #dbeafe !important;
+}
+
+.o_field_statusbar > .o_statusbar_status .o_arrow_button:hover,
+.o_field_statusbar > .o_statusbar_status .o_arrow_button:hover::before {
+    background-color: color-mix(in srgb, var(--wl-dark-accent) 16%, transparent);
+    color: #ffffff;
+}
+
+.o_field_statusbar > .o_statusbar_status .o_arrow_button.o_arrow_button_current,
+.o_field_statusbar > .o_statusbar_status .o_arrow_button.o_arrow_button_current::before {
+    background-color: var(--wl-dark-accent);
+    color: var(--wl-dark-accent-contrast) !important;
+}
+
+.o_field_statusbar > .o_statusbar_status .o_arrow_button:disabled:not(.o_arrow_button_current) {
+    color: #cbd5e1 !important;
+}
+
+.o_field_statusbar > .o_statusbar_status .o_arrow_button:not(.o_arrow_button_current):disabled,
+.o_field_statusbar > .o_statusbar_status .o_arrow_button:not(.o_arrow_button_current).disabled {
+    opacity: 1;
+    color: #cbd5e1 !important;
+}
+
+// Statusbar action buttons in Dark Mode
+.o_form_view .o_form_statusbar {
+    background: transparent !important;
+    border-color: #2b3647 !important;
+}
+
+.o_form_view .o_statusbar_buttons {
+    .btn {
+        border-radius: 0 !important;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .btn:not(.btn-primary) {
+        background-color: #202b3a !important;
+        border: 1px solid #2b3647 !important;
+        color: #e5e7eb !important;
+
+        &:hover {
+            background-color: #2b3647 !important;
+            border-color: #3b495e !important;
+            color: #ffffff !important;
+        }
+
+        &:focus, &:active {
+            background-color: #334155 !important;
+            border-color: var(--wl-dark-accent, #38bdf8) !important;
+            color: #ffffff !important;
+        }
+    }
+
+    .btn.btn-primary {
+        background-color: var(--wl-dark-accent, #38bdf8) !important;
+        border-color: var(--wl-dark-accent, #38bdf8) !important;
+        color: var(--wl-dark-accent-contrast, #0f172a) !important;
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--wl-dark-accent, #38bdf8) 85%, #ffffff) !important;
+            border-color: color-mix(in srgb, var(--wl-dark-accent, #38bdf8) 85%, #ffffff) !important;
+            color: var(--wl-dark-accent-contrast, #0f172a) !important;
+        }
+    }
+}

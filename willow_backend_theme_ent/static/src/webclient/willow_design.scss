@@ -1,0 +1,2959 @@
+// Willow Backend Theme — design tokens matching the ERP dashboard mockup.
+// Navy header, light content canvas, vibrant blue primary, rounded white cards.
+// Note: do not use @import url() here — external imports in the asset bundle can
+// cause browsers/ad blockers to reject the entire stylesheet.
+
+:root,
+.o_web_client {
+    --wl-navy: var(--wl-config-light-header-base, #061b36);
+    --wl-navy-mid: var(--wl-config-light-header-mid, #09254a);
+    --wl-navy-soft: #1a2540;
+    --wl-primary: var(--wl-light-primary, #4f6ef7);
+    --wl-primary-dark: #3d57d9;
+    --wl-primary-dark: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 82%, #000000);
+    --wl-primary-soft: #eef1fe;
+    --wl-primary-soft: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 14%, #ffffff);
+    --wl-canvas: var(--wl-config-light-canvas, #f8f9fa);
+    --wl-card: var(--wl-config-light-card, #ffffff);
+    --wl-card-border: var(--wl-config-light-card-border, #e8ecf2);
+    --wl-card-shadow: 0 8px 24px rgba(10, 17, 40, 0.06);
+    --wl-header-text: var(--wl-config-light-header-text, #122033);
+    --wl-header-muted: var(--wl-config-light-header-muted, #5c6b7f);
+    --wl-hero-chrome-text: var(--wl-header-text);
+    --wl-hero-chrome-muted: var(--wl-header-muted);
+    --wl-hero-chrome-surface: rgba(18, 32, 51, 0.06);
+    --wl-hero-chrome-surface: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 8%, transparent);
+    --wl-hero-chrome-surface-strong: rgba(18, 32, 51, 0.1);
+    --wl-hero-chrome-surface-strong: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 14%, transparent);
+    --wl-hero-chrome-border: rgba(18, 32, 51, 0.14);
+    --wl-hero-chrome-border: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 18%, transparent);
+    // Active pill picks up a light primary tint so presets show in the topbar.
+    --wl-hero-chrome-active-bg: rgba(18, 32, 51, 0.12);
+    --wl-hero-chrome-active-bg: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 16%, transparent);
+    --wl-hero-chrome-active-text: var(--wl-header-text);
+    --wl-hero-chrome-icon: var(--wl-header-text);
+    // Systray counters follow the live primary so presets stay loud but on-brand.
+    --o-navbar-badge-bg: var(--wl-erp-primary, var(--wl-primary, #4f6ef7));
+    --o-navbar-badge-color: var(--wl-erp-primary-contrast, #ffffff);
+    --o-navbar-badge-text-shadow: none;
+    --wl-radius-lg: 16px;
+    --wl-radius-md: 12px;
+    --wl-radius-pill: 999px;
+    --wl-config-light-primary: #4f6ef7;
+    --wl-config-light-primary-contrast: #ffffff;
+    --wl-light-primary: var(--wl-config-light-primary, #4f6ef7);
+    --wl-light-primary-contrast: var(--wl-config-light-primary-contrast, #ffffff);
+    --wl-dashboard-primary: var(--wl-config-dashboard-primary, var(--wl-primary));
+    --wl-dashboard-primary-contrast: #ffffff;
+}
+
+.o_web_client {
+    background: var(--wl-canvas);
+    color: #1e293b;
+    font-family: "Inter", "Roboto", "Helvetica Neue", Arial, sans-serif;
+}
+
+// ── Global shell: dark navy header band ──────────────────────────────────────
+
+.wl_sp_global_shell {
+    position: relative;
+    margin: 0;
+    padding: 0 20px 0;
+    // App-page hero paint lives on .o_web_client::before (ERP block below).
+    // An image on this stacking layer covers hero-overlap content under the shell.
+    background-image: none !important;
+    background-color: transparent !important;
+    box-shadow: none;
+    // Do not clip the fixed mobile drawer (overflow:hidden + sticky traps fixed kids).
+    overflow: visible;
+}
+
+.wl_sp_global_shell > *:not(.wl_sp_workspace_modal):not(.wl_erp_hero_art):not(.wl_sp_mobile_sidebar_panel):not(.wl_sp_mobile_sidebar_backdrop) {
+    position: relative;
+    z-index: 1;
+}
+
+// Off-canvas drawer must stay out of flow — otherwise translateX still reserves its height
+// under the topbar (tall empty navy band on phone).
+.wl_sp_global_shell > .wl_sp_mobile_sidebar_backdrop,
+.wl_sp_global_shell > .wl_sp_mobile_sidebar_panel {
+    position: fixed;
+}
+
+// Keep expanded search results above the hero band (sibling stacking context).
+.wl_sp_global_shell > .wl_sp_topbar_mount:has(.wl_sp_topbar_search.is-expanded) {
+    z-index: 40;
+}
+
+.wl_sp_topbar {
+    min-height: 58px;
+    margin: 14px 0 0;
+    gap: 12px;
+}
+
+.wl_sp_brand_section,
+.wl_sp_profile {
+    min-height: 48px;
+    border: 1px solid var(--wl-hero-chrome-border);
+    border-radius: var(--wl-radius-pill);
+    background: var(--wl-hero-chrome-surface);
+    box-shadow: none;
+    backdrop-filter: blur(8px);
+}
+
+.wl_sp_topbar_icons {
+    min-height: 48px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.wl_sp_brand_section {
+    padding: 0 16px 0 12px;
+    gap: 10px;
+}
+
+.wl_sp_brand_name {
+    color: var(--wl-header-text);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+
+    &::after {
+        content: "Enterprise Resource Planning";
+        display: block;
+        margin-top: 1px;
+        color: var(--wl-header-muted);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+}
+
+.wl_sp_tabs_section {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    overflow: hidden;
+}
+
+.wl_sp_tabs span,
+.wl_sp_tabs a,
+.wl_sp_tabs .wl_sp_submenu_btn {
+    color: #000000 !important;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 999px;
+}
+
+.wl_sp_tabs .wl_sp_submenu_btn:hover {
+    color: #000000 !important;
+    background: transparent;
+}
+
+.wl_sp_tabs .wl_sp_submenu_btn.is-active,
+.wl_sp_tabs .is-active {
+    border-radius: 999px;
+    background: var(--wl-hero-chrome-active-bg);
+    color: #000000 !important;
+    box-shadow: inset 0 0 0 1px var(--wl-hero-chrome-border);
+}
+
+.wl_sp_topbar_icons {
+    padding: 0;
+    gap: 8px;
+}
+
+.wl_sp_profile {
+    color: var(--wl-header-text);
+}
+
+.wl_sp_user_name {
+    color: var(--wl-header-text);
+}
+
+.wl_sp_user_meta {
+    color: var(--wl-header-muted);
+}
+
+// ── Main backend canvas ──────────────────────────────────────────────────────
+
+.o_web_client > .o_action_manager {
+    background: var(--wl-canvas);
+}
+
+.o_web_client .o_control_panel {
+    border-radius: 0;
+    border-color: var(--wl-card-border);
+    background: var(--wl-card);
+    box-shadow: var(--wl-card-shadow);
+}
+
+.o_web_client .o_control_panel :is(
+    .o_control_panel_main_buttons .btn.btn-primary,
+    .o_control_panel_actions .btn.btn-primary,
+    .o_control_panel_navigation .btn.btn-primary
+) {
+    border-color: transparent;
+    background: var(--wl-primary);
+    color: #ffffff;
+    border-radius: 0;
+}
+
+.o_web_client .o_form_view .o_form_sheet_bg,
+.o_web_client .o_kanban_view .o_kanban_record,
+.o_web_client .o_list_view .o_list_renderer,
+.o_web_client .o_pivot_view .o_pivot {
+    border-radius: 0;
+    border-color: var(--wl-card-border);
+    box-shadow: var(--wl-card-shadow);
+    background: var(--wl-card);
+}
+
+.o_web_client .o_searchview {
+    border-radius: 0;
+}
+
+// ── Dashboard welcome band (continues dark header on dashboard) ──────────────
+
+.wl_sp_action_shell {
+    background: var(--wl-canvas);
+    padding: 0 20px 20px;
+}
+
+.wl_sp_dashboard_scroll {
+    background: var(--wl-canvas);
+    gap: 18px;
+}
+
+.wl_sp_intro {
+    margin-inline-start: 0;
+    margin: -10px -20px 0;
+    padding: 8px 20px 0;
+    border-radius: 0;
+    background:
+        radial-gradient(
+            circle at 88% 18%,
+            color-mix(in srgb, var(--wl-erp-primary, #4f6ef7) 18%, transparent) 0%,
+            transparent 42%
+        ),
+        linear-gradient(180deg, var(--wl-navy-mid) 0%, var(--wl-navy) 100%);
+}
+
+.wl_sp_dashboard_body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-inline-start: 0;
+    padding: 20px 0 4px;
+}
+
+.wl_sp_header h1 {
+    color: var(--wl-header-text);
+    font-size: unquote("clamp(24px, 2.2vw, 34px)");
+    font-weight: 700;
+}
+
+.wl_sp_header p {
+    color: var(--wl-header-muted);
+    font-size: 14px;
+}
+
+.wl_sp_subnav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-top: 18px;
+    padding-top: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.wl_sp_subnav_tab {
+    position: relative;
+    border: 0;
+    background: transparent;
+    color: var(--wl-header-muted);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 0 12px;
+    cursor: pointer;
+}
+
+.wl_sp_subnav_tab.is-active {
+    color: var(--wl-header-text);
+}
+
+.wl_sp_subnav_tab.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    border-radius: 999px 999px 0 0;
+    background: #ffffff;
+}
+
+.wl_sp_subnav_badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    min-height: 18px;
+    margin-inline-start: 6px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--wl-erp-primary, var(--wl-primary, #4f6ef7));
+    color: var(--wl-erp-primary-contrast, #ffffff);
+    font-size: 10px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+// ── Dashboard cards ──────────────────────────────────────────────────────────
+
+.wl_sp_card,
+.wl_sp_metric {
+    border-radius: var(--wl-radius-lg);
+    border-color: var(--wl-card-border);
+    box-shadow: var(--wl-card-shadow);
+}
+
+.wl_sp_metric.is-hot {
+    background: linear-gradient(135deg, var(--wl-primary) 0%, var(--wl-primary-dark) 100%);
+}
+
+.wl_sp_buttons button {
+    border-radius: var(--wl-radius-md);
+    background: var(--wl-primary);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.wl_sp_buttons button.is-ghost {
+    background: var(--wl-primary-soft);
+    color: var(--wl-primary-dark);
+}
+
+.wl_sp_progress_fill,
+.wl_sp_chart_bars i {
+    background: linear-gradient(180deg, var(--wl-primary), var(--wl-primary-dark));
+}
+
+.wl_sp_chip {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.wl_sp_status {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 10px;
+    border-radius: var(--wl-radius-pill);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.wl_sp_status.is-paid,
+.wl_sp_status.is-done {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.wl_sp_status.is-unpaid,
+.wl_sp_status.is-pending {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.wl_sp_status.is-approved,
+.wl_sp_status.is-progress {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.wl_sp_status.is-posted {
+    background: #ecfccb;
+    color: #3f6212;
+}
+
+.wl_sp_rail_group button.is-active {
+    background: var(--wl-primary);
+    color: #ffffff;
+}
+
+@media (max-width: 991.98px) {
+    .wl_sp_global_shell {
+        padding-inline: 12px;
+    }
+
+    .wl_sp_intro {
+        margin-inline: -8px;
+        padding-inline: 12px;
+    }
+}
+
+// ── Willow ERP mockup implementation ─────────────────────────────────────────
+// This block follows the supplied HTML/CSS mockup: no side rail, topbar menus,
+// dark header area, and a light card dashboard.
+
+:root,
+.o_web_client {
+    --wl-erp-topbar-height: 76px;
+    --wl-erp-page-margin: 16px;
+    --wl-erp-page-max-width: none;
+    --wl-erp-hero-depth: 280px;
+    --wl-erp-hero-pull: 68px;
+    --wl-erp-hero-submenu-slot: 50px;
+    --wl-erp-hero-depth-compact: calc(var(--wl-erp-hero-depth) - var(--wl-erp-hero-submenu-slot));
+    --wl-erp-hero-overlap: calc(var(--wl-erp-hero-depth) - var(--wl-erp-hero-pull));
+    // Raster hero URLs are set by applyThemeColors only when a company upload exists.
+    --wl-erp-hero-bg-image: none;
+    --wl-erp-hero-bg-image-dark: none;
+    --wl-erp-hero-bg-layer: none;
+    --wl-erp-dark-bg: var(--wl-config-light-header-base, #061b36);
+    --wl-erp-dark-bg-2: var(--wl-config-light-header-mid, #09254a);
+    // Follows Theme Settings dashboard primary (preset-aware via applyThemeColors).
+    --wl-erp-primary: var(--wl-dashboard-primary, var(--wl-config-dashboard-primary, #5068f6));
+    --wl-erp-primary-dark: #4054d8;
+    --wl-erp-primary-dark: color-mix(in srgb, var(--wl-erp-primary, #4f6ef7) 82%, #000000);
+    --wl-erp-text-dark: var(--wl-config-light-body-text, #122033);
+    --wl-erp-text-muted: var(--wl-config-light-body-muted, #7d8798);
+    --wl-erp-border: var(--wl-config-light-card-border, #e8ecf2);
+    --wl-erp-card-bg: var(--wl-config-light-card, rgba(255, 255, 255, 0.88));
+    --wl-erp-green: var(--wl-config-success, #16b978);
+    --wl-erp-red: var(--wl-config-danger, #ff4d57);
+    --wl-erp-orange: var(--wl-config-warning, #ff8b3d);
+    --wl-erp-purple: var(--wl-config-info, #8d83f6);
+    --wl-erp-pink: #f46d9f;
+    --wl-erp-yellow: #e8b33e;
+    --wl-erp-shadow: 0 18px 45px rgba(19, 38, 69, 0.10);
+    // Soft primary/canvas tint so glass picks up the active preset hue.
+    // Higher white share so the bar stays readable on light hero backgrounds.
+    --wl-erp-cp-glass-bg: rgba(255, 255, 255, 0.82);
+    --wl-erp-cp-glass-bg: color-mix(
+        in srgb,
+        color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 6%, #ffffff) 88%,
+        transparent
+    );
+    --wl-erp-cp-glass-border: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-glass-border: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 10%, #ffffff);
+    --wl-erp-cp-glass-shadow: 0 10px 28px rgba(19, 38, 69, 0.06);
+    --wl-erp-cp-text: #5e6975;
+    --wl-erp-cp-text-strong: #1f252b;
+    --wl-erp-cp-text-muted: #9aa5b1;
+    --wl-erp-cp-btn-bg: rgba(255, 255, 255, 0.72);
+    --wl-erp-cp-btn-border: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-btn-color: #334155;
+    --wl-erp-cp-btn-hover-bg: rgba(255, 255, 255, 0.9);
+    --wl-erp-cp-btn-hover-border: rgba(255, 255, 255, 0.7);
+    --wl-erp-cp-search-bg: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-search-border: rgba(255, 255, 255, 0.5);
+    --wl-erp-cp-search-inner-bg: transparent;
+    --wl-erp-cp-search-text: #334155;
+    --wl-erp-cp-search-placeholder: #94a3b8;
+    --wl-erp-cp-facet-bg: rgba(255, 255, 255, 0.7);
+    --wl-erp-cp-facet-border: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-facet-text: #1f252b;
+    --wl-erp-cp-pager-bg: rgba(255, 255, 255, 0.72);
+    --wl-erp-cp-pager-border: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-pager-text: #334155;
+    --wl-erp-cp-dropdown-bg: rgba(255, 255, 255, 0.65);
+    --wl-erp-cp-dropdown-border: rgba(255, 255, 255, 0.5);
+    --wl-erp-cp-dropdown-text: #334155;
+    --wl-erp-radius-lg: 16px;
+    --wl-erp-radius-md: 12px;
+}
+
+body:has(.o_web_client.wl_sp_global_mode),
+.o_web_client.wl_sp_global_mode {
+    position: relative;
+    background: var(--wl-canvas, #f8f9fa);
+    color: var(--wl-erp-text-dark);
+}
+
+// Hero band behind shell + action_manager. Must NOT paint on .wl_sp_global_shell
+// when that shell is z-index above .o_action_manager — an opaque shell covers the
+// negative-margin pull-up and leaves a tall empty blue band on every app page.
+// Default paint is the inline SVG (.wl_erp_hero_art). Raster only when .wl_sp_hero_custom.
+.o_web_client.wl_sp_global_mode.wl_sp_hero_custom:not(:has(.wl_erp_theme_page))::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: var(--wl-erp-hero-depth);
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--wl-erp-hero-bg-layer);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+.o_web_client.wl_sp_global_mode .o_action_manager {
+    position: relative;
+    z-index: 5;
+    min-height: 0;
+    padding: 0 var(--wl-erp-page-margin) 16px !important;
+    background: transparent !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) > .o_action_manager {
+    margin-top: calc(-1 * var(--wl-erp-hero-overlap)) !important;
+}
+
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_action,
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_control_panel {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_control_panel {
+    position: relative;
+    z-index: 2;
+    margin-top: 0 !important;
+    margin-bottom: 12px !important;
+    margin-inline-start: auto !important;
+    margin-inline-end: auto !important;
+}
+
+// Hero overlay control panel — white tint (light mode) / dark tint (dark mode).
+.o_web_client.wl_sp_global_mode:not(.wl_sp_theme_dark):not(:has(.wl_erp_theme_page)) {
+    --wl-erp-cp-glass-bg: rgba(255, 255, 255, 0.82);
+    --wl-erp-cp-glass-bg: color-mix(
+        in srgb,
+        color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 6%, #ffffff) 88%,
+        transparent
+    );
+    --wl-erp-cp-glass-border: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-glass-border: color-mix(in srgb, var(--wl-light-primary, #4f6ef7) 10%, #ffffff);
+    --wl-erp-cp-glass-shadow: 0 10px 28px rgba(19, 38, 69, 0.06);
+    --wl-erp-cp-text: #5e6975;
+    --wl-erp-cp-text-strong: #1f252b;
+    --wl-erp-cp-text-muted: #9aa5b1;
+    --wl-erp-cp-btn-bg: rgba(255, 255, 255, 0.72);
+    --wl-erp-cp-btn-border: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-btn-color: #334155;
+    --wl-erp-cp-btn-hover-bg: rgba(255, 255, 255, 0.9);
+    --wl-erp-cp-btn-hover-border: rgba(255, 255, 255, 0.7);
+    --wl-erp-cp-search-bg: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-search-border: rgba(255, 255, 255, 0.5);
+    --wl-erp-cp-search-inner-bg: transparent;
+    --wl-erp-cp-search-text: #334155;
+    --wl-erp-cp-search-placeholder: #94a3b8;
+    --wl-erp-cp-facet-bg: rgba(255, 255, 255, 0.7);
+    --wl-erp-cp-facet-border: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-facet-text: #1f252b;
+    --wl-erp-cp-pager-bg: rgba(255, 255, 255, 0.72);
+    --wl-erp-cp-pager-border: rgba(255, 255, 255, 0.55);
+    --wl-erp-cp-pager-text: #334155;
+    --wl-erp-cp-dropdown-bg: rgba(255, 255, 255, 0.65);
+    --wl-erp-cp-dropdown-border: rgba(255, 255, 255, 0.5);
+    --wl-erp-cp-dropdown-text: #334155;
+}
+
+.o_web_client.wl_sp_global_mode.wl_sp_theme_dark:not(:has(.wl_erp_theme_page)) {
+    --wl-erp-cp-glass-bg: rgba(15, 23, 42, 0.36);
+    --wl-erp-cp-glass-bg: color-mix(
+        in srgb,
+        color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 12%, #0f172a) 70%,
+        transparent
+    );
+    --wl-erp-cp-glass-border: rgba(255, 255, 255, 0.12);
+    --wl-erp-cp-glass-border: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 22%, transparent);
+    --wl-erp-cp-glass-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+    --wl-erp-cp-text: rgba(203, 213, 225, 0.88);
+    --wl-erp-cp-text-strong: #f8fafc;
+    --wl-erp-cp-text-muted: rgba(148, 163, 184, 0.9);
+    --wl-erp-cp-btn-bg: rgba(255, 255, 255, 0.06);
+    --wl-erp-cp-btn-border: rgba(255, 255, 255, 0.12);
+    --wl-erp-cp-btn-color: rgba(226, 232, 240, 0.95);
+    --wl-erp-cp-btn-hover-bg: rgba(255, 255, 255, 0.12);
+    --wl-erp-cp-btn-hover-border: rgba(255, 255, 255, 0.18);
+    --wl-erp-cp-search-bg: rgba(255, 255, 255, 0.05);
+    --wl-erp-cp-search-border: rgba(255, 255, 255, 0.12);
+    --wl-erp-cp-search-inner-bg: transparent;
+    --wl-erp-cp-search-text: rgba(241, 245, 249, 0.95);
+    --wl-erp-cp-search-placeholder: rgba(148, 163, 184, 0.85);
+    --wl-erp-cp-facet-bg: rgba(255, 255, 255, 0.1);
+    --wl-erp-cp-facet-border: rgba(255, 255, 255, 0.14);
+    --wl-erp-cp-facet-text: #f8fafc;
+    --wl-erp-cp-pager-bg: rgba(255, 255, 255, 0.06);
+    --wl-erp-cp-pager-border: rgba(255, 255, 255, 0.12);
+    --wl-erp-cp-pager-text: rgba(226, 232, 240, 0.95);
+    --wl-erp-cp-dropdown-bg: rgba(255, 255, 255, 0.06);
+    --wl-erp-cp-dropdown-border: rgba(255, 255, 255, 0.12);
+    --wl-erp-cp-dropdown-text: rgba(226, 232, 240, 0.95);
+}
+
+.o_web_client.wl_sp_theme_dark {
+    --wl-navy: var(--wl-config-dark-header-base, #020817);
+    --wl-navy-mid: var(--wl-config-dark-header-mid, #0f172a);
+    --wl-canvas: var(--wl-config-dark-canvas, #0b1120);
+    --wl-card: var(--wl-config-dark-card, #111827);
+    --wl-card-border: var(--wl-config-dark-card-border, #273449);
+    --wl-primary: var(--wl-dark-primary, #6b8aff);
+    --wl-primary-dark: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 82%, #000000);
+    --wl-primary-soft: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 22%, #0b1120);
+    --wl-header-text: var(--wl-config-dark-header-text, #f8fafc);
+    --wl-header-muted: var(--wl-config-dark-header-muted, #a7b4c7);
+    --wl-hero-chrome-text: var(--wl-header-text);
+    --wl-hero-chrome-muted: rgba(255, 255, 255, 0.78);
+    --wl-hero-chrome-surface: rgba(255, 255, 255, 0.08);
+    --wl-hero-chrome-surface: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 14%, transparent);
+    --wl-hero-chrome-surface-strong: rgba(255, 255, 255, 0.14);
+    --wl-hero-chrome-surface-strong: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 22%, transparent);
+    --wl-hero-chrome-border: rgba(255, 255, 255, 0.18);
+    --wl-hero-chrome-border: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 28%, transparent);
+    --wl-hero-chrome-active-bg: rgba(255, 255, 255, 0.18);
+    --wl-hero-chrome-active-bg: color-mix(in srgb, var(--wl-dark-primary, #6b8aff) 28%, transparent);
+    --wl-hero-chrome-active-text: #ffffff;
+    --wl-hero-chrome-icon: #ffffff;
+    --wl-erp-dark-bg: var(--wl-config-dark-header-base, #020817);
+    --wl-erp-dark-bg-2: var(--wl-config-dark-header-mid, #0f172a);
+    --wl-erp-primary-dark: color-mix(in srgb, var(--wl-erp-primary, #6b8aff) 82%, #000000);
+    --o-navbar-badge-bg: var(--wl-erp-primary, var(--wl-primary, #6b8aff));
+    --o-navbar-badge-color: var(--wl-erp-primary-contrast, #ffffff);
+    --wl-erp-text-dark: var(--wl-config-dark-body-text, #e5edf7);
+    --wl-erp-text-muted: var(--wl-config-dark-body-muted, #9aa7ba);
+    --wl-erp-border: var(--wl-config-dark-card-border, #273449);
+    --wl-erp-card-bg: var(--wl-config-dark-card, #111827);
+    --wl-erp-green: var(--wl-config-dark-success, #34d399);
+    --wl-erp-red: var(--wl-config-dark-danger, #fb7185);
+    --wl-erp-orange: var(--wl-config-dark-warning, #fdba74);
+    --wl-erp-purple: var(--wl-config-dark-info, #a5b4fc);
+    --wl-erp-hero-bg-layer: var(--wl-erp-hero-bg-image-dark, var(--wl-erp-hero-bg-image));
+}
+
+.o_web_client.wl_sp_theme_dark .wl_sp_global_shell {
+    // Keep shell transparent on app pages; dark hero (SVG or raster) is not painted here on apps.
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel {
+    border: 1px solid var(--wl-erp-cp-glass-border) !important;
+    background: var(--wl-erp-cp-glass-bg) !important;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: var(--wl-erp-cp-glass-shadow);
+    color: var(--wl-erp-cp-text);
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
+    .breadcrumb,
+    .o_breadcrumb,
+    .breadcrumb-item,
+    .breadcrumb-item a,
+    .o_back_button a,
+    .o_last_breadcrumb_item
+) {
+    color: var(--wl-erp-cp-text) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
+    .breadcrumb-item.active,
+    .o_last_breadcrumb_item
+) {
+    color: var(--wl-erp-cp-text-strong) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .breadcrumb-item + .breadcrumb-item::before {
+    color: var(--wl-erp-cp-text-muted) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
+    .o_control_panel_main_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):not(.d-print-none),
+    .o_control_panel_actions .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_searchview_icon):not(.o_searchview_input_container):not(.d-print-none),
+    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_pager_previous):not(.o_pager_next):not(.d-print-none),
+    // Settings/cog action menu: keep icon-only — no glass tint (see override below).
+    .o_cp_action_menus .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o-dropdown):not(.d-print-none),
+    .o_cp_switch_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):not(.d-print-none)
+) {
+    border-color: var(--wl-erp-cp-btn-border) !important;
+    background: var(--wl-erp-cp-btn-bg) !important;
+    color: var(--wl-erp-cp-btn-color) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
+    .o_control_panel_main_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):not(.d-print-none):hover,
+    .o_control_panel_actions .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_searchview_icon):not(.o_searchview_input_container):not(.d-print-none):hover,
+    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_pager_previous):not(.o_pager_next):not(.d-print-none):hover,
+    .o_cp_action_menus .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o-dropdown):not(.d-print-none):hover,
+    .o_cp_switch_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):not(.d-print-none):hover
+):not(:disabled) {
+    border-color: var(--wl-erp-cp-btn-hover-border) !important;
+    background: var(--wl-erp-cp-btn-hover-bg) !important;
+    color: var(--wl-erp-cp-text-strong) !important;
+    box-shadow: none !important;
+    transform: none;
+}
+
+// Icon-only settings/cog control — no white/glass chip behind the glyph.
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus .btn.o-dropdown,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus button.border-0.lh-sm {
+    --btn-bg: transparent;
+    --btn-hover-bg: transparent;
+    --btn-active-bg: transparent;
+    --bs-btn-bg: transparent;
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-active-bg: transparent;
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: var(--wl-erp-cp-btn-color) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus .btn.o-dropdown:hover,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus .btn.o-dropdown:focus,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus .btn.o-dropdown:active,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus .btn.o-dropdown.show,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus button.border-0.lh-sm:hover,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus button.border-0.lh-sm:focus,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus button.border-0.lh-sm:active,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_action_menus button.border-0.lh-sm.show {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: var(--wl-erp-cp-text-strong) !important;
+    transform: none;
+}
+
+// Search icon & searchbar search button (including .d-print-none.btn) — no background chip/box behind search icon.
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
+    .o_searchview_icon,
+    .o_searchview .o_searchview_icon,
+    .o_searchview .btn,
+    .o_searchview button,
+    .o_cp_searchview .btn,
+    .o_cp_searchview button,
+    .o_searchview_input_container .btn,
+    .o_searchview_input_container button,
+    .o_searchview_input_container .o_searchview_icon,
+    .o_searchview_input_container i,
+    .o_searchview .oi-search,
+    .d-print-none.btn,
+    .btn.d-print-none,
+    .d-print-none
+),
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
+    .o_searchview_icon,
+    .o_searchview .o_searchview_icon,
+    .o_searchview .btn,
+    .o_searchview button,
+    .o_cp_searchview .btn,
+    .o_cp_searchview button,
+    .o_searchview_input_container .btn,
+    .o_searchview_input_container button,
+    .o_searchview_input_container .o_searchview_icon,
+    .o_searchview_input_container i,
+    .o_searchview .oi-search,
+    .d-print-none.btn,
+    .btn.d-print-none,
+    .d-print-none
+):is(:hover, :focus, :active, .show) {
+    --btn-bg: transparent;
+    --btn-hover-bg: transparent;
+    --btn-active-bg: transparent;
+    --bs-btn-bg: transparent;
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-active-bg: transparent;
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    transform: none;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
+    .o_control_panel_main_buttons .btn.btn-primary,
+    .o_control_panel_actions .btn.btn-primary,
+    .o_control_panel_navigation .btn.btn-primary
+) {
+    border-color: transparent !important;
+    background: var(--wl-erp-primary) !important;
+    color: #ffffff !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
+    .o_control_panel_main_buttons .btn.btn-primary:hover,
+    .o_control_panel_actions .btn.btn-primary:hover,
+    .o_control_panel_navigation .btn.btn-primary:hover
+):not(:disabled) {
+    border-color: transparent !important;
+    background: var(--wl-erp-primary-dark) !important;
+    color: #ffffff !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_switch_buttons .btn.active,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_switch_buttons .btn.active:hover {
+    border-color: transparent !important;
+    background: var(--wl-erp-primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 18px rgba(6, 27, 54, 0.28) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_pager {
+    border-color: var(--wl-erp-cp-pager-border) !important;
+    background: var(--wl-erp-cp-pager-bg) !important;
+    color: var(--wl-erp-cp-pager-text) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_pager .btn {
+    // Glass CP button chrome must not wrap pager chevrons in tinted boxes.
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: var(--wl-erp-cp-pager-text) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_pager .btn:hover:not(:disabled),
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_pager .btn:focus-visible:not(:disabled) {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    color: var(--wl-erp-cp-text-strong, var(--wl-erp-cp-pager-text)) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_searchview {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview {
+    border-color: var(--wl-erp-cp-search-border) !important;
+    background: var(--wl-erp-cp-search-bg) !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.o_web_client.wl_sp_global_mode:not(.wl_sp_theme_dark):not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview:hover,
+.o_web_client.wl_sp_global_mode:not(.wl_sp_theme_dark):not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview:focus-within {
+    border-color: rgba(255, 255, 255, 0.28) !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode.wl_sp_theme_dark:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview:hover,
+.o_web_client.wl_sp_global_mode.wl_sp_theme_dark:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview:focus-within {
+    border-color: var(--wl-erp-cp-btn-hover-border) !important;
+    background: var(--wl-erp-cp-btn-hover-bg) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview :is(
+    .o_searchview_input,
+    .o_searchview_input_container,
+    .o_searchview_autocomplete,
+    .bg-view
+) {
+    background: var(--wl-erp-cp-search-inner-bg) !important;
+    background-color: var(--wl-erp-cp-search-inner-bg) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_searchview .wl_cp_search_menu_anchor {
+    border-color: var(--wl-erp-cp-search-border) !important;
+    background: var(--wl-erp-cp-search-bg) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_searchview .wl_cp_search_menu_anchor .o_searchview_dropdown_toggler {
+    border-color: transparent !important;
+    background: var(--wl-erp-cp-dropdown-bg) !important;
+    color: var(--wl-erp-cp-dropdown-text) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview :is(
+    .o_searchview_input,
+    .o_searchview_icon
+) {
+    color: var(--wl-erp-cp-search-text) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_searchview_input::placeholder {
+    color: var(--wl-erp-cp-search-placeholder) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_searchview_facet {
+    border-color: var(--wl-erp-cp-facet-border) !important;
+    background: var(--wl-erp-cp-facet-bg) !important;
+    color: var(--wl-erp-cp-facet-text) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_searchview_facet :is(
+    .o_facet_value,
+    .o_facet_remove,
+    .o_searchview_facet_label
+) {
+    color: var(--wl-erp-cp-facet-text) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_searchview_facet > .position-absolute.bg-view {
+    background: var(--wl-erp-cp-facet-bg) !important;
+    border-color: var(--wl-erp-cp-facet-border) !important;
+    box-shadow: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_searchview_facet:hover .o_facet_values,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_searchview_facet:focus-within .o_facet_values {
+    background: var(--wl-erp-cp-btn-hover-bg) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_searchview_facet:hover .o_facet_value,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_searchview_facet:focus-within .o_facet_value {
+    color: var(--wl-erp-cp-facet-text) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview > .btn,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_facet_remove {
+    --bs-btn-bg: transparent;
+    --bs-btn-hover-bg: transparent;
+    --bs-btn-active-bg: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-active-border-color: transparent;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview > .btn:hover,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview > .btn:focus,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview > .btn:active,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_facet_remove:hover,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_facet_remove:focus,
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_searchview .o_facet_remove:active {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
+    .o_searchview_dropdown_toggler,
+    .o_cp_searchview .wl_cp_search_menu_anchor
+) {
+    border-color: var(--wl-erp-cp-dropdown-border) !important;
+    background: var(--wl-erp-cp-dropdown-bg) !important;
+    color: var(--wl-erp-cp-dropdown-text) !important;
+}
+
+.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel .o_cp_searchview .wl_cp_search_menu_anchor .o_searchview_dropdown_toggler {
+    color: var(--wl-erp-cp-dropdown-text) !important;
+}
+
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_action {
+    position: relative;
+    z-index: 1;
+}
+
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_action > .o_content {
+    border-radius: 0;
+    overflow: hidden;
+}
+
+// Kanban action is itself `.o_kanban_view` — allow stage swipe inside content.
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_action.o_kanban_view > .o_content,
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_action > .o_content:has(.o_kanban_renderer) {
+    overflow: auto;
+}
+
+// Form wrappers — transparent so hero/canvas shows through; sheet stays card-styled.
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_action:has(.o_form_view),
+.o_web_client.wl_sp_global_mode .o_action_manager > .o_action > .o_content:has(.o_form_view),
+.o_web_client.wl_sp_global_mode .o_action_manager :is(
+    .o_view_controller.o_form_view,
+    .o_form_view.o_xxl_form_view,
+    .o_form_view.h-100,
+    .o_form_view_container,
+    .o_form_view .o_form_renderer
+) {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) .o_action_manager > .o_action > .o_content {
+    border-radius: 0;
+    overflow: visible;
+}
+
+// Sharp corners — backend shell containers (no rounding).
+.o_web_client > .o_action_manager,
+.o_web_client .o_action_manager > .o_action,
+.o_web_client .o_action_manager > .o_control_panel,
+.o_web_client .o_action_manager > .o_action > .o_content,
+.o_web_client > .o_action_manager > .o_action > .o_content {
+    border-radius: 0 !important;
+}
+
+.o_web_client .o_control_panel .o_searchview,
+.o_web_client .o_control_panel .o_searchview + .o_searchview_dropdown_toggler,
+.o_web_client .o_control_panel .o_cp_searchview .wl_cp_search_menu_anchor {
+    border-radius: 0 !important;
+}
+
+// Sharp corners — control panel buttons and inner components.
+.o_web_client .o_control_panel :is(
+    .btn,
+    .o_cp_pager,
+    .o_searchview,
+    .o_searchview .o_searchview_input,
+    .o_searchview .o_searchview_facet,
+    .o_searchview .o_searchview_facet .o_searchview_facet_label,
+    .o_searchview + .o_searchview_dropdown_toggler,
+    .o_cp_searchview .wl_cp_search_menu_anchor,
+    .o_cp_searchview .wl_cp_search_menu_anchor .o_searchview_dropdown_toggler,
+    .o-dropdown--menu,
+    .dropdown-menu,
+    .dropdown-item,
+    .o-dropdown-item,
+    .badge,
+    .input-group,
+    .input-group-text,
+    .form-control,
+    .form-select,
+    .o_search_bar_menu,
+    .o_search_options .dropdown-toggle,
+    .o-form-buttonbox .oe_stat_button
+) {
+    border-radius: 0 !important;
+}
+
+.o_web_client .o_form_view .o_form_sheet,
+.o_web_client .o-search-panel {
+    border-radius: 0 !important;
+}
+
+// Keep Kraken skeleton off on Willow (hamburger drawer is live at ≤991).
+.o_web_client.wl_sp_global_mode .wl_sp_pending_action_skeleton {
+    display: none !important;
+}
+
+.wl_sp_global_shell {
+    position: relative;
+    // Above .o_action_manager (z-index 5) so topbar search/systray popovers stay on top.
+    // Hero *paint* must not live on this layer — a filled shell covered the pull-up
+    // and hid control panel / list under a tall empty blue band. Pass clicks through
+    // empty hero space to the overlapped action_manager (same pattern as Home).
+    z-index: 10;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 auto;
+    background-image: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    pointer-events: none;
+}
+
+.wl_sp_global_shell :is(
+    .wl_sp_topbar_mount,
+    .wl_sp_topbar,
+    .wl_sp_topbar_left,
+    .wl_sp_right_section,
+    .wl_sp_account_cluster,
+    .wl_sp_theme_toggle,
+    .wl_theme_settings_trigger,
+    .wl_sp_profile,
+    .wl_sp_mobile_menu_slot,
+    .wl_sp_mobile_menu_btn,
+    .wl_sp_mobile_sidebar_panel,
+    .wl_sp_mobile_sidebar_backdrop,
+    .wl_sp_mobile_app_card,
+    .wl_sp_mobile_profile_item,
+    .wl_erp_submenus,
+    .wl_erp_submenu_item
+) {
+    pointer-events: auto;
+}
+
+// Home / Dashboard topbar shell: sticky at top (z-index 1000).
+// Dynamically tracks scroll depth (0px to 80px) with zero CSS transition lag.
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page, .o_willow_dashboard_action) .wl_sp_global_shell {
+    position: sticky;
+    top: 0;
+    z-index: 1000 !important;
+    min-height: 0;
+    pointer-events: auto;
+    background-color: rgba(255, 255, 255, calc(var(--wl-scroll-progress, 0) * 0.48)) !important;
+    backdrop-filter: blur(calc(var(--wl-scroll-progress, 0) * 20px)) saturate(calc(100% + var(--wl-scroll-progress, 0) * 80%));
+    -webkit-backdrop-filter: blur(calc(var(--wl-scroll-progress, 0) * 20px)) saturate(calc(100% + var(--wl-scroll-progress, 0) * 80%));
+    box-shadow: 0 4px 20px rgba(18, 32, 51, calc(var(--wl-scroll-progress, 0) * 0.08)) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, calc(var(--wl-scroll-progress, 0) * 0.6));
+    transition: none !important;
+}
+
+.o_web_client.wl_sp_global_mode.wl_sp_theme_dark:has(.wl_erp_theme_page, .o_willow_dashboard_action) .wl_sp_global_shell {
+    background-color: rgba(11, 17, 32, calc(var(--wl-scroll-progress, 0) * 0.58)) !important;
+    backdrop-filter: blur(calc(var(--wl-scroll-progress, 0) * 20px)) saturate(calc(100% + var(--wl-scroll-progress, 0) * 80%));
+    -webkit-backdrop-filter: blur(calc(var(--wl-scroll-progress, 0) * 20px)) saturate(calc(100% + var(--wl-scroll-progress, 0) * 80%));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, calc(var(--wl-scroll-progress, 0) * 0.4)) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, calc(var(--wl-scroll-progress, 0) * 0.12));
+    transition: none !important;
+}
+
+.o_web_client.wl_sp_global_mode.wl_sp_hero_custom:has(.wl_erp_theme_page, .o_willow_dashboard_action) .wl_sp_global_shell.is-scrolled {
+    background-image: var(--wl-erp-hero-bg-image) !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+}
+
+.o_web_client.wl_sp_global_mode.wl_sp_theme_dark.wl_sp_hero_custom:has(.wl_erp_theme_page, .o_willow_dashboard_action) .wl_sp_global_shell.is-scrolled {
+    background-image: var(--wl-erp-hero-bg-image-dark, var(--wl-erp-hero-bg-image)) !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+}
+
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page, .o_willow_dashboard_action) > .o_action_manager {
+    margin-top: calc(-1 * var(--wl-erp-topbar-height, 64px)) !important;
+}
+
+.wl_erp_app_hero {
+    position: relative;
+    z-index: 1;
+    min-height: var(--wl-erp-hero-depth);
+    padding: 0 var(--wl-erp-page-margin);
+    color: #ffffff;
+    background: transparent;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.wl_erp_app_hero .wl_erp_submenus,
+.wl_erp_app_hero .wl_erp_submenu_item {
+    pointer-events: auto;
+}
+
+.wl_erp_app_hero_inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+.wl_erp_app_hero .wl_erp_submenus {
+    min-height: 54px;
+    padding: 6px 0 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.wl_erp_app_hero .wl_erp_submenus.wl_erp_submenus--empty {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+}
+
+.wl_erp_app_hero.wl_erp_app_hero--compact {
+    min-height: var(--wl-erp-hero-depth-compact);
+}
+
+.wl_sp_topbar {
+    position: relative;
+    z-index: 20;
+    height: var(--wl-erp-topbar-height);
+    min-height: var(--wl-erp-topbar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 0 !important;
+    padding: 0 34px;
+    border: 0 !important;
+    border-radius: 0 !important;
+    color: var(--wl-hero-chrome-text) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.wl_sp_topbar_left,
+.wl_sp_right_section {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-width: 0;
+}
+
+.wl_sp_topbar_left {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.wl_sp_right_section {
+    flex: 0 0 auto;
+}
+
+// Theme toggle + settings + profile: tighter than systray icon gap
+.wl_sp_account_cluster {
+    position: relative;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    gap: 4px;
+    min-width: 0;
+    pointer-events: auto;
+}
+
+.wl_sp_theme_toggle,
+.wl_theme_settings_trigger {
+    position: relative;
+    z-index: 31;
+    pointer-events: auto;
+    touch-action: manipulation;
+}
+
+.wl_sp_brand_section {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    width: max-content;
+    min-width: max-content;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    color: var(--wl-hero-chrome-text) !important;
+    overflow: visible;
+}
+
+.wl_sp_brand_logo {
+    // Slightly larger brand mark — matches systray control footprint.
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    object-fit: contain;
+    object-position: center;
+}
+
+.wl_sp_brand_name {
+    margin: 0;
+    width: auto;
+    max-width: none;
+    color: var(--wl-hero-chrome-text) !important;
+    font-size: 21px;
+    line-height: 1.1;
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.wl_sp_brand_name.is-truncated {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wl_sp_brand_name::after {
+    display: none;
+}
+
+.wl_sp_brand_subtitle {
+    margin: 2px 0 0;
+    width: auto;
+    max-width: none;
+    color: var(--wl-hero-chrome-muted) !important;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.wl_sp_brand_subtitle.is-truncated {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wl_sp_brand_copy {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    width: var(--wl-brand-copy-width, max-content);
+    min-width: max-content;
+    overflow: visible;
+}
+
+.wl_sp_brand_apps_btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    // Match brand logo size for a balanced left chrome cluster.
+    width: 40px;
+    height: 40px;
+    margin-right: 6px;
+    margin-left: 0;
+    padding: 0;
+    border: 1px solid var(--wl-hero-chrome-border);
+    border-radius: 0;
+    background: var(--wl-hero-chrome-surface);
+    color: var(--wl-hero-chrome-text);
+    cursor: pointer;
+    transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.wl_sp_brand_apps_btn:hover,
+.wl_sp_brand_apps_btn:focus-visible {
+    border-color: var(--wl-hero-chrome-border);
+    background: var(--wl-hero-chrome-surface-strong);
+    color: var(--wl-hero-chrome-text);
+}
+
+.wl_sp_brand_apps_btn .fa {
+    font-size: 16px;
+    line-height: 1;
+}
+
+body.wl_sp_workspace_open {
+    overflow: hidden;
+}
+
+.wl_sp_tabs_cluster {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    gap: 4px;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none;
+    pointer-events: auto;
+}
+
+.wl_sp_tabs_section {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    width: auto;
+    max-width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none;
+    overflow: hidden;
+}
+
+.wl_sp_tabs_viewport {
+    display: block;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.wl_sp_tabs {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.wl_sp_tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.wl_sp_tabs span,
+.wl_sp_tabs a,
+.wl_sp_tabs .wl_sp_submenu_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 13px 22px;
+    border: 0;
+    // Always pill-shaped so active bg/shadow can fade without a square flash.
+    border-radius: 999px;
+    background: transparent;
+    color: #000000 !important;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wl_sp_tabs .wl_sp_submenu_btn:hover {
+    background: transparent;
+    color: #000000 !important;
+}
+
+.wl_sp_tabs .wl_sp_submenu_btn.is-active,
+.wl_sp_tabs .is-active {
+    border-radius: 999px !important;
+    background: var(--wl-hero-chrome-active-bg) !important;
+    color: #000000 !important;
+    box-shadow: inset 0 0 0 1px var(--wl-hero-chrome-border);
+}
+
+.wl_sp_tabs .is-active:hover {
+    // Keep active pill neutral on hover (same token as dark mode).
+    background: var(--wl-hero-chrome-active-bg) !important;
+    color: #000000 !important;
+}
+
+.wl_sp_tabs_scroll {
+    display: none;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: transparent !important;
+    color: var(--wl-hero-chrome-muted) !important;
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0.85;
+    cursor: pointer;
+    transition: background-color 0.15s ease, opacity 0.15s ease, color 0.15s ease;
+}
+
+.wl_sp_tabs_cluster.is-overflowing .wl_sp_tabs_scroll {
+    display: inline-flex;
+}
+
+.wl_sp_tabs_scroll:hover:not(:disabled) {
+    background: var(--wl-hero-chrome-surface) !important;
+    color: var(--wl-hero-chrome-text) !important;
+    opacity: 1;
+}
+
+.wl_sp_tabs_scroll:disabled {
+    opacity: 0.25;
+    cursor: default;
+    pointer-events: none;
+}
+
+.wl_sp_topbar_search {
+    position: relative;
+    z-index: 30;
+    width: 190px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 28px;
+    background: var(--wl-hero-chrome-surface) !important;
+    color: var(--wl-hero-chrome-muted) !important;
+    font-size: 12px;
+    box-shadow: inset 0 0 0 1px var(--wl-hero-chrome-border);
+    // Expand left into menus: right section grows, tabs cluster shrinks.
+    transition: width 0.2s ease;
+    cursor: text;
+    flex: 0 0 auto;
+}
+
+.wl_sp_topbar_search.is-expanded {
+    // Pass through as CSS min() — Sass cannot mix px and vw at compile time.
+    width: unquote("min(420px, 42vw)");
+}
+
+.wl_sp_topbar_search_input {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--wl-hero-chrome-text);
+    font-size: 12px;
+    line-height: 1.2;
+    box-shadow: none;
+    appearance: none;
+}
+
+.wl_sp_topbar_search_input::placeholder {
+    color: var(--wl-hero-chrome-muted);
+    opacity: 1;
+}
+
+.wl_sp_topbar_search_input::-webkit-search-decoration,
+.wl_sp_topbar_search_input::-webkit-search-cancel-button {
+    appearance: none;
+}
+
+.wl_sp_topbar_search_popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: block;
+    min-width: 100%;
+    max-height: unquote("min(360px, 50vh)");
+    padding: 8px;
+    border: 1px solid var(--wl-card-border, #e8ecf2);
+    border-radius: 0;
+    // Solid surface — chrome surface tokens are translucent and wash out results.
+    background: var(--wl-card, #ffffff);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.16);
+    color: var(--wl-header-text, #122033);
+    overflow: hidden;
+}
+
+// Portaled to body (same pattern as submenu popovers) so it stacks above
+// .o_action_manager without raising the shell over the control panel.
+.wl_sp_topbar_search_popover.is-ported {
+    position: fixed;
+    right: auto;
+    min-width: 0;
+    z-index: 2200;
+}
+
+.wl_sp_topbar_search_popover[hidden] {
+    display: none !important;
+}
+
+.wl_sp_topbar_search_popover_results {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: unquote("min(320px, 46vh)");
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--wl-hero-chrome-muted) 40%, transparent) transparent;
+}
+
+.wl_sp_topbar_search_popover_hint {
+    padding: 10px 12px;
+    color: var(--wl-header-muted, #5c6b7f);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.wl_sp_topbar_search_popover_item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--wl-header-text, #122033);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.wl_sp_topbar_search_popover_item:hover,
+.wl_sp_topbar_search_popover_item:focus-visible {
+    background: color-mix(in srgb, var(--wl-primary, #4f6ef7) 10%, transparent);
+    color: var(--wl-header-text, #122033);
+    outline: none;
+}
+
+.wl_sp_topbar_search_popover_icon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    background: color-mix(in srgb, var(--wl-hero-chrome-text) 4%, transparent);
+    color: var(--wl-hero-chrome-muted);
+    overflow: hidden;
+}
+
+.wl_sp_topbar_search_popover_icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.wl_sp_topbar_search_popover_label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+.wl_sp_search_icon,
+.wl_sp_bell_icon {
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    flex: 0 0 auto;
+}
+
+.wl_sp_search_icon {
+    position: relative;
+    border: 2px solid var(--wl-hero-chrome-icon);
+    border-radius: 50%;
+    opacity: 0.95;
+}
+
+.wl_sp_search_icon::after {
+    content: "";
+    position: absolute;
+    right: -6px;
+    bottom: 0;
+    width: 8px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--wl-hero-chrome-icon);
+    transform: rotate(45deg);
+}
+
+.wl_sp_topbar_icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.wl_sp_systray_mount {
+    display: flex;
+    align-items: center;
+    min-height: 0;
+}
+
+.wl_sp_topbar_icons .o_menu_systray {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-inline-start: 0 !important;
+}
+
+.wl_sp_topbar_icons .o_menu_systray > * {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.wl_sp_topbar_icons .o_menu_systray > button,
+.wl_sp_topbar_icons .o_menu_systray > * > button,
+.wl_sp_topbar_icons .o_menu_systray > * .dropdown > button,
+.wl_sp_topbar_icons .o_menu_systray > * .o-dropdown > button,
+.wl_sp_topbar_icons .o_menu_systray > .dropdown > button,
+.wl_sp_topbar_icons .o_menu_systray > .o-dropdown > button,
+.wl_sp_topbar_icons .o_menu_systray button.o-dropdown,
+.wl_sp_topbar_icons .o_menu_systray button.dropdown-toggle,
+.wl_sp_topbar_icons .o_menu_systray button:has(.fa-clock-o),
+.wl_sp_topbar_icons .o_menu_systray button.bg-transparent,
+.wl_sp_topbar_icons .o_menu_systray button.o_nav_entry,
+.wl_sp_topbar_icons .o_menu_systray button.border-0 {
+    position: relative;
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    border: 1px solid var(--wl-hero-chrome-border) !important;
+    border-radius: 0 !important;
+    background: var(--wl-hero-chrome-surface) !important;
+    color: var(--wl-hero-chrome-text) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+    line-height: 1;
+}
+
+.wl_sp_topbar_icons .o_menu_systray > button:hover,
+.wl_sp_topbar_icons .o_menu_systray > * > button:hover,
+.wl_sp_topbar_icons .o_menu_systray > * .dropdown > button:hover,
+.wl_sp_topbar_icons .o_menu_systray > * .o-dropdown > button:hover,
+.wl_sp_topbar_icons .o_menu_systray > .dropdown > button:hover,
+.wl_sp_topbar_icons .o_menu_systray > .o-dropdown > button:hover,
+.wl_sp_topbar_icons .o_menu_systray button.o-dropdown:hover,
+.wl_sp_topbar_icons .o_menu_systray button.dropdown-toggle:hover,
+.wl_sp_topbar_icons .o_menu_systray button:has(.fa-clock-o):hover,
+.wl_sp_topbar_icons .o_menu_systray button.bg-transparent:hover,
+.wl_sp_topbar_icons .o_menu_systray button.o_nav_entry:hover,
+.wl_sp_topbar_icons .o_menu_systray button.border-0:hover {
+    background: var(--wl-hero-chrome-surface-strong) !important;
+    border-color: var(--wl-hero-chrome-border) !important;
+    color: var(--wl-hero-chrome-text) !important;
+}
+
+.wl_sp_topbar_icons .o_menu_systray .o-mail-DiscussSystray-class {
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+.wl_sp_topbar_icons .o_menu_systray i,
+.wl_sp_topbar_icons .o_menu_systray .fa,
+.wl_sp_topbar_icons .o_menu_systray .oi,
+.wl_sp_topbar_icons .o_menu_systray button .fa-clock-o,
+.wl_sp_topbar_icons .o_menu_systray button .fa-comments,
+.wl_sp_topbar_icons .o_menu_systray button .fa-building {
+    font-size: 16px !important;
+    line-height: 1;
+    color: var(--wl-hero-chrome-icon) !important;
+}
+
+.wl_sp_topbar_icons .o_menu_systray .o_user_menu,
+.wl_sp_topbar_icons .o_menu_systray .o_user_menu.d-md-block,
+.wl_sp_topbar_icons .o_menu_systray .wl_sp_systray_user_item,
+.wl_sp_topbar_icons .o_menu_systray .wl_sp_systray_hidden_item,
+.wl_sp_topbar_icons .o_menu_systray > *:has(.o_user_menu),
+.wl_sp_topbar_icons .o_menu_systray > *:has(.o_mobile_menu_toggle),
+.wl_sp_topbar_icons .o_menu_systray > *:has(.o_burger_menu_avatar),
+.wl_sp_global_mode .o_mobile_menu_toggle,
+.wl_sp_topbar_icons .o_mobile_menu_toggle {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+.wl_sp_topbar_icons .o_menu_systray .badge,
+.wl_sp_topbar_icons .o_menu_systray .o-mail-MessagingMenu-counter,
+.wl_sp_topbar_icons .o_menu_systray .o-mail-ActivityMenu-counter,
+.wl_sp_topbar_icons .o_menu_systray .o-discuss-badge {
+    position: absolute !important;
+    top: -5px !important;
+    right: -5px !important;
+    margin: 0 !important;
+    padding: 2px 5px !important;
+    min-width: 16px;
+    min-height: 16px;
+    // Soft dark rim + primary glow so counters stay punchy on chrome icons.
+    border: 1px solid color-mix(in srgb, var(--wl-navy, #0a1128) 70%, transparent) !important;
+    border-radius: 0 !important;
+    background: var(--wl-erp-primary, var(--wl-primary, #4f6ef7)) !important;
+    color: var(--wl-erp-primary-contrast, var(--wl-light-primary-contrast, #ffffff)) !important;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.1;
+    box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--wl-erp-primary, #4f6ef7) 40%, transparent),
+        0 2px 8px color-mix(in srgb, var(--wl-erp-primary, #4f6ef7) 38%, transparent) !important;
+}
+
+.o_web_client.wl_sp_theme_dark .wl_sp_topbar_icons .o_menu_systray .badge,
+.o_web_client.wl_sp_theme_dark .wl_sp_topbar_icons .o_menu_systray .o-mail-MessagingMenu-counter,
+.o_web_client.wl_sp_theme_dark .wl_sp_topbar_icons .o_menu_systray .o-mail-ActivityMenu-counter,
+.o_web_client.wl_sp_theme_dark .wl_sp_topbar_icons .o_menu_systray .o-discuss-badge {
+    border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.wl_sp_topbar_icons .o_menu_systray .o_switch_company_menu .oe_topbar_name {
+    display: none !important;
+}
+
+.wl_sp_topbar_icons .o_menu_systray .o_switch_company_menu .fa-building {
+    display: inline-block !important;
+    margin: 0 !important;
+}
+
+.wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item),
+.wl_theme_settings_trigger {
+    position: relative;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    border: 1px solid var(--wl-hero-chrome-border) !important;
+    border-radius: 0 !important;
+    background: var(--wl-hero-chrome-surface) !important;
+    color: var(--wl-hero-chrome-text) !important;
+    box-shadow: none !important;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item):hover,
+.wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item):focus-visible,
+.wl_theme_settings_trigger:hover,
+.wl_theme_settings_trigger:focus-visible {
+    background: var(--wl-hero-chrome-surface-strong) !important;
+    border-color: var(--wl-hero-chrome-border) !important;
+    color: var(--wl-hero-chrome-text) !important;
+}
+
+.wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item) .fa,
+.wl_theme_settings_trigger .fa {
+    font-size: 16px !important;
+    line-height: 1;
+    color: var(--wl-hero-chrome-icon) !important;
+}
+
+// Icon markup (FA <i>, sun SVG shapes) must not be the event target — logs showed
+// pointerdown/up on svg/circle/i often never synthesize a click, so short presses
+// on the glyph failed while presses on the <button> padding worked.
+.wl_sp_theme_toggle > *,
+.wl_sp_theme_toggle .fa,
+.wl_sp_theme_toggle .wl_sp_sun_icon,
+.wl_sp_theme_toggle svg,
+.wl_sp_theme_toggle svg * {
+    pointer-events: none;
+}
+
+.wl_sp_profile {
+    position: relative;
+    height: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px 0 4px;
+    border: 1px solid var(--wl-hero-chrome-border);
+    border-radius: 0;
+    background: var(--wl-hero-chrome-surface) !important;
+    color: var(--wl-hero-chrome-text) !important;
+    box-shadow: none;
+    overflow: hidden;
+}
+
+.wl_sp_user_avatar {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 0;
+    object-fit: cover;
+}
+
+.wl_sp_chevron_down {
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid var(--wl-hero-chrome-muted);
+    border-bottom: 1.5px solid var(--wl-hero-chrome-muted);
+    transform: rotate(45deg) translateY(-2px);
+}
+
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) .o_action_manager,
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) .wl_sp_action_shell {
+    position: static;
+    z-index: auto;
+    padding: 0 !important;
+    background: transparent !important;
+    // margin-top: pull-up for home hero is set on > .o_action_manager above — do not reset here
+}
+
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) .wl_erp_app_hero,
+.wl_erp_app_hero.wl_erp_app_hero--hidden {
+    display: none !important;
+}
+
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) > .o_action_manager > .o_action.o_willow_dashboard_action {
+    height: 100%;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) .wl_sp_action_shell.o_willow_dashboard_action {
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+}
+
+.wl_erp_theme_page {
+    min-height: 100%;
+    // Pulled up behind the transparent topbar; pad content so hero text clears the chrome.
+    padding-top: var(--wl-erp-topbar-height);
+    // Canvas fade only — hero paint is inline SVG (.wl_erp_hero_art) unless .wl_sp_hero_custom.
+    background-image:
+        linear-gradient(
+            180deg,
+            transparent 0,
+            transparent var(--wl-erp-hero-depth),
+            var(--wl-canvas, #f8f9fa) calc(var(--wl-erp-hero-depth) + 1px),
+            var(--wl-canvas, #f8f9fa) 100%
+        );
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center top;
+    overflow: visible;
+}
+
+.o_web_client.wl_sp_hero_custom .wl_erp_theme_page {
+    background-image:
+        linear-gradient(
+            180deg,
+            transparent 0,
+            transparent var(--wl-erp-hero-depth),
+            var(--wl-canvas, #f8f9fa) calc(var(--wl-erp-hero-depth) + 1px),
+            var(--wl-canvas, #f8f9fa) 100%
+        ),
+        var(--wl-erp-hero-bg-image);
+    background-size: auto, 100% auto;
+    background-repeat: no-repeat, no-repeat;
+    background-position: center top, center top;
+}
+
+.o_web_client.wl_sp_theme_dark .wl_erp_theme_page {
+    background-image:
+        linear-gradient(
+            180deg,
+            transparent 0,
+            transparent var(--wl-erp-hero-depth),
+            var(--wl-canvas, #0f172a) calc(var(--wl-erp-hero-depth) + 1px),
+            var(--wl-canvas, #0b1120) 100%
+        );
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+.o_web_client.wl_sp_theme_dark.wl_sp_hero_custom .wl_erp_theme_page {
+    background-image:
+        linear-gradient(
+            180deg,
+            transparent 0,
+            transparent var(--wl-erp-hero-depth),
+            var(--wl-canvas, #0f172a) calc(var(--wl-erp-hero-depth) + 1px),
+            var(--wl-canvas, #0b1120) 100%
+        ),
+        var(--wl-erp-hero-bg-image-dark, var(--wl-erp-hero-bg-image));
+    background-size: auto, 100% auto;
+    background-repeat: no-repeat, no-repeat;
+    background-position: center top, center top;
+}
+
+.wl_sp_action_shell {
+    height: 100%;
+    padding: 0 !important;
+    background: transparent !important;
+    overflow: auto;
+}
+
+.wl_erp_dashboard_header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: none;
+    margin: 0;
+    padding: 25px 38px 0;
+    color: var(--wl-hero-chrome-text);
+    background: transparent;
+}
+
+.wl_erp_dashboard_header_actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 36px;
+}
+
+.wl_erp_dashboard_header_actions .tt_dashboard_button_subtle {
+    background: var(--wl-hero-chrome-surface) !important;
+    color: var(--wl-hero-chrome-text) !important;
+    border: 1px solid var(--wl-hero-chrome-border) !important;
+    box-shadow: none !important;
+}
+
+.wl_erp_dashboard_header_actions .tt_dashboard_button_subtle:hover {
+    background: var(--wl-hero-chrome-surface-strong) !important;
+}
+
+.wl_erp_dashboard_header_actions .tt_dashboard_button_primary {
+    background: var(--wl-erp-primary) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.wl_erp_dashboard_title {
+    margin: 0;
+    color: var(--wl-config-dashboard-title-color, var(--wl-hero-chrome-text, #122033));
+    font-size: var(--wl-config-dashboard-title-size, 30px);
+    font-weight: var(--wl-config-dashboard-title-weight, 780);
+    letter-spacing: -0.04em;
+}
+
+.o_web_client.wl_sp_theme_dark .wl_erp_dashboard_title {
+    color: var(--wl-hero-chrome-text, #f8fafc);
+}
+
+.wl_erp_dashboard_subtitle {
+    margin: 9px 0 26px;
+    color: var(--wl-config-dashboard-subtitle-color, var(--wl-hero-chrome-muted, #5c6b7f));
+    font-size: var(--wl-config-dashboard-subtitle-size, 15px);
+    font-weight: var(--wl-config-dashboard-subtitle-weight, 400);
+}
+
+.o_web_client.wl_sp_theme_dark .wl_erp_dashboard_subtitle {
+    color: var(--wl-hero-chrome-muted, rgba(255, 255, 255, 0.78));
+}
+
+.wl_erp_submenus {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    min-height: 54px;
+    padding: 8px 0 10px;
+    border-bottom: 1px solid var(--wl-hero-chrome-border);
+}
+
+.wl_erp_submenus.wl_erp_submenus--empty {
+    min-height: 0;
+    padding: 0;
+    border-bottom: 0;
+}
+
+.wl_erp_submenu_item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+    padding: 9px 16px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--wl-hero-chrome-muted);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.18s ease, font-size 0.18s ease, font-weight 0.18s ease;
+}
+
+.wl_erp_submenu_label {
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+}
+
+.wl_erp_submenu_item:hover {
+    color: var(--wl-hero-chrome-text);
+    background: transparent;
+}
+
+.wl_erp_submenu_item.active,
+.wl_erp_submenu_item.is-open {
+    color: var(--wl-hero-chrome-text);
+    font-size: 15px;
+    font-weight: 700;
+    background: transparent;
+    box-shadow: none;
+}
+
+.wl_erp_submenu_item.active::after {
+    display: none;
+}
+
+.wl_erp_submenu_chevron {
+    display: none !important;
+}
+
+.wl_erp_submenu_badge {
+    display: inline-grid;
+    place-items: center;
+    width: 19px;
+    height: 19px;
+    margin-left: 4px;
+    border-radius: 50%;
+    background: #ff4d6d;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.wl_erp_dashboard_content {
+    position: relative;
+    z-index: 4;
+    max-width: none;
+    margin: 0;
+    padding: 28px 36px 42px;
+    background: transparent;
+    border-radius: 0;
+}
+
+.wl_erp_dashboard_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.78fr;
+    gap: 18px;
+    max-width: none;
+    width: 100%;
+    margin: 0;
+}
+
+.wl_erp_card {
+    // Preset surfaces — same token in light and dark (mode swaps --wl-erp-*).
+    background: var(--wl-erp-card-bg, var(--wl-card, #ffffff));
+    border: 1px solid var(--wl-erp-border, var(--wl-card-border, #e8ecf2));
+    border-radius: var(--wl-erp-radius-lg);
+    box-shadow: var(--wl-erp-shadow);
+    backdrop-filter: blur(15px);
+}
+
+.wl_erp_metric_card {
+    min-height: 150px;
+    padding: 26px 24px 24px;
+}
+
+.wl_erp_card_header_row,
+.wl_erp_metric_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.wl_erp_metric_title,
+.wl_erp_section_title {
+    margin: 0;
+    color: var(--wl-erp-text-muted, #697386);
+    font-size: 15px;
+    font-weight: 550;
+}
+
+.wl_erp_section_title {
+    color: var(--wl-erp-text-dark, #142238);
+    font-weight: 800;
+}
+
+.wl_erp_info_dot {
+    display: inline-grid;
+    place-items: center;
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
+    border: 1.5px solid #8c95a6;
+    border-radius: 50%;
+    color: #8c95a6;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.wl_erp_currency_select,
+.wl_erp_filter_button {
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 10px;
+    border: 1px solid var(--wl-erp-border);
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.62);
+    color: #6f7888;
+    font-size: 12px;
+}
+
+.wl_erp_metric_value {
+    margin: 17px 0 0;
+    font-size: 29px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.wl_erp_metric_change {
+    margin-top: 20px;
+    color: var(--wl-erp-text-muted);
+    font-size: 13px;
+}
+
+.wl_erp_positive {
+    color: var(--wl-erp-green);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.wl_erp_negative {
+    color: var(--wl-erp-red);
+    font-weight: 700;
+}
+
+.wl_erp_metric_actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 42px;
+}
+
+.wl_erp_metric_actions.is-compact {
+    margin-top: 26px;
+}
+
+.wl_erp_action_button {
+    // Match Willow chrome: square corners, flat fill, no soft elevation shadow
+    min-height: 36px;
+    padding: 0 14px;
+    border: 1px solid var(--wl-erp-primary, #5068f6);
+    border-radius: 0;
+    background: var(--wl-erp-primary, #5068f6);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+        background: var(--wl-erp-primary-dark, #4054d8);
+        border-color: var(--wl-erp-primary-dark, #4054d8);
+        color: #ffffff;
+    }
+
+    &.is-ghost {
+        background: transparent;
+        border: 1px solid var(--wl-erp-border, #e2e7ee);
+        color: var(--wl-erp-primary, #5068f6);
+        box-shadow: none;
+
+        &:hover,
+        &:focus-visible {
+            border-color: var(--wl-erp-primary, #5068f6);
+            background: color-mix(in srgb, var(--wl-erp-primary, #5068f6) 8%, transparent);
+            color: var(--wl-erp-primary, #5068f6);
+        }
+    }
+}
+
+.o_web_client.wl_sp_theme_dark .wl_erp_action_button.is-ghost {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.18);
+    color: var(--wl-erp-primary, #6b8aff);
+
+    &:hover,
+    &:focus-visible {
+        border-color: var(--wl-erp-primary, #6b8aff);
+        background: color-mix(in srgb, var(--wl-erp-primary, #6b8aff) 12%, transparent);
+        color: var(--wl-erp-primary, #6b8aff);
+    }
+}
+
+.wl_erp_metric_header_start {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.wl_erp_small_icon_box.purple {
+    color: var(--wl-erp-purple);
+}
+
+.wl_erp_small_icon_box.rose {
+    color: var(--wl-erp-red);
+}
+
+.wl_erp_open_po_count {
+    margin: 14px 0 0;
+    font-size: 34px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+// Icon only — no tinted rounded badge behind the glyph.
+.wl_erp_small_icon_box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wl-erp-green);
+    background: transparent;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.wl_erp_small_icon_box.blue {
+    color: var(--wl-erp-primary);
+}
+
+.wl_erp_wide_card {
+    padding: 27px 30px;
+}
+
+.wl_erp_sales_summary_card {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    min-height: 255px;
+}
+
+.wl_erp_sales_top,
+.wl_erp_sales_value_row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.wl_erp_sales_value_row {
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.wl_erp_sales_value {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.wl_erp_target_text {
+    color: var(--wl-erp-text-muted, #7a8494);
+    font-size: 13px;
+}
+
+.wl_erp_progress_track {
+    height: 9px;
+    margin-top: 25px;
+    overflow: hidden;
+    border-radius: 20px;
+    // Mode-safe track: tint from border/card instead of forcing white.
+    background: color-mix(in srgb, var(--wl-erp-border, #e5e7ed) 55%, var(--wl-erp-card-bg, #ffffff));
+}
+
+.wl_erp_progress_fill {
+    width: 72%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        var(--wl-erp-primary, #4b62e7),
+        color-mix(in srgb, var(--wl-erp-primary, #6275ff) 65%, var(--wl-erp-card-bg, #ffffff))
+    );
+}
+
+.wl_erp_sales_stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 24px;
+    padding-top: 19px;
+    border-top: 1px solid var(--wl-erp-border);
+}
+
+.wl_erp_sales_stat {
+    padding: 0 25px;
+    border-left: 1px solid var(--wl-erp-border);
+}
+
+.wl_erp_sales_stat:first-child {
+    padding-left: 0;
+    border-left: 0;
+}
+
+.wl_erp_sales_stat_label {
+    color: #7a8494;
+    font-size: 13px;
+}
+
+.wl_erp_sales_stat_value {
+    margin-top: 8px;
+    font-size: 21px;
+    font-weight: 760;
+    letter-spacing: -0.03em;
+}
+
+.wl_erp_category_card {
+    grid-column: 3;
+    padding: 18px 25px 24px;
+}
+
+.wl_erp_category_bar {
+    height: 8px;
+    display: flex;
+    gap: 4px;
+    margin: 23px 0 20px;
+}
+
+.wl_erp_category_segment {
+    height: 100%;
+    border-radius: 20px;
+}
+
+.wl_erp_category_segment.electronics { width: 28%; background: var(--wl-erp-pink); }
+.wl_erp_category_segment.furniture { width: 27%; background: var(--wl-erp-purple); }
+.wl_erp_category_segment.accessories { width: 24%; background: #8995ff; }
+.wl_erp_category_segment.others { width: 21%; background: var(--wl-erp-yellow); }
+
+.wl_erp_category_legend {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.wl_erp_legend_title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--wl-erp-text-muted, #7b8494);
+    font-size: 12px;
+}
+
+.wl_erp_legend_dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.wl_erp_legend_dot.is-pink { background: var(--wl-erp-pink); }
+.wl_erp_legend_dot.is-purple { background: var(--wl-erp-purple); }
+.wl_erp_legend_dot.is-blue { background: #8995ff; }
+.wl_erp_legend_dot.is-yellow { background: var(--wl-erp-yellow); }
+
+.wl_erp_legend_value {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.wl_erp_legend_percent {
+    margin-left: 15px;
+    color: var(--wl-erp-text-muted, #8c95a5);
+    font-weight: 500;
+}
+
+.wl_erp_inventory_card {
+    grid-column: 1;
+    min-height: 315px;
+    padding: 24px;
+}
+
+.wl_erp_inventory_list {
+    margin-top: 20px;
+    border: 1px solid var(--wl-erp-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.wl_erp_inventory_item {
+    display: grid;
+    grid-template-columns: 54px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 68px;
+    padding: 8px 16px 8px 12px;
+    border-top: 1px solid var(--wl-erp-border);
+}
+
+.wl_erp_inventory_item:first-child {
+    border-top: 0;
+}
+
+.wl_erp_product_image {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    font-size: 21px;
+}
+
+.wl_erp_product_name {
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--wl-erp-text-dark, #142238);
+}
+
+.wl_erp_product_sku,
+.wl_erp_stock_unit {
+    margin-top: 5px;
+    color: var(--wl-erp-text-muted, #7d8797);
+    font-size: 12px;
+}
+
+.wl_erp_stock_value {
+    text-align: right;
+    font-size: 15px;
+    font-weight: 750;
+    color: var(--wl-erp-text-dark, #142238);
+}
+
+.wl_erp_view_all_link {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 25px;
+    color: var(--wl-erp-primary);
+    font-size: 15px;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.wl_erp_transactions_card {
+    grid-column: 2 / span 2;
+    min-height: 315px;
+    padding: 24px;
+}
+
+.wl_erp_transactions_actions {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.wl_erp_dots_menu {
+    display: flex;
+    gap: 4px;
+}
+
+.wl_erp_dots_menu span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #8b94a4;
+}
+
+.wl_erp_transactions_table {
+    width: 100%;
+    margin-top: 23px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.wl_erp_transactions_table th {
+    padding: 0 0 12px;
+    border-bottom: 1px solid var(--wl-erp-border);
+    color: var(--wl-erp-text-muted, #8a94a5);
+    font-weight: 600;
+    text-align: left;
+}
+
+.wl_erp_transactions_table td {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--wl-erp-border);
+    color: var(--wl-erp-text-dark, #1f2f44);
+}
+
+.wl_erp_transactions_table tr:last-child td {
+    border-bottom: 0;
+}
+
+.wl_erp_doc_cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 650;
+}
+
+.wl_erp_doc_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wl-erp-primary);
+    background: transparent;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.wl_erp_doc_icon.orange { color: var(--wl-erp-orange); background: transparent; }
+.wl_erp_doc_icon.purple { color: var(--wl-erp-purple); background: transparent; }
+.wl_erp_doc_icon.green { color: var(--wl-erp-green); background: transparent; }
+
+.wl_erp_status_pill {
+    min-width: 82px;
+    min-height: 28px;
+    display: inline-grid;
+    place-items: center;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.wl_erp_status_pill.status-paid,
+.wl_erp_status_pill.status-posted {
+    color: #12a96b;
+    background: rgba(18, 169, 107, 0.12);
+}
+
+.wl_erp_status_pill.status-unpaid {
+    color: #ff343f;
+    background: rgba(255, 52, 63, 0.10);
+}
+
+.wl_erp_status_pill.status-approved {
+    color: #5367f6;
+    background: rgba(83, 103, 246, 0.12);
+}
+
+@media (max-width: 1180px) {
+    .wl_sp_brand_subtitle {
+        display: none;
+    }
+
+    .wl_sp_topbar_search:not(.is-expanded) {
+        width: 46px;
+        padding: 0;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .wl_sp_topbar_search:not(.is-expanded) .wl_sp_topbar_search_input {
+        width: 0;
+        min-width: 0;
+        flex: 0 0 0;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .wl_sp_topbar_search.is-expanded {
+        width: unquote("min(420px, calc(100vw - 220px))");
+    }
+
+    .wl_erp_dashboard_grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .wl_erp_sales_summary_card,
+    .wl_erp_category_card,
+    .wl_erp_inventory_card,
+    .wl_erp_transactions_card {
+        grid-column: auto / span 2;
+    }
+}
+
+// Phone / narrow: densify shell chrome. Topbar layout is owned by global_shell ≤991
+// (hamburger + brand + right) — do not re-stack into a column with tabs.
+@media (max-width: 760px) {
+    .wl_erp_dashboard_header,
+    .wl_erp_dashboard_content {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .wl_erp_submenus {
+        gap: 8px;
+        overflow-x: auto;
+    }
+
+    .wl_erp_dashboard_grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wl_erp_sales_summary_card,
+    .wl_erp_category_card,
+    .wl_erp_inventory_card,
+    .wl_erp_transactions_card,
+    .wl_erp_wide_card {
+        grid-column: 1;
+    }
+
+    .wl_erp_category_legend,
+    .wl_erp_sales_stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .wl_erp_sales_stat {
+        padding: 0;
+        border-left: 0;
+    }
+
+    .wl_erp_transactions_card {
+        overflow-x: auto;
+    }
+
+    .wl_erp_transactions_table {
+        min-width: 760px;
+    }
+}
+
+// Tablet / phone: shrink hero band so CP / home greeting sit under the topbar.
+@media (max-width: 991.98px) {
+    .o_web_client {
+        --wl-erp-topbar-height: 56px;
+        --wl-erp-hero-depth: 64px;
+        --wl-erp-hero-pull: 4px;
+        --wl-erp-hero-submenu-slot: 0px;
+        --wl-erp-page-margin: 12px;
+    }
+
+    // Home: short hero band — greeting sits just under the topbar (was a tall empty navy void).
+    .o_web_client:has(.wl_erp_theme_page) {
+        --wl-erp-hero-depth: 96px;
+        --wl-erp-hero-pull: 8px;
+    }
+
+    .wl_sp_topbar {
+        padding: 6px 12px;
+    }
+
+    .wl_sp_topbar_search:not(.is-expanded) {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .wl_sp_topbar_search.is-expanded {
+        width: unquote("min(420px, calc(100vw - 160px))");
+    }
+
+    // The mobile shell hides the hero/submenu strip, so its desktop negative
+    // pull-up would place the control panel beneath the sticky topbar.
+    .o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) > .o_action_manager {
+        margin-top: 0 !important;
+    }
+
+    .o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager > .o_control_panel {
+        margin-top: 4px !important;
+        margin-bottom: 4px !important;
+    }
+
+    // Keep the app submenu in normal flow below the mobile topbar. Its natural
+    // content height reserves space above the control panel without a fixed height.
+    .o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .wl_erp_app_hero {
+        min-height: 0;
+        padding: 0;
+    }
+
+    // Home shell hero slot must not reserve vertical space above the dashboard.
+    .o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) .wl_erp_app_hero {
+        display: none;
+        min-height: 0;
+        height: 0;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page) .wl_sp_global_shell {
+        min-height: 0;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .o_willow_dashboard_action .wl_erp_dashboard_header {
+        min-height: 0;
+        padding-top: 10px;
+        padding-bottom: 14px;
+    }
+
+    .o_willow_dashboard_action .wl_erp_dashboard_header_actions {
+        margin-top: 12px;
+    }
+
+    .o_willow_dashboard_action .wl_erp_dashboard_title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .o_web_client {
+        --wl-erp-topbar-height: 52px;
+        --wl-erp-hero-depth: 56px;
+        --wl-erp-hero-pull: 2px;
+        --wl-erp-page-margin: 8px;
+    }
+
+    .o_web_client:has(.wl_erp_theme_page) {
+        --wl-erp-hero-depth: 84px;
+        --wl-erp-hero-pull: 4px;
+    }
+
+    .wl_sp_topbar {
+        padding: 0 8px;
+        gap: 6px;
+    }
+
+    .wl_sp_mobile_menu_btn,
+    .wl_sp_topbar_search:not(.is-expanded),
+    .wl_sp_right_section .wl_sp_theme_toggle,
+    .wl_sp_right_section .wl_theme_settings_trigger,
+    .wl_sp_profile {
+        width: 36px;
+        min-width: 36px;
+        height: 36px;
+        min-height: 36px;
+        max-width: 36px;
+        max-height: 36px;
+    }
+
+    .wl_sp_profile {
+        padding: 0;
+        gap: 0;
+        justify-content: center;
+    }
+
+    .wl_sp_profile .wl_sp_user_avatar {
+        width: 28px;
+        height: 28px;
+    }
+
+    .o_willow_dashboard_action .wl_erp_dashboard_header {
+        padding-top: 6px;
+        padding-bottom: 10px;
+    }
+
+    .o_willow_dashboard_action .wl_erp_dashboard_header_actions {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .o_willow_dashboard_action .wl_erp_dashboard_title {
+        font-size: 24px;
+        margin-bottom: 4px;
+    }
+}
+
+// Dark hero topbar: transparent section wrappers; square white-tint tiles on each control.
+body.wl_sp_theme_dark .wl_sp_global_shell {
+    .wl_sp_brand_section,
+    .wl_sp_topbar_icons {
+        border: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        backdrop-filter: none;
+    }
+
+    .wl_sp_brand_apps_btn,
+    .wl_sp_topbar_icons .o_menu_systray > button,
+    .wl_sp_topbar_icons .o_menu_systray > * > button,
+    .wl_sp_topbar_icons .o_menu_systray > * .dropdown > button,
+    .wl_sp_topbar_icons .o_menu_systray > * .o-dropdown > button,
+    .wl_sp_topbar_icons .o_menu_systray > .dropdown > button,
+    .wl_sp_topbar_icons .o_menu_systray > .o-dropdown > button,
+    .wl_sp_topbar_icons .o_menu_systray button.o-dropdown,
+    .wl_sp_topbar_icons .o_menu_systray button.dropdown-toggle,
+    .wl_sp_topbar_icons .o_menu_systray button:has(.fa-clock-o),
+    .wl_sp_topbar_icons .o_menu_systray button.bg-transparent,
+    .wl_sp_topbar_icons .o_menu_systray button.o_nav_entry,
+    .wl_sp_topbar_icons .o_menu_systray button.border-0,
+    .wl_sp_systray_overflow_btn,
+    .wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item),
+    .wl_theme_settings_trigger {
+        border: 1px solid rgba(255, 255, 255, 0.14) !important;
+        border-radius: 0 !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        box-shadow: none !important;
+        color: #ffffff !important;
+    }
+
+    .wl_sp_brand_apps_btn:hover,
+    .wl_sp_brand_apps_btn:focus-visible,
+    .wl_sp_topbar_icons .o_menu_systray > button:hover,
+    .wl_sp_topbar_icons .o_menu_systray > * > button:hover,
+    .wl_sp_topbar_icons .o_menu_systray > * .dropdown > button:hover,
+    .wl_sp_topbar_icons .o_menu_systray > * .o-dropdown > button:hover,
+    .wl_sp_topbar_icons .o_menu_systray > .dropdown > button:hover,
+    .wl_sp_topbar_icons .o_menu_systray > .o-dropdown > button:hover,
+    .wl_sp_topbar_icons .o_menu_systray button.o-dropdown:hover,
+    .wl_sp_topbar_icons .o_menu_systray button.dropdown-toggle:hover,
+    .wl_sp_topbar_icons .o_menu_systray button:has(.fa-clock-o):hover,
+    .wl_sp_topbar_icons .o_menu_systray button.bg-transparent:hover,
+    .wl_sp_topbar_icons .o_menu_systray button.o_nav_entry:hover,
+    .wl_sp_topbar_icons .o_menu_systray button.border-0:hover,
+    .wl_sp_systray_overflow_btn:hover,
+    .wl_sp_systray_overflow_btn:focus-visible,
+    .wl_sp_systray_overflow.is-open .wl_sp_systray_overflow_btn,
+    .wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item):hover,
+    .wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item):focus-visible,
+    .wl_theme_settings_trigger:hover,
+    .wl_theme_settings_trigger:focus-visible {
+        border-color: rgba(255, 255, 255, 0.24) !important;
+        background: rgba(255, 255, 255, 0.14) !important;
+        color: #ffffff !important;
+    }
+
+    .wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item) .fa,
+    .wl_theme_settings_trigger .fa {
+        color: #ffffff !important;
+    }
+
+    .wl_sp_mobile_sidebar_panel .wl_sp_mobile_profile_item.wl_sp_theme_toggle {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        padding: 10px 8px !important;
+        border: 0 !important;
+        background: transparent !important;
+        color: #e5e7eb !important;
+        box-shadow: none !important;
+        justify-content: flex-start !important;
+    }
+
+    .wl_sp_mobile_sidebar_panel .wl_sp_mobile_profile_item.wl_sp_theme_toggle:hover,
+    .wl_sp_mobile_sidebar_panel .wl_sp_mobile_profile_item.wl_sp_theme_toggle:focus-visible {
+        border: 0 !important;
+        background: rgba(79, 110, 247, 0.12) !important;
+        color: #e5e7eb !important;
+    }
+}
