@@ -7,6 +7,7 @@
 import { patch } from "@web/core/utils/patch";
 import { cookie } from "@web/core/browser/cookie";
 import { session } from "@web/session";
+import { user } from "@web/core/user";
 import { WebClient } from "@web/webclient/webclient";
 import { WebClientEnterprise } from "@web_enterprise/webclient/webclient";
 import {
@@ -27,15 +28,12 @@ patch(WebClientEnterprise.prototype, {
 
 patch(colorSchemeService, {
     async start() {
-        const willowMode = session.willow_theme_mode;
+        const willowMode = session.willow_theme_mode || user.settings?.color_scheme;
         if (!WILLOW_THEME_MODES.has(willowMode)) {
             return super.start(...arguments);
         }
 
-        // Enterprise normally derives this cookie from res.users.settings. Willow
-        // owns the same boot cookie through willow_theme_mode; delegating to the
-        // original implementation here makes the two saved preferences overwrite
-        // one another and causes a full-page reload loop on every boot.
+        // Keep session and user.settings in sync with Willow's appearance preference.
         const nextMode = willowMode === "system" ? systemColorScheme() : willowMode;
         const currentMode = cookie.get("color_scheme");
         if (nextMode !== currentMode) {

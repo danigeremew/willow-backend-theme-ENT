@@ -101,7 +101,7 @@ let modalViewportSnapshot = null;
 let modalViewportNormalizeTimer = null;
 let themeReloadBootstrapReleased = false;
 let themeReloadBootstrapTimeout = null;
-let currentThemePreference = session.willow_theme_mode || null;
+let currentThemePreference = session.willow_theme_mode || user?.settings?.color_scheme || null;
 let systemThemeListenerReady = false;
 let topbarSearchReady = false;
 let topbarSearchDebounce = null;
@@ -610,6 +610,9 @@ function bootThemeReloadLock() {
 function persistThemeModePreference(mode) {
     currentThemePreference = mode;
     cookie.set("color_scheme", mode);
+    if (user?.updateUserSettings) {
+        user.updateUserSettings("color_scheme", mode);
+    }
     try {
         browser.localStorage.setItem(THEME_KEY, mode);
     } catch (error) {
@@ -641,7 +644,10 @@ async function setThemeMode(mode) {
                 // Persist preference in parallel — do not block CSS swap on RPC latency.
                 const writePromise = callKw("res.users", "write", [
                     [user.userId],
-                    { willow_theme_mode: modeToApply },
+                    {
+                        willow_theme_mode: modeToApply,
+                        color_scheme: modeToApply,
+                    },
                 ]).catch((error) => logThemeError("failed to persist theme preference", error));
 
                 try {

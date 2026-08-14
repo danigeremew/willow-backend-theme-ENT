@@ -40,6 +40,23 @@ class ResUsers(models.Model):
     willow_favorites_initialized = fields.Boolean(default=False)
     willow_dashboard_action_set = fields.Boolean(default=False)
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if "color_scheme" in vals and "willow_theme_mode" not in vals:
+                vals["willow_theme_mode"] = vals["color_scheme"]
+            elif "willow_theme_mode" in vals and "color_scheme" not in vals and "color_scheme" in self._fields:
+                vals["color_scheme"] = vals["willow_theme_mode"]
+        return super().create(vals_list)
+
+    def write(self, vals):
+        vals = dict(vals)
+        if "color_scheme" in vals and "willow_theme_mode" not in vals:
+            vals["willow_theme_mode"] = vals["color_scheme"]
+        elif "willow_theme_mode" in vals and "color_scheme" not in vals and "color_scheme" in self._fields:
+            vals["color_scheme"] = vals["willow_theme_mode"]
+        return super().write(vals)
+
     @api.model
     def _willow_visible_root_menu_ids(self):
         return set(self.env["ir.ui.menu"].get_user_roots().ids)
@@ -75,3 +92,15 @@ class ResUsers(models.Model):
     def willow_get_favorite_menu_ids(self):
         self.ensure_one()
         return self._willow_visible_favorite_menus().ids
+
+
+class ResUsersSettings(models.Model):
+    _inherit = "res.users.settings"
+
+    def set_res_users_settings(self, new_settings):
+        res = super().set_res_users_settings(new_settings)
+        if "color_scheme" in new_settings:
+            mode = new_settings["color_scheme"]
+            if mode in ("light", "dark", "system"):
+                self.env.user.sudo().write({"willow_theme_mode": mode})
+        return res

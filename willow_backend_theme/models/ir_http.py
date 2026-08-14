@@ -14,7 +14,13 @@ class IrHttp(models.AbstractModel):
     _inherit = "ir.http"
 
     def color_scheme(self):
-        return "dark" if request.httprequest.cookies.get("color_scheme") == "dark" else "light"
+        cookie_scheme = request.httprequest.cookies.get("color_scheme") if request else None
+        if cookie_scheme in ("dark", "light"):
+            return cookie_scheme
+        user_theme_mode = self.env.user.willow_theme_mode or getattr(self.env.user, "color_scheme", None)
+        if user_theme_mode in ("dark", "light"):
+            return user_theme_mode
+        return super().color_scheme()
 
     def session_info(self):
         _migrate_legacy_light_header_colors(self.env)
@@ -48,7 +54,8 @@ class IrHttp(models.AbstractModel):
 
         result["chatter_position"] = self.env.user.chatter_position
         result["willow_favorite_menu_ids"] = self.env.user.willow_get_favorite_menu_ids()
-        result["willow_theme_mode"] = self.env.user.willow_theme_mode
+        user_theme_mode = self.env.user.willow_theme_mode or getattr(self.env.user, "color_scheme", None)
+        result["willow_theme_mode"] = user_theme_mode or "light"
         willow_theme = {
             key: get_param(key)
             for key in WILLOW_THEME_DEFAULTS
