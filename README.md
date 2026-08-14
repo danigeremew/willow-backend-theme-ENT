@@ -1,4 +1,4 @@
-# Willow Backend Theme — Enterprise Edition
+# Willow Backend Theme (Enterprise Edition) — Odoo 19
 
 Modern ERP backend theme for Odoo 19 Enterprise with a navy header, card-based dashboard, and Willow UI styling inspired by contemporary ERP dashboards.
 
@@ -13,13 +13,13 @@ Modern ERP backend theme for Odoo 19 Enterprise with a navy header, card-based d
 - Custom global shell with dark header navigation
 - Built-in operations dashboard with ERP-style overview cards and live KPIs
 - Styled list, form, kanban, graph, and control panel views
-- Theme-aware footer and operator shortcuts
-- Configurable primary colors via Settings
+- Webclient Enterprise compatibility (`web_enterprise` integration)
+- Configurable primary colors and branding via Theme Settings
 
 ## Install
 
 1. Remove or uninstall the Community edition if it is installed
-2. Copy `willow_backend_theme_ent` into your Odoo Enterprise addons path
+2. Copy `willow_backend_theme` into your Odoo Enterprise addons path
 3. Update the apps list
 4. Install **Willow Backend Theme (Enterprise Edition)** from Apps
 
@@ -29,7 +29,8 @@ Modern ERP backend theme for Odoo 19 Enterprise with a navy header, card-based d
 
 ## Notes
 
-- Designed for Odoo 19 Enterprise backend
-- Uses a separate `willow_backend_theme_ent` technical name and configuration namespace
+- Designed specifically for the Odoo 19 Enterprise backend
+- Uses the `willow_backend_theme` technical name and configuration namespace
+- Seamlessly integrates with Enterprise services, systray tools, and navigation
 - Copies missing theme settings from `willow_backend_theme_ce` during installation without deleting Community settings
 - Sets the Willow dashboard as the default home action for admin on install

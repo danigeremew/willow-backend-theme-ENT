@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t
+        t-name="willow_backend_theme.SearchBarMenu"
+        t-inherit="web.SearchBarMenu"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//Dropdown" position="attributes">
+            <attribute name="noClasses">true</attribute>
+            <!-- bottom-start relative to full search bar (position target), not the caret alone -->
+            <attribute name="position">'bottom-start'</attribute>
+            <attribute name="menuClass">'o_search_bar_menu wl_search_bar_menu_aligned d-flex flex-wrap flex-lg-nowrap w-100 w-md-auto mt-2 py-3'</attribute>
+        </xpath>
+        <xpath expr="//button[hasclass('o_searchview_dropdown_toggler')]" position="replace">
+            <!-- First child of Dropdown = positioning target; stretched over .o_cp_searchview -->
+            <div class="wl_cp_search_menu_position_target">
+                <div class="wl_cp_search_menu_anchor">
+                    <button
+                        class="o_searchview_dropdown_toggler d-print-none btn btn-outline-secondary o-dropdown-caret rounded-start-0"
+                        data-hotkey="shift+q"
+                        title="Toggle Search Panel"
+                    />
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="willow_backend_theme.ThemeSettingsButton">
+        <button
+            type="button"
+            class="wl_theme_settings_trigger"
+            title="Theme Settings"
+            aria-label="Open Willow Theme Settings"
+            t-on-click="open"
+        >
+            <i class="fa fa-sliders" aria-hidden="true"/>
+        </button>
+    </t>
+
+    <t t-name="willow_backend_theme.ColorControl">
+        <div class="wl_theme_settings_color_item">
+            <div class="wl_theme_settings_color_copy">
+                <strong t-esc="field[1]"/>
+                <small t-esc="field[2]"/>
+                <span t-if="state.errors[field[0]]" class="wl_theme_settings_error" role="alert" t-esc="state.errors[field[0]]"/>
+            </div>
+            <div class="wl_theme_settings_color_control">
+                <input
+                    class="wl_theme_settings_native_color"
+                    type="color"
+                    t-att-value="profile[field[0]] || '#4F6EF7'"
+                    t-att-aria-label="field[1] + ' color picker'"
+                    t-on-input="(ev) => this.onColorPicker(field[0], ev)"
+                />
+                <input
+                    class="wl_theme_settings_hex"
+                    type="text"
+                    maxlength="7"
+                    spellcheck="false"
+                    t-att-value="profile[field[0]] || '#4F6EF7'"
+                    t-att-aria-label="field[1] + ' HEX value'"
+                    t-att-aria-invalid="state.errors[field[0]] ? 'true' : 'false'"
+                    t-on-change="(ev) => this.onHexChange(field[0], ev)"
+                />
+            </div>
+        </div>
+    </t>
+
+    <t t-name="willow_backend_theme.AssetControl">
+        <div class="wl_theme_settings_upload">
+            <div
+                class="wl_theme_settings_upload_preview"
+                t-att-class="{ 'is-empty': !state.previews[assetKey] }"
+                t-att-style="state.previews[assetKey] ? `background-image: url('${state.previews[assetKey]}')` : ''"
+                aria-hidden="true"
+            >
+                <i t-if="!state.previews[assetKey]" class="fa fa-picture-o"/>
+            </div>
+            <div class="wl_theme_settings_upload_copy">
+                <strong t-esc="assetLabel"/>
+                <small>PNG, JPEG, or WebP</small>
+                <div class="wl_theme_settings_upload_actions">
+                    <label class="wl_theme_settings_button is-secondary">
+                        <input type="file" accept="image/png,image/jpeg,image/webp" t-on-change="(ev) => this.onAsset(ev, assetKey)"/>
+                        <span t-esc="state.previews[assetKey] ? 'Replace' : 'Choose image'"/>
+                    </label>
+                    <button t-if="state.previews[assetKey]" type="button" class="wl_theme_settings_text_button" t-on-click="() => this.removeAsset(assetKey)">Remove</button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="willow_backend_theme.ThemeSettingsDialog">
+        <Dialog
+            size="'xl'"
+            title="'Willow Theme Settings'"
+            contentClass="'wl_theme_settings_modal'"
+            bodyClass="'wl_theme_settings_modal_body'"
+            withBodyPadding="false"
+        >
+            <div t-if="state.loading" class="wl_theme_settings_loading" role="status">
+                <i class="fa fa-spinner fa-spin" aria-hidden="true"/>
+                <span>Loading theme settings…</span>
+            </div>
+            <div
+                t-else=""
+                class="wl_theme_settings"
+                t-att-data-ui-theme="state.chromeMode"
+            >
+
+                <nav class="wl_theme_settings_tabs" role="tablist" aria-label="Theme setting categories">
+                    <t t-foreach="[['appearance', 'Appearance'], ['colors', 'Colors'], ['dashboard', 'Dashboard'], ['branding', 'Branding'], ['advanced', 'Advanced']]" t-as="tab" t-key="tab[0]">
+                        <button
+                            type="button"
+                            role="tab"
+                            class="wl_theme_settings_tab"
+                            t-att-class="{ 'is-active': state.tab === tab[0] }"
+                            t-att-aria-selected="state.tab === tab[0]"
+                            t-att-tabindex="state.tab === tab[0] ? 0 : -1"
+                            t-on-click="() => this.activateTab(tab[0])"
+                            t-on-keydown="(ev) => this.onTabKeydown(ev, tab_index)"
+                            t-esc="tab[1]"
+                        />
+                    </t>
+                </nav>
+
+                <main class="wl_theme_settings_main">
+                    <section t-if="state.tab === 'appearance'" class="wl_theme_settings_panel" role="tabpanel">
+                        <div class="wl_theme_settings_panel_heading">
+                            <div><h3>Appearance</h3><p>Choose the interface mode and apply a coordinated preset to both light and dark profiles.</p></div>
+                            <span class="wl_theme_settings_profile_badge"><t t-esc="state.effectiveMode"/> profile</span>
+                        </div>
+                        <div class="wl_theme_settings_row">
+                            <div class="wl_theme_settings_row_label"><h4>Color mode</h4><p>Use a fixed appearance or follow the operating system preference.</p></div>
+                            <div class="wl_theme_settings_choice_grid" role="radiogroup" aria-label="Color mode">
+                                <t t-foreach="[['light', 'Light', 'Always use light'], ['dark', 'Dark', 'Always use dark'], ['system', 'System', 'Follow this device']]" t-as="mode" t-key="mode[0]">
+                                    <label class="wl_theme_settings_mode" t-att-class="{ 'is-selected': state.data.mode === mode[0] }">
+                                        <input type="radio" name="willow-theme-mode" t-att-value="mode[0]" t-att-checked="state.data.mode === mode[0]" t-on-change="() => this.setMode(mode[0])"/>
+                                        <span><strong t-esc="mode[1]"/><small t-esc="mode[2]"/></span>
+                                    </label>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="wl_theme_settings_row is-top">
+                            <div class="wl_theme_settings_row_label"><h4>Preset themes</h4><p>Choosing a preset updates both light and dark profiles together.</p></div>
+                            <div class="wl_theme_settings_preset_grid">
+                                <button
+                                    t-foreach="presets"
+                                    t-as="preset"
+                                    t-key="preset.id"
+                                    type="button"
+                                    class="wl_theme_settings_preset"
+                                    t-att-class="{ 'is-selected': profile.preset === preset.id }"
+                                    t-on-click="() => this.applyPreset(preset.id)"
+                                >
+                                    <span class="wl_theme_settings_preset_swatch">
+                                        <i t-foreach="preset.colors" t-as="color" t-key="color" t-att-style="'background:' + color"/>
+                                    </span>
+                                    <span><strong t-esc="preset.label"/><small t-esc="preset.description"/></span>
+                                    <i class="fa fa-check" aria-hidden="true"/>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section t-if="state.tab === 'colors'" class="wl_theme_settings_panel" role="tabpanel">
+                        <div class="wl_theme_settings_panel_heading">
+                            <div><h3>Colors</h3><p>Edit the <t t-esc="state.effectiveMode"/> profile without changing the other profile.</p></div>
+                        </div>
+                        <div class="wl_theme_settings_row is-top">
+                            <div class="wl_theme_settings_row_label"><h4>Interface palette</h4><p>Core accents, surfaces, borders, and readable text.</p></div>
+                            <div class="wl_theme_settings_color_grid">
+                                <t t-foreach="profileColors" t-as="field" t-key="field[0]">
+                                    <t t-call="willow_backend_theme.ColorControl"/>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="wl_theme_settings_row is-top">
+                            <div class="wl_theme_settings_row_label"><h4>Semantic colors</h4><p>Status colors tuned independently for this surface profile.</p></div>
+                            <div class="wl_theme_settings_color_grid">
+                                <t t-foreach="semanticColors" t-as="field" t-key="field[0]">
+                                    <t t-call="willow_backend_theme.ColorControl"/>
+                                </t>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section t-if="state.tab === 'dashboard'" class="wl_theme_settings_panel" role="tabpanel">
+                        <div class="wl_theme_settings_panel_heading"><div><h3>Dashboard</h3><p>Control the Willow landing page, hero artwork, and typography.</p></div></div>
+                        <div class="wl_theme_settings_row">
+                            <div class="wl_theme_settings_row_label"><h4>Dashboard menu</h4><p>Show the Willow dashboard entry in backend navigation.</p></div>
+                            <label class="wl_theme_settings_switch_row">
+                                <span><strong>Show dashboard menu</strong><small>Available to backend users</small></span>
+                                <input type="checkbox" t-att-checked="state.data.shared.dashboard_show" t-on-change="(ev) => this.setShared('dashboard_show', ev.target.checked)"/>
+                            </label>
+                        </div>
+                        <div class="wl_theme_settings_row is-top">
+                            <div class="wl_theme_settings_row_label"><h4>Hero background</h4><p>Optional override for the active profile. Leave empty to use the reactive theme background.</p></div>
+                            <t t-set="assetKey" t-value="state.effectiveMode === 'dark' ? 'hero_image_dark' : 'hero_image'"/>
+                            <t t-set="assetLabel" t-value="state.effectiveMode === 'dark' ? 'Dark hero background' : 'Light hero background'"/>
+                            <t t-call="willow_backend_theme.AssetControl"/>
+                        </div>
+                        <div class="wl_theme_settings_row is-top">
+                            <div class="wl_theme_settings_row_label"><h4>Hero typography</h4><p>Bounded choices keep the dashboard layout stable.</p></div>
+                            <div>
+                                <div class="wl_theme_settings_form_grid">
+                                    <label><span>Title size</span><select t-att-value="state.data.shared.dashboard_title_size" t-on-change="(ev) => this.setShared('dashboard_title_size', ev.target.value)"><option t-foreach="['28px','32px','38px','44px','52px','64px']" t-as="size" t-key="size" t-att-value="size" t-att-selected="state.data.shared.dashboard_title_size === size" t-esc="size"/></select></label>
+                                    <label><span>Title weight</span><select t-on-change="(ev) => this.setShared('dashboard_title_weight', ev.target.value)"><option t-foreach="['500','600','700','800']" t-as="weight" t-key="weight" t-att-value="weight" t-att-selected="state.data.shared.dashboard_title_weight === weight" t-esc="weight"/></select></label>
+                                    <label><span>Subtitle size</span><select t-on-change="(ev) => this.setShared('dashboard_subtitle_size', ev.target.value)"><option t-foreach="['14px','16px','19px','22px','26px','30px']" t-as="size" t-key="size" t-att-value="size" t-att-selected="state.data.shared.dashboard_subtitle_size === size" t-esc="size"/></select></label>
+                                    <label><span>Subtitle weight</span><select t-on-change="(ev) => this.setShared('dashboard_subtitle_weight', ev.target.value)"><option t-foreach="['400','500','600']" t-as="weight" t-key="weight" t-att-value="weight" t-att-selected="state.data.shared.dashboard_subtitle_weight === weight" t-esc="weight"/></select></label>
+                                </div>
+                                <div class="wl_theme_settings_color_grid is-spaced">
+                                    <t t-foreach="[['dashboard_title_color', 'Hero title', 'Primary home heading'], ['dashboard_subtitle_color', 'Hero subtitle', 'Supporting home text']]" t-as="field" t-key="field[0]">
+                                        <t t-call="willow_backend_theme.ColorControl"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section t-if="state.tab === 'branding'" class="wl_theme_settings_panel" role="tabpanel">
+                        <div class="wl_theme_settings_panel_heading"><div><h3>Branding</h3><p>Manage company-level visual assets and status metadata.</p></div></div>
+                        <div class="wl_theme_settings_row is-top">
+                            <div class="wl_theme_settings_row_label"><h4>Brand assets</h4><p>Raster images are validated before being stored by Odoo.</p></div>
+                            <div class="wl_theme_settings_upload_grid">
+                                <t t-set="assetKey" t-value="'company_logo'"/><t t-set="assetLabel" t-value="'Company logo'"/><t t-call="willow_backend_theme.AssetControl"/>
+                                <t t-set="assetKey" t-value="'favicon'"/><t t-set="assetLabel" t-value="'Backend favicon'"/><t t-call="willow_backend_theme.AssetControl"/>
+                                <t t-set="assetKey" t-value="state.effectiveMode === 'dark' ? 'login_background_dark' : 'login_background'"/><t t-set="assetLabel" t-value="state.effectiveMode === 'dark' ? 'Dark login background' : 'Light login background'"/><t t-call="willow_backend_theme.AssetControl"/>
+                            </div>
+                        </div>
+                        <div class="wl_theme_settings_row is-top">
+                            <div class="wl_theme_settings_row_label"><h4>Header brand text</h4><p>Shown under the company name in the top bar.</p></div>
+                            <div class="wl_theme_settings_form_grid">
+                                <label>
+                                    <span>Brand subtitle</span>
+                                    <input
+                                        type="text"
+                                        maxlength="255"
+                                        placeholder="Enterprise Resource Planning"
+                                        t-att-value="state.data.shared.brand_subtitle"
+                                        t-on-input="(ev) => this.setShared('brand_subtitle', ev.target.value)"
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="wl_theme_settings_row is-top">
+                            <div class="wl_theme_settings_row_label"><h4>Footer metadata</h4><p>Optional information displayed in Willow status areas.</p></div>
+                            <div class="wl_theme_settings_form_grid is-three">
+                                <label><span>Environment</span><select t-on-change="(ev) => this.setShared('environment', ev.target.value)"><option t-foreach="[['production','Production'],['staging','Staging'],['development','Development']]" t-as="option" t-key="option[0]" t-att-value="option[0]" t-att-selected="state.data.shared.environment === option[0]" t-esc="option[1]"/></select></label>
+                                <label><span>Support contact</span><input type="email" maxlength="255" t-att-value="state.data.shared.support_contact" t-on-input="(ev) => this.setShared('support_contact', ev.target.value)"/></label>
+                                <label><span>Build version</span><input type="text" maxlength="255" t-att-value="state.data.shared.build_version" t-on-input="(ev) => this.setShared('build_version', ev.target.value)"/></label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section t-if="state.tab === 'advanced'" class="wl_theme_settings_panel" role="tabpanel">
+                        <div class="wl_theme_settings_panel_heading"><div><h3>Advanced</h3><p>Move settings between installations or restore centralized defaults.</p></div></div>
+                        <div class="wl_theme_settings_row is-top">
+                            <div class="wl_theme_settings_row_label"><h4>Theme configuration</h4><p>Versioned JSON includes both profiles, shared values, presets, and assets.</p></div>
+                            <div class="wl_theme_settings_action_list">
+                                <div><span><strong>Import settings</strong><small>Validate and atomically apply a Willow v2 export.</small></span><label class="wl_theme_settings_button is-secondary"><input type="file" accept="application/json,.json" t-on-change="importSettings"/>Choose JSON</label></div>
+                                <div><span><strong>Export settings</strong><small>Download a complete reusable backup.</small></span><button type="button" class="wl_theme_settings_button is-secondary" t-on-click="exportSettings">Export JSON</button></div>
+                            </div>
+                        </div>
+                        <div class="wl_theme_settings_row is-top is-danger">
+                            <div class="wl_theme_settings_row_label">
+                                <h4>Reset theme</h4>
+                                <p>Restore all theme settings and colors to default theme values.</p>
+                            </div>
+                            <div class="wl_theme_settings_reset_grid">
+                                <button type="button" class="is-danger" t-on-click="() => this.confirmReset('all')">Reset to default settings</button>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+
+            <t t-set-slot="footer">
+                <button type="button" class="btn btn-primary" t-att-disabled="state.loading || state.saving || !isDirty" t-on-click="save">
+                    <i t-if="state.saving" class="fa fa-spinner fa-spin me-1" aria-hidden="true"/>
+                    Save
+                </button>
+                <button type="button" class="btn btn-secondary" t-att-disabled="state.saving" t-on-click="requestClose">Discard</button>
+            </t>
+        </Dialog>
+    </t>
+</templates>
