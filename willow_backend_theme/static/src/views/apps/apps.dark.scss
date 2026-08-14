@@ -2,61 +2,72 @@
     .o_modules_kanban,
     .o_modules_kanban .o_kanban_renderer,
     .o_content:has(.o_modules_kanban) {
-        background: #111827 !important;
-        color: var(--wl-dark-text);
+        background: #0b1320 !important;
+        color: var(--wl-dark-text, #f1f5f9);
     }
 
     .o_modules_kanban .o_kanban_record:not(.o_kanban_ghost) {
-        border-color: var(--wl-dark-border);
-        background: #18212f !important;
-        color: var(--wl-dark-text);
+        border-color: rgba(148, 163, 184, 0.16);
+        background: #131c2e !important;
+        color: var(--wl-dark-text, #f1f5f9);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
     .o_modules_kanban .o_kanban_record:not(.o_kanban_ghost):hover {
-        border-color: #475569;
-        background: #202b3a !important;
+        border-color: rgba(148, 163, 184, 0.32);
+        background: #182338 !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
     }
 
-    .o_modules_kanban .o_kanban_record :is(.o_kanban_record_title, h3, h4, h5, strong, b, a:not(.btn)) {
-        color: var(--wl-dark-text) !important;
+    .o_modules_kanban .o_kanban_record main :is(.o_kanban_record_title, h3, h4, h5, strong, b, a:not(.btn)) {
+        color: #f8fafc !important;
     }
 
-    .o_modules_kanban .o_kanban_record :is(.text-muted, .o_text_overflow, small, p) {
-        color: var(--wl-dark-muted) !important;
+    .o_modules_kanban .o_kanban_record main :is(.text-muted, .o_text_overflow, small, p) {
+        color: #94a3b8 !important;
     }
 
     .o_modules_kanban .o_kanban_record :is(.btn, a.btn, button),
     .o_modules_kanban .o_kanban_record footer .btn,
     .o_modules_kanban .o_kanban_record footer a.btn,
     .o_modules_kanban .o_kanban_record footer button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 1;
-        border-radius: 0 !important;
-        border-color: var(--wl-dark-border);
-        background: #202b3a;
-        color: var(--wl-dark-text);
+        border-radius: 6px !important;
+        border-color: rgba(148, 163, 184, 0.22);
+        background: #1e293b;
+        color: #e2e8f0;
     }
 
     .o_modules_kanban .o_kanban_record footer .btn-primary,
     .o_modules_kanban .o_kanban_record footer button[name="button_immediate_install"],
     .o_modules_kanban .o_kanban_record footer button[name="button_immediate_install_app"] {
         border-color: transparent;
-        background: var(--wl-dark-accent);
-        color: var(--wl-dark-accent-contrast);
+        background: var(--wl-dark-accent, #38bdf8);
+        color: var(--wl-dark-accent-contrast, #020617);
+    }
+
+    .o_modules_kanban .o_kanban_record footer .btn-primary:hover,
+    .o_modules_kanban .o_kanban_record footer button[name="button_immediate_install"]:hover,
+    .o_modules_kanban .o_kanban_record footer button[name="button_immediate_install_app"]:hover {
+        background: color-mix(in srgb, var(--wl-dark-accent, #38bdf8) 85%, #fff);
+        color: var(--wl-dark-accent-contrast, #020617);
     }
 
     .o_modules_kanban .o_kanban_record footer .btn-secondary,
     .o_modules_kanban .o_kanban_record footer a.btn:not(.btn-primary):not(.btn-info) {
-        border-color: #3c4a60;
-        background: #263244;
-        color: #ffffff;
+        border-color: rgba(148, 163, 184, 0.24);
+        background: #1e293b;
+        color: #e2e8f0;
+    }
+
+    .o_modules_kanban .o_kanban_record footer .btn-secondary:hover,
+    .o_modules_kanban .o_kanban_record footer a.btn:not(.btn-primary):not(.btn-info):hover {
+        background: #334155;
+        border-color: rgba(148, 163, 184, 0.4);
     }
 
     .o_modules_kanban .o_kanban_record footer .btn-info {
         border-color: transparent;
-        background: #18b7c8;
+        background: #0284c7;
         color: #ffffff;
     }
 }

@@ -1,54 +1,149 @@
-.o_modules_kanban .o_kanban_record :is(.btn, a.btn, button),
-.o_modules_kanban .o_kanban_record footer .btn,
-.o_modules_kanban .o_kanban_record footer a.btn,
-.o_modules_kanban .o_kanban_record footer button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 30px;
-    padding: 4px 12px;
-    border: 1px solid #d8e0e8;
-    border-radius: 0 !important;
-    box-shadow: none;
-    font-weight: 800;
-    line-height: 1;
+// Willow Apps (Modules) Kanban View Styling
+
+.o_kanban_view.o_modules_kanban {
+    background: var(--my-theme-bg, #f8fbff);
+
+    .o_kanban_renderer.o_kanban_ungrouped {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        align-content: flex-start;
+        align-items: stretch;
+        gap: 12px 14px;
+        padding: 16px 18px;
+    }
+
+    .o_kanban_renderer.o_kanban_ungrouped .o_kanban_record:not(.o_kanban_ghost):not(.o-kanban-button-new) {
+        display: flex;
+        flex-direction: row;
+        width: auto !important;
+        max-width: none !important;
+        min-width: 0;
+        height: auto;
+        min-height: 128px;
+        padding: 12px 14px;
+        gap: 12px;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
+
+    .o_kanban_renderer .o_kanban_record aside {
+        flex: 0 0 auto;
+        align-self: flex-start;
+
+        :is(.o_kanban_image, img.oe_module_icon, img.o_app_icon, img) {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+    }
+
+    .o_kanban_renderer .o_kanban_record main {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 100%;
+        gap: 2px;
+        margin-right: 0 !important;
+
+        :is(.o_kanban_record_title, h3, h4, strong, .fw-bold, .fs-5) {
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.25;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #0f172a;
+        }
+
+        > p.text-muted {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.775rem;
+            margin-top: 0;
+            margin-bottom: 4px;
+            color: #64748b !important;
+        }
+
+        footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-top: auto;
+            padding-top: 4px;
+            width: 100%;
+        }
+    }
+
+    .o_kanban_record :is(.btn, a.btn, button),
+    .o_kanban_record footer .btn,
+    .o_kanban_record footer a.btn,
+    .o_kanban_record footer button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 28px;
+        padding: 3px 10px;
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        border-radius: 6px !important;
+        box-shadow: none;
+        font-size: 11.5px;
+        font-weight: 700;
+        line-height: 1.1;
+        text-decoration: none;
+        transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    }
+
+    .o_kanban_record footer .btn:hover,
+    .o_kanban_record footer button:hover {
+        transform: translateY(-1px);
+        box-shadow: none;
+    }
+
+    .o_kanban_record footer .btn-primary,
+    .o_kanban_record footer button[name="button_immediate_install"],
+    .o_kanban_record footer button[name="button_immediate_install_app"] {
+        border-color: transparent;
+        background: var(--wl-light-primary, #00174d);
+        color: var(--wl-light-primary-contrast, #ffffff);
+    }
+
+    .o_kanban_record footer .btn-primary:hover,
+    .o_kanban_record footer button[name="button_immediate_install"]:hover,
+    .o_kanban_record footer button[name="button_immediate_install_app"]:hover {
+        background: color-mix(in srgb, var(--wl-light-primary, #00174d) 85%, #000);
+        color: var(--wl-light-primary-contrast, #ffffff);
+    }
+
+    .o_kanban_record footer .btn-secondary,
+    .o_kanban_record footer a.btn:not(.btn-primary):not(.btn-info) {
+        background: #ffffff;
+        color: #1f2937;
+        border-color: rgba(148, 163, 184, 0.35);
+    }
+
+    .o_kanban_record footer .btn-secondary:hover,
+    .o_kanban_record footer a.btn:not(.btn-primary):not(.btn-info):hover {
+        border-color: color-mix(in srgb, var(--wl-light-primary, #00174d) 46%, transparent);
+        background: color-mix(in srgb, var(--wl-light-primary, #00174d) 7%, #fff);
+    }
+
+    .o_kanban_record footer .btn-info {
+        border-color: transparent;
+        background: #0284c7;
+        color: #ffffff;
+    }
 }
 
-.o_modules_kanban .o_kanban_record footer .btn:hover,
-.o_modules_kanban .o_kanban_record footer button:hover {
-    transform: translateY(-1px);
-    box-shadow: none;
-}
-
-.o_modules_kanban .o_kanban_record footer .btn-primary,
-.o_modules_kanban .o_kanban_record footer button[name="button_immediate_install"],
-.o_modules_kanban .o_kanban_record footer button[name="button_immediate_install_app"] {
-    border-color: transparent;
-    background: var(--wl-light-primary, #000000);
-    color: var(--wl-light-primary-contrast, #ffffff);
-}
-
-.o_modules_kanban .o_kanban_record footer .btn-primary:hover,
-.o_modules_kanban .o_kanban_record footer button[name="button_immediate_install"]:hover,
-.o_modules_kanban .o_kanban_record footer button[name="button_immediate_install_app"]:hover {
-    background: var(--wl-light-primary, #000000);
-    color: var(--wl-light-primary-contrast, #ffffff);
-}
-
-.o_modules_kanban .o_kanban_record footer .btn-secondary,
-.o_modules_kanban .o_kanban_record footer a.btn:not(.btn-primary):not(.btn-info) {
-    background: #ffffff;
-    color: #1f2937;
-}
-
-.o_modules_kanban .o_kanban_record footer .btn-secondary:hover,
-.o_modules_kanban .o_kanban_record footer a.btn:not(.btn-primary):not(.btn-info):hover {
-    border-color: color-mix(in srgb, var(--wl-light-primary, #000000) 46%, transparent);
-    background: color-mix(in srgb, var(--wl-light-primary, #000000) 7%, #fff);
-}
-
-.o_modules_kanban .o_kanban_record footer .btn-info {
-    border-color: transparent;
-    background: #18b7c8;
-    color: #ffffff;
+@media (max-width: 767.98px) {
+    .o_kanban_view.o_modules_kanban .o_kanban_renderer.o_kanban_ungrouped {
+        grid-template-columns: 1fr;
+        padding: 12px;
+    }
 }
