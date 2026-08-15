@@ -3,7 +3,7 @@
 ## Baseline
 
 - Track Willow Community `19.0.2.4.8` feature-for-feature.
-- Ship as the independent Odoo module `willow_backend_theme`.
+- Ship as the independent Odoo module `willow_backend_theme_ent`.
 - Require `web_enterprise` so Willow assets load after Enterprise assets.
 
 ## Port work

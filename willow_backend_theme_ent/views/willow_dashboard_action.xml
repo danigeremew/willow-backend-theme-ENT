@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_willow_dashboard" model="ir.actions.client">
+        <field name="name">Dashboard</field>
+        <field name="tag">willow_backend_theme_ent.operations_dashboard</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem
+        id="menu_willow_dashboard"
+        name="Dashboard"
+        sequence="0"
+        action="action_willow_dashboard"
+        groups="base.group_user"
+    />
+</odoo>

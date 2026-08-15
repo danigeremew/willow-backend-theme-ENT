@@ -19,7 +19,7 @@ Modern ERP backend theme for Odoo 19 Enterprise with a navy header, card-based d
 ## Install
 
 1. Remove or uninstall the Community edition if it is installed
-2. Copy `willow_backend_theme` into your Odoo Enterprise addons path
+2. Copy `willow_backend_theme_ent` into your Odoo Enterprise addons path
 3. Update the apps list
 4. Install **Willow Backend Theme (Enterprise Edition)** from Apps
 
@@ -30,7 +30,7 @@ Modern ERP backend theme for Odoo 19 Enterprise with a navy header, card-based d
 ## Notes
 
 - Designed specifically for the Odoo 19 Enterprise backend
-- Uses the `willow_backend_theme` technical name and configuration namespace
+- Uses the `willow_backend_theme_ent` technical name and configuration namespace
 - Seamlessly integrates with Enterprise services, systray tools, and navigation
 - Copies missing theme settings from `willow_backend_theme_ce` during installation without deleting Community settings
 - Sets the Willow dashboard as the default home action for admin on install
