@@ -24,7 +24,7 @@
     'live_test_url': 'https://willowdemo.beineto.com',
     "images": [
         "static/description/banner.png",
-        "static/description/theme_screenshot.gif"
+        "static/description/theme_screenshot.png"
     ],
     "depends": ["base_setup", "web_enterprise", "mail", "web", "spreadsheet_dashboard"],
     "data": [
