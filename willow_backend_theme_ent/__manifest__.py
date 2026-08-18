@@ -4,14 +4,14 @@
     "description": """
         Willow Backend Theme (Enterprise Edition) brings Willow's custom
         navigation shell, configurable light and dark palettes, operations
-        dashboard, and responsive backend styling to Odoo 19 Enterprise.
+        dashboard, and responsive backend styling to Odoo 18 Enterprise.
 
         This edition depends on ``web_enterprise`` and preserves Enterprise
         services and systray tools while keeping Willow's dashboard as the
         default root application. It is a separate build from the Community
         edition and uses the ``willow_backend_theme_ent`` technical name.
     """,
-    "version": "19.0.2.4.9",
+    "version": "18.0.2.4.9",
     "category": "Themes/Backend",
     "license": "OPL-1",
     "price": 34.00,

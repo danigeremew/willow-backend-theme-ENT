@@ -5,7 +5,7 @@ import { cookie } from "@web/core/browser/cookie";
 import { _t } from "@web/core/l10n/translation";
 import { router, routerBus } from "@web/core/browser/router";
 import { registry } from "@web/core/registry";
-import { user, userBus } from "@web/core/user";
+import { user } from "@web/core/user";
 import { imageUrl } from "@web/core/utils/urls";
 import { mountComponent } from "@web/env";
 import { session } from "@web/session";
@@ -101,7 +101,7 @@ let modalViewportSnapshot = null;
 let modalViewportNormalizeTimer = null;
 let themeReloadBootstrapReleased = false;
 let themeReloadBootstrapTimeout = null;
-let currentThemePreference = session.willow_theme_mode || user?.settings?.color_scheme || null;
+let currentThemePreference = session.willow_theme_mode || null;
 let systemThemeListenerReady = false;
 let topbarSearchReady = false;
 let topbarSearchDebounce = null;
@@ -610,9 +610,6 @@ function bootThemeReloadLock() {
 function persistThemeModePreference(mode) {
     currentThemePreference = mode;
     cookie.set("color_scheme", mode);
-    if (user?.updateUserSettings) {
-        user.updateUserSettings("color_scheme", mode);
-    }
     try {
         browser.localStorage.setItem(THEME_KEY, mode);
     } catch (error) {
@@ -644,10 +641,7 @@ async function setThemeMode(mode) {
                 // Persist preference in parallel — do not block CSS swap on RPC latency.
                 const writePromise = callKw("res.users", "write", [
                     [user.userId],
-                    {
-                        willow_theme_mode: modeToApply,
-                        color_scheme: modeToApply,
-                    },
+                    { willow_theme_mode: modeToApply },
                 ]).catch((error) => logThemeError("failed to persist theme preference", error));
 
                 try {
@@ -5031,16 +5025,18 @@ function setupControlButtons() {
         updateScrollState();
     });
 
-    const companyBus = userBus;
-    companyBus.addEventListener("ACTIVE_COMPANIES_CHANGED", () => {
-        window.setTimeout(() => {
-            syncCompanyBrandName();
-            syncCompanyBrandLogo();
-            syncDashboardFooterContext();
-            refreshDashboardFooterData(true);
-            mountSystemTray();
-        }, 0);
-    });
+    const companyBus = typeof userBus !== "undefined" ? userBus : null;
+    if (companyBus) {
+        companyBus.addEventListener("ACTIVE_COMPANIES_CHANGED", () => {
+            window.setTimeout(() => {
+                syncCompanyBrandName();
+                syncCompanyBrandLogo();
+                syncDashboardFooterContext();
+                refreshDashboardFooterData(true);
+                mountSystemTray();
+            }, 0);
+        });
+    }
 }
 
 function getTabsScrollState(cluster) {

@@ -1,13 +1,7 @@
 __pycache__/
 *.py[cod]
-*.pyo
-*.log
+*$py.class
+*.swp
+*.swo
 .DS_Store
-.idea/
-.vscode/
-.pytest_cache/
-.ruff_cache/
-.mypy_cache/
-node_modules/
-dist/
-build/
+*.orig

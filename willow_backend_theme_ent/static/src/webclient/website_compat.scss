@@ -205,9 +205,32 @@ body.o_web_client.wl_sp_global_mode:has(.o_website_preview) > .wl_erp_hero_art {
     display: none;
 }
 
-// ── 4. Edit / fullscreen: hide Willow chrome + reset offsets ───────────────
+// ── 4a. Edit transition: fade Willow chrome (Odoo 18 wysiwyg enter animation) ─
+body.o_web_client.o_website_navbar_transition_hide {
+    #wl_sp_global_shell,
+    .wl_sp_global_shell,
+    .wl_sp_rail_group {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: opacity 400ms ease !important;
+    }
+
+    > .o_action_manager,
+    .o_action_manager {
+        padding-top: 0 !important;
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        left: 0 !important;
+    }
+}
+
+// ── 4b. Edit / new / fullscreen: hide Willow chrome + reset offsets ──────────
+body.o_web_client.o_website_navbar_hide,
+body.o_web_client.o_website_fullscreen,
 body.o_web_client.o_builder_open,
-body.o_web_client.o_website_fullscreen {
+body.o_web_client:has(.o_website_preview.editor_enable.editor_has_snippets) {
     #wl_sp_global_shell,
     .wl_sp_global_shell {
         display: none !important;

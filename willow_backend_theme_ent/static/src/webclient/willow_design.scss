@@ -674,12 +674,12 @@ body:has(.o_web_client.wl_sp_global_mode),
 }
 
 .o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
-    .o_control_panel_main_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):not(.d-print-none),
-    .o_control_panel_actions .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_searchview_icon):not(.o_searchview_input_container):not(.d-print-none),
-    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_pager_previous):not(.o_pager_next):not(.d-print-none),
+    .o_control_panel_main_buttons .btn:not(.o_unselect_all):not(.o_facet_remove),
+    .o_control_panel_actions .btn:not(.o_unselect_all):not(.o_facet_remove),
+    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_pager_previous):not(.o_pager_next),
     // Settings/cog action menu: keep icon-only — no glass tint (see override below).
-    .o_cp_action_menus .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o-dropdown):not(.d-print-none),
-    .o_cp_switch_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):not(.d-print-none)
+    .o_cp_action_menus .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o-dropdown),
+    .o_cp_switch_buttons .btn:not(.o_unselect_all):not(.o_facet_remove)
 ) {
     border-color: var(--wl-erp-cp-btn-border) !important;
     background: var(--wl-erp-cp-btn-bg) !important;
@@ -688,11 +688,11 @@ body:has(.o_web_client.wl_sp_global_mode),
 }
 
 .o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
-    .o_control_panel_main_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):not(.d-print-none):hover,
-    .o_control_panel_actions .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_searchview_icon):not(.o_searchview_input_container):not(.d-print-none):hover,
-    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_pager_previous):not(.o_pager_next):not(.d-print-none):hover,
-    .o_cp_action_menus .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o-dropdown):not(.d-print-none):hover,
-    .o_cp_switch_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):not(.d-print-none):hover
+    .o_control_panel_main_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):hover,
+    .o_control_panel_actions .btn:not(.o_unselect_all):not(.o_facet_remove):hover,
+    .o_control_panel_navigation .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o_pager_previous):not(.o_pager_next):hover,
+    .o_cp_action_menus .btn:not(.o_unselect_all):not(.o_facet_remove):not(.o-dropdown):hover,
+    .o_cp_switch_buttons .btn:not(.o_unselect_all):not(.o_facet_remove):hover
 ):not(:disabled) {
     border-color: var(--wl-erp-cp-btn-hover-border) !important;
     background: var(--wl-erp-cp-btn-hover-bg) !important;
@@ -730,52 +730,6 @@ body:has(.o_web_client.wl_sp_global_mode),
     background-color: transparent !important;
     box-shadow: none !important;
     color: var(--wl-erp-cp-text-strong) !important;
-    transform: none;
-}
-
-// Search icon & searchbar search button (including .d-print-none.btn) — no background chip/box behind search icon.
-.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
-    .o_searchview_icon,
-    .o_searchview .o_searchview_icon,
-    .o_searchview .btn,
-    .o_searchview button,
-    .o_cp_searchview .btn,
-    .o_cp_searchview button,
-    .o_searchview_input_container .btn,
-    .o_searchview_input_container button,
-    .o_searchview_input_container .o_searchview_icon,
-    .o_searchview_input_container i,
-    .o_searchview .oi-search,
-    .d-print-none.btn,
-    .btn.d-print-none,
-    .d-print-none
-),
-.o_web_client.wl_sp_global_mode:not(:has(.wl_erp_theme_page)) .o_action_manager .o_control_panel :is(
-    .o_searchview_icon,
-    .o_searchview .o_searchview_icon,
-    .o_searchview .btn,
-    .o_searchview button,
-    .o_cp_searchview .btn,
-    .o_cp_searchview button,
-    .o_searchview_input_container .btn,
-    .o_searchview_input_container button,
-    .o_searchview_input_container .o_searchview_icon,
-    .o_searchview_input_container i,
-    .o_searchview .oi-search,
-    .d-print-none.btn,
-    .btn.d-print-none,
-    .d-print-none
-):is(:hover, :focus, :active, .show) {
-    --btn-bg: transparent;
-    --btn-hover-bg: transparent;
-    --btn-active-bg: transparent;
-    --bs-btn-bg: transparent;
-    --bs-btn-hover-bg: transparent;
-    --bs-btn-active-bg: transparent;
-    border-color: transparent !important;
-    background: transparent !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
     transform: none;
 }
 

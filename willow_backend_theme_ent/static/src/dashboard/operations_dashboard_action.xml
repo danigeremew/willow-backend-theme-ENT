@@ -391,12 +391,10 @@
                         <path
                           t-if="state.activityChart.overdueAreaPath"
                           class="tt_dashboard_graph_area is-overdue"
-                          fill="url(#wl_dashboard_activity_overdue_gradient)"
                           t-att-d="state.activityChart.overdueAreaPath"
                         />
                         <path
                           class="tt_dashboard_graph_area is-due"
-                          fill="url(#wl_dashboard_activity_due_gradient)"
                           t-att-d="state.activityChart.dueAreaPath"
                         />
                         <path

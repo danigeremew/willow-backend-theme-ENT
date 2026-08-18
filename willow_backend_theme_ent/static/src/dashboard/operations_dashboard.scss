@@ -622,6 +622,14 @@ $o_willow_dashboard_panel-tint: color-mix(in srgb, var(--wl-canvas, #f8f9fa) 72%
     font-weight: 600;
 }
 
+.tt_dashboard_graph_area.is-due {
+    fill: url(#wl_dashboard_activity_due_gradient);
+}
+
+.tt_dashboard_graph_area.is-overdue {
+    fill: url(#wl_dashboard_activity_overdue_gradient);
+}
+
 .tt_dashboard_graph_line.is-due {
     fill: none;
     stroke: var(--wl-erp-primary, #4f6df5);

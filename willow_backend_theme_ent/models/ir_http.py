@@ -20,7 +20,10 @@ class IrHttp(models.AbstractModel):
         user_theme_mode = self.env.user.willow_theme_mode or getattr(self.env.user, "color_scheme", None)
         if user_theme_mode in ("dark", "light"):
             return user_theme_mode
-        return super().color_scheme()
+        parent = getattr(super(IrHttp, self), "color_scheme", None)
+        if callable(parent):
+            return parent()
+        return "light"
 
     def session_info(self):
         _migrate_legacy_light_header_colors(self.env)

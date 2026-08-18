@@ -37,7 +37,7 @@ class ResUsers(models.Model):
         hostname = (urlparse(base_url).hostname or "").lower()
         db_name = self.env.cr.dbname
         fingerprint = f"{hostname} {db_name}".lower()
-        environment = (config.get_param("willow_backend_theme_ent.environment", default="") or "").strip().lower()
+        environment = (config.get_param("willow_backend_theme.environment", default="") or "").strip().lower()
         if environment not in {"production", "staging", "development"}:
             if any(token in fingerprint for token in ("stag", "stage", "uat", "preprod", "sandbox", "qa")):
                 environment = "staging"
@@ -61,14 +61,14 @@ class ResUsers(models.Model):
             )
 
         support_contact = (
-            config.get_param("willow_backend_theme_ent.support_contact", default="")
+            config.get_param("willow_backend_theme.support_contact", default="")
             or company.partner_id.email
             or company.partner_id.phone
             or ""
         )
-        build_version = config.get_param("willow_backend_theme_ent.build_version", default="") or ""
+        build_version = config.get_param("willow_backend_theme.build_version", default="") or ""
 
-        theme_version = get_manifest("willow_backend_theme_ent").get("version", "")
+        theme_version = get_manifest("willow_backend_theme").get("version", "")
 
         can_open_users = self.env["res.users"].has_access("read")
         can_open_scheduled_actions = self.env["ir.cron"].has_access("read") and user._is_system()

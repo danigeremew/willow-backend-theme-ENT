@@ -63,8 +63,8 @@ def canonical_menu_key(name):
 def is_reserved_menu(menu, xmlid=""):
     key = canonical_menu_key(menu.name)
     return key in RESERVED_MENU_KEYS or xmlid in (
-        "willow_backend_theme_ent.menu_willow_dashboard",
-        "willow_backend_theme_ent.menu_willow_home",
+        "willow_backend_theme.menu_willow_dashboard",
+        "willow_backend_theme.menu_willow_home",
         "base.menu_administration",
         "spreadsheet_dashboard.spreadsheet_dashboard_menu_root",
     )
