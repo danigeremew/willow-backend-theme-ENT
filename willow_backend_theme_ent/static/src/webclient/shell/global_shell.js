@@ -684,6 +684,9 @@ async function setThemeMode(mode) {
     return run;
 }
 
+window.__wlSetThemeMode = setThemeMode;
+window.__wlGetThemeMode = getThemeMode;
+
 function refreshThemeScope() {
     applyTheme(getThemeMode());
 }
