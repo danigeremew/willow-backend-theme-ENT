@@ -44,6 +44,9 @@
     background-color: #18212f;
     border-color: #2b3647;
     color: #e5e7eb;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-bottom-width: 0 !important;
 }
 
 .o_list_view .o_list_renderer .o_list_table tbody,
@@ -51,11 +54,23 @@
     border-color: #2b3647;
     background: #111827;
     color: #e5e7eb;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-bottom-width: 0 !important;
+}
+
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row > td,
+.o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row > th {
+    border-top: none !important;
+    border-bottom: none !important;
+    border-bottom-width: 0 !important;
 }
 
 .o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row > td:first-child,
 .o_list_view .o_list_renderer .o_list_table tbody tr.o_data_row > td:last-child {
     border-color: #2b3647;
+    border-bottom: none !important;
+    border-bottom-width: 0 !important;
 }
 
 .o_list_view .o_list_renderer .o_list_table tbody tr:hover td {
