@@ -4,12 +4,21 @@ import { browser } from "@web/core/browser/browser";
 import { cookie } from "@web/core/browser/cookie";
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
-import { imageUrl } from "@web/core/utils/urls";
+import { url } from "@web/core/utils/urls";
 import { mountComponent } from "@web/env";
 import { session } from "@web/session";
 import { UserMenu } from "@web/webclient/user_menu/user_menu";
 import { mountThemeSettingsButtons } from "../../theme_settings/components/theme_settings";
 import { ensureHeroArt } from "../hero/hero_art";
+
+function imageUrl(model, id, field = "image_128", options = {}) {
+    return url("/web/image", {
+        model,
+        id,
+        field,
+        unique: options?.unique || "",
+    });
+}
 
 function parseHashQuery(hash) {
     if (!hash || hash === "#") {
@@ -198,7 +207,8 @@ function formatEnabledCount(value, singular, plural = `${singular}s`) {
 }
 
 function getUserLocale() {
-    return user?.lang || navigator.language || "en-US";
+    const raw = user?.lang || navigator.language || "en-US";
+    return String(raw).replace(/_/g, "-");
 }
 
 function formatTimestamp(date = new Date()) {
@@ -1922,6 +1932,34 @@ const willowShellBridgeService = {
         }
         routerBus = env.bus;
         userBus = env.bus;
+
+        const boot = () => {
+            selectDashboardForFriendlyUrl();
+            start();
+        };
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", boot, { once: true });
+        } else {
+            boot();
+        }
+
+        env.bus.addEventListener("ACTION_MANAGER:UI-UPDATED", () => {
+            if (typeof window.__wlScheduleRunFeatures === "function") {
+                window.__wlScheduleRunFeatures();
+            }
+        });
+        env.bus.addEventListener("MENUS:APP-CHANGED", () => {
+            if (typeof window.__wlScheduleRunFeatures === "function") {
+                window.__wlScheduleRunFeatures();
+            }
+        });
+        env.bus.addEventListener("ROUTE_CHANGE", () => {
+            if (typeof window.__wlScheduleRunFeatures === "function") {
+                window.__wlScheduleRunFeatures();
+            }
+        });
+
+        return {};
     },
 };
 registry.category("services").add("willow_shell_bridge", willowShellBridgeService);
@@ -3810,7 +3848,7 @@ function renderGlobalShell() {
         return;
     }
     const webClient = document.querySelector(".o_web_client");
-    const actionManager = webClient?.querySelector(":scope > .o_action_manager");
+    const actionManager = webClient?.querySelector(".o_action_manager") || document.querySelector(".o_action_manager");
     if (!webClient || !actionManager) {
         return;
     }
@@ -3820,10 +3858,11 @@ function renderGlobalShell() {
         webClient.classList.add("wl_sp_global_mode");
     };
 
+    const host = actionManager.parentElement || webClient;
     const existing = document.getElementById("wl_sp_global_shell");
     if (existing) {
-        if (existing.parentElement !== webClient || existing.nextElementSibling !== actionManager) {
-            webClient.insertBefore(existing, actionManager);
+        if (existing.parentElement !== host || existing.nextElementSibling !== actionManager) {
+            host.insertBefore(existing, actionManager);
         }
         enableGlobalMode();
         ensureWorkspaceModal();
@@ -3857,7 +3896,7 @@ function renderGlobalShell() {
             </div>
         </section>
     `;
-    webClient.insertBefore(shell, actionManager);
+    host.insertBefore(shell, actionManager);
     enableGlobalMode();
     ensureHeroArtMounts(webClient, shell);
     ensureWorkspaceModal();
@@ -4593,7 +4632,12 @@ function openBackendRecord({ name, model, resId }) {
 }
 
 function openAppsPage() {
-    window.location.assign(withCurrentDebugParam("/odoo/apps"));
+    const actionService = getWebclientActionService();
+    if (actionService?.doAction) {
+        actionService.doAction("base.open_module_tree");
+    } else {
+        window.location.assign(withCurrentDebugParam("/web#action=base.open_module_tree"));
+    }
 }
 
 function toggleDeveloperMode() {
@@ -5257,6 +5301,27 @@ function bindNavigationRefresh(scheduleRunFeatures) {
     }
 }
 
+function selectDashboardForFriendlyUrl() {
+    const path = window.location.pathname.replace(/\/+$/, "");
+    if (path === "/apps" || path.startsWith("/apps/") || path === "/odoo/apps" || path.startsWith("/odoo/apps/")) {
+        const actionService = getWebclientActionService();
+        if (actionService?.doAction) {
+            actionService.doAction("base.open_module_tree");
+        }
+        return;
+    }
+    if (path !== "/dashboard" && !path.startsWith("/dashboard/") && path !== "/home" && !path.startsWith("/home/")) {
+        return;
+    }
+    const menuService = getWebclientMenuService();
+    const dashboardMenu = menuService
+        ?.getAll?.()
+        ?.find?.((menu) => menu.xmlid === WILLOW_DASHBOARD_MENU_XMLID);
+    if (dashboardMenu) {
+        menuService.selectMenu(dashboardMenu);
+    }
+}
+
 function start() {
     if (!document.body) {
         return;
@@ -5304,14 +5369,32 @@ function start() {
             window.setTimeout(runFeatures, 0);
         });
     };
+    window.__wlScheduleRunFeatures = scheduleRunFeatures;
 
-    const actionManager = document.querySelector(".o_web_client > .o_action_manager") || document.body;
-    const rootObserver = new MutationObserver(scheduleRunFeatures);
-    try {
-        rootObserver.observe(actionManager, { childList: true, subtree: false });
-    } catch (error) {
-        logThemeError("failed to observe action manager", error);
-    }
+    let observedTarget = null;
+    let rootObserver = null;
+    const bindObserver = () => {
+        const target =
+            document.querySelector(".o_web_client > .o_action_manager") ||
+            document.querySelector(".o_web_client") ||
+            document.body;
+        if (target && target !== observedTarget) {
+            if (rootObserver) {
+                rootObserver.disconnect();
+            }
+            observedTarget = target;
+            rootObserver = new MutationObserver(scheduleRunFeatures);
+            const isSubtree = target !== document.querySelector(".o_web_client > .o_action_manager");
+            try {
+                rootObserver.observe(target, { childList: true, subtree: isSubtree });
+            } catch (error) {
+                logThemeError("failed to observe target", error);
+            }
+        }
+    };
+    bindObserver();
+    window.setInterval(bindObserver, 1000);
+
     runSafely("initial scrollers mount", mountScrollers);
     runSafely("initial feature run", runFeatures);
 

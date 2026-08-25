@@ -2,15 +2,37 @@
 
 from odoo import http
 from odoo.addons.web.controllers.home import Home as WebHome
+from odoo.http import request
 
 
 class Home(WebHome):
+    @http.route(
+        [
+            "/apps",
+            "/apps/<path:subpath>",
+            "/odoo/apps",
+            "/odoo/apps/<path:subpath>",
+        ],
+        type="http",
+        auth="none",
+    )
+    def apps(self, s_action=None, subpath=None, **kw):
+        if not request.session.uid:
+            return request.redirect_query(
+                "/web/login", query={"redirect": "/web#action=base.open_module_tree"}
+            )
+        return request.redirect_query(
+            "/web#action=base.open_module_tree", query=request.params
+        )
+
     @http.route(
         [
             "/home",
             "/home/<path:subpath>",
             "/dashboard",
             "/dashboard/<path:subpath>",
+            "/odoo",
+            "/odoo/<path:subpath>",
         ],
         type="http",
         auth="none",
