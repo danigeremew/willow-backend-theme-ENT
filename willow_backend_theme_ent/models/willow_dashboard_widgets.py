@@ -976,7 +976,7 @@ class WillowBusinessDashboardBuilder:
         return True
 
     def _read_group_count(self, group, groupby_field="company_id"):
-        """Extract record count from a read_group row (Odoo 19 field names)."""
+        """Extract record count from a read_group row (Odoo 18 field names)."""
         if not group:
             return 0
         for key in (f"{groupby_field}_count", "id_count", "__count", "id"):

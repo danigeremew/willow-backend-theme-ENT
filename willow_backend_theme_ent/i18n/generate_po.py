@@ -143,7 +143,7 @@ HEADER = f'''# Translation of Odoo Server.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 19.0\\n"
+"Project-Id-Version: Odoo Server 18.0\\n"
 "Report-Msgid-Bugs-To: \\n"
 "POT-Creation-Date: 2026-07-27 12:00+0000\\n"
 "PO-Revision-Date: 2026-07-27 12:00+0000\\n"

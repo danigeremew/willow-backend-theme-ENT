@@ -164,7 +164,7 @@ function restoreSavedPathOnParams(params) {
 }
 
 async function installWebsitePatches() {
-    // Odoo 19+: WebsiteBuilderClientAction with extractProps / onIframeLoad.
+    // Odoo 18+: WebsiteBuilderClientAction with extractProps / onIframeLoad.
     try {
         const { WebsiteBuilderClientAction } = await import(
             "@website/client_actions/website_preview/website_builder_action"

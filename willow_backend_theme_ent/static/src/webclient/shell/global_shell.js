@@ -66,7 +66,7 @@ const DEFAULT_THEME_VALUES = {
 const WILLOW_DASHBOARD_MENU_XMLID = "willow_backend_theme_ent.menu_willow_dashboard";
 const WILLOW_DASHBOARD_ACTION_XMLID = "willow_backend_theme_ent.action_willow_dashboard";
 const WILLOW_DASHBOARD_ICON_SRC = "/willow_backend_theme_ent/static/src/img/apps/dashboard.svg";
-const KRAKEN_THEME_VERSION = "19.0.1.0.0";
+const WILLOW_THEME_VERSION = "18.0.2.4.9";
 const BRAND_COPY_MIN_WIDTH = 80;
 const FALLBACK_TOPBAR_MENUS = [
     "Dashboard",
@@ -2406,8 +2406,8 @@ function syncDashboardFooterContext() {
     setTextContent("wl_sp_footer_filters", collectDashboardFilters());
     setTextContent("wl_sp_footer_shortcut", getShortcutHint());
     setTextContent("wl_sp_footer_locale", getLocaleTimeZoneLabel());
-    setTextContent("wl_sp_footer_odoo_version", session.server_version || "Odoo 19");
-    setTextContent("wl_sp_footer_theme_version", KRAKEN_THEME_VERSION);
+    setTextContent("wl_sp_footer_odoo_version", session.server_version || "Odoo 18");
+    setTextContent("wl_sp_footer_theme_version", WILLOW_THEME_VERSION);
     setTextContent(
         "wl_sp_footer_debug_link",
         isDebugMode() ? _t("Developer Mode On") : _t("Developer Mode")
@@ -2725,7 +2725,7 @@ async function refreshDashboardFooterData(force = false) {
                 `${footerData.timezone || user?.tz || "UTC"} / ${footerData.locale || getUserLocale()}`
             );
             setTextContent("wl_sp_footer_odoo_version", footerData.odoo_version || session.server_version || "Odoo");
-            setTextContent("wl_sp_footer_theme_version", footerData.theme_version || KRAKEN_THEME_VERSION);
+            setTextContent("wl_sp_footer_theme_version", footerData.theme_version || WILLOW_THEME_VERSION);
             setTextContent("wl_sp_footer_last_refresh", nowLabel);
             setTextContent(
                 "wl_sp_footer_debug_link",
