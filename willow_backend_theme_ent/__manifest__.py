@@ -1,17 +1,16 @@
 {
     "name": "Willow Backend Theme (Enterprise Edition)",
     "summary": "Modern ERP backend theme with navy header, card dashboard, and Willow UI styling for Odoo Enterprise",
-    "description": """
-        Willow Backend Theme (Enterprise Edition) brings Willow's custom
-        navigation shell, configurable light and dark palettes, operations
-        dashboard, and responsive backend styling to Odoo 19 Enterprise.
+    "description": """Willow Backend Theme (Enterprise Edition) brings Willow's custom
+navigation shell, configurable light and dark palettes, operations
+dashboard, and responsive backend styling to Odoo 17 Enterprise.
 
-        This edition depends on ``web_enterprise`` and preserves Enterprise
-        services and systray tools while keeping Willow's dashboard as the
-        default root application. It is a separate build from the Community
-        edition and uses the ``willow_backend_theme_ent`` technical name.
-    """,
-    "version": "19.0.2.4.9",
+This edition depends on ``web_enterprise`` and preserves Enterprise
+services and systray tools while keeping Willow's dashboard as the
+default root application. It is a separate build from the Community
+edition and uses the ``willow_backend_theme_ent`` technical name.
+""",
+    "version": "17.0.2.4.9",
     "category": "Themes/Backend",
     "license": "OPL-1",
     "price": 34.00,
@@ -33,16 +32,12 @@
         "views/res_users_chatter.xml"
     ],
     "assets": {
-        "spreadsheet.o_spreadsheet": [
-            "willow_backend_theme_ent/static/src/dashboard/spreadsheet/dashboard_dark_charts.js",
-        ],
         "web.assets_backend": [
             "willow_backend_theme_ent/static/src/webclient/willow_backend_theme.scss",
             "willow_backend_theme_ent/static/src/webclient/search_bar_menu.xml",
             "willow_backend_theme_ent/static/src/webclient/shell/control_panel_mobile.xml",
             "willow_backend_theme_ent/static/src/webclient/shell/global_shell.scss",
             "willow_backend_theme_ent/static/src/webclient/website_theme_bridge.js",
-            "willow_backend_theme_ent/static/src/webclient/shell/dashboard_route.js",
             "willow_backend_theme_ent/static/src/webclient/shell/webclient_enterprise.js",
             "willow_backend_theme_ent/static/src/webclient/shell/global_shell.js",
             "willow_backend_theme_ent/static/src/views/list/list.scss",

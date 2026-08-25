@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { browser } from "@web/core/browser/browser";
-import { assetCacheByDocument, getBundle, loadBundle } from "@web/core/assets";
+import { getBundle } from "@web/core/assets";
 import { patch } from "@web/core/utils/patch";
 
 const STORAGE_KEY = "wl_sp_website_preserve_path";
@@ -37,10 +37,14 @@ export function preserveWebsitePreviewPath() {
 
 export function isWebsitePreviewActive() {
     const locationRef = `${window.location.pathname}${window.location.hash}`;
+    const body = document.body;
     return !!(
         document.querySelector(".o_website_preview") ||
         document.querySelector(".o-website-builder_sidebar") ||
-        document.body?.classList.contains("o_builder_open") ||
+        body?.classList.contains("o_builder_open") ||
+        body?.classList.contains("editor_has_snippets_hide_backend_navbar") ||
+        body?.classList.contains("editor_has_dummy_snippets") ||
+        document.querySelector(".o_website_preview.editor_enable.editor_has_snippets") ||
         /website\.website_preview|action-website\.website_preview/i.test(locationRef)
     );
 }
@@ -67,16 +71,6 @@ function rewriteBrowserUrlForRefresh() {
     history.replaceState(history.state, document.title, `/@${frontendPath}`);
 }
 
-function clearDocumentAssetCache(urls) {
-    const cache = assetCacheByDocument.get(document);
-    if (!cache) {
-        return;
-    }
-    for (const url of urls) {
-        cache.delete(url);
-    }
-}
-
 function removeAssetTags(matchingFn) {
     const removedUrls = [];
     for (const link of document.querySelectorAll('link[rel="stylesheet"]')) {
@@ -87,29 +81,48 @@ function removeAssetTags(matchingFn) {
         }
     }
     // CSS-only theme swap: never strip scripts (JS must stay loaded once).
-    clearDocumentAssetCache(removedUrls);
     return removedUrls;
 }
 
 function hasLightScreenStylesheets() {
     // Dark boot loads web.assets_web_dark (+ always web.assets_web_print).
-    // Require a real light screen bundle — exclude _dark / _print explicitly.
+    // Do NOT treat _print/_dark as light — "web.assets_web" is a substring of both.
     return [...document.querySelectorAll('link[rel="stylesheet"]')].some((link) => {
         const href = link.getAttribute("href") || "";
-        return (
-            href.includes("web.assets_web") &&
-            !href.includes("web.assets_web_dark") &&
-            !href.includes("web.assets_web_print")
-        );
+        // Match web.assets_web.min.css / web.assets_web.css only (dot after bundle name).
+        return /web\.assets_web\./.test(href);
     });
 }
 
+/**
+ * Inject a stylesheet without going through Odoo 17's private cacheMap.
+ * loadCSS() would no-op for URLs that were previously loaded then removed from DOM.
+ */
+function loadCssUncached(url) {
+    return new Promise((resolve, reject) => {
+        for (const link of document.querySelectorAll('link[rel="stylesheet"]')) {
+            if (link.getAttribute("href") === url) {
+                link.remove();
+            }
+        }
+        const linkEl = document.createElement("link");
+        linkEl.setAttribute("href", url);
+        linkEl.type = "text/css";
+        linkEl.rel = "stylesheet";
+        linkEl.addEventListener("load", () => resolve());
+        linkEl.addEventListener("error", () => reject(new Error(`CSS load failed: ${url}`)));
+        document.head.appendChild(linkEl);
+    });
+}
+
+async function loadBundleCssOnly(bundleName) {
+    // Odoo 17 loadBundle() always loads JS+CSS; reloading JS duplicates the shell.
+    const { cssLibs } = await getBundle(bundleName);
+    await Promise.all((cssLibs || []).map((url) => loadCssUncached(url)));
+}
+
 async function reloadLightBundleAssets() {
-    const { cssLibs } = await getBundle("web.assets_web");
-    clearDocumentAssetCache([...(cssLibs || [])]);
-    // Odoo serves JS from web.assets_web once; color scheme only swaps CSS.
-    // Reloading JS re-registers OWL patches and duplicates the shell.
-    await loadBundle("web.assets_web", { js: false });
+    await loadBundleCssOnly("web.assets_web");
 }
 
 function beginAssetSwapLock() {
@@ -131,15 +144,15 @@ async function applyThemeOnWebsiteUnlocked(mode) {
     beginAssetSwapLock();
     try {
         if (mode === "dark") {
-            await loadBundle("web.assets_web_dark", { js: false });
+            await loadBundleCssOnly("web.assets_web_dark");
             return;
         }
         // Ensure light CSS is present BEFORE removing dark — otherwise the page
-        // briefly (or stuck) renders as unstyled HTML.
+        // briefly renders as unstyled HTML.
+        removeAssetTags((url) => url.includes("web.assets_web_dark"));
         if (!hasLightScreenStylesheets()) {
             await reloadLightBundleAssets();
         }
-        removeAssetTags((url) => url.includes("web.assets_web_dark"));
     } finally {
         endAssetSwapLock();
     }
@@ -160,36 +173,56 @@ function restoreSavedWebsitePath(props) {
     return props;
 }
 
+function restoreSavedPathOnParams(params) {
+    const saved = browser.sessionStorage.getItem(STORAGE_KEY);
+    if (saved && params && (!params.path || params.path === "/")) {
+        params.path = saved;
+    }
+}
+
 async function installWebsitePatches() {
-    let WebsiteBuilderClientAction;
+    // Odoo 17 WebsiteBuilderClientAction (kept for forward-compat).
     try {
-        ({ WebsiteBuilderClientAction } = await import(
+        const { WebsiteBuilderClientAction } = await import(
             "@website/client_actions/website_preview/website_builder_action"
-        ));
-    } catch {
+        );
+        patch(WebsiteBuilderClientAction, {
+            extractProps(action) {
+                return restoreSavedWebsitePath(super.extractProps(action));
+            },
+        });
+        patch(WebsiteBuilderClientAction.prototype, {
+            replaceBrowserUrl() {
+                const result = super.replaceBrowserUrl(...arguments);
+                preserveWebsitePreviewPath();
+                rewriteBrowserUrlForRefresh();
+                return result;
+            },
+
+            onIframeLoad(ev) {
+                const result = super.onIframeLoad(ev);
+                preserveWebsitePreviewPath();
+                return result;
+            },
+        });
         return;
+    } catch {
+        // Odoo 17 WebsitePreview
     }
 
-    patch(WebsiteBuilderClientAction, {
-        extractProps(action) {
-            return restoreSavedWebsitePath(super.extractProps(action));
-        },
-    });
-
-    patch(WebsiteBuilderClientAction.prototype, {
-        replaceBrowserUrl() {
-            const result = super.replaceBrowserUrl(...arguments);
-            preserveWebsitePreviewPath();
-            rewriteBrowserUrlForRefresh();
-            return result;
-        },
-
-        onIframeLoad(ev) {
-            const result = super.onIframeLoad(ev);
-            preserveWebsitePreviewPath();
-            return result;
-        },
-    });
+    try {
+        const { WebsitePreview } = await import(
+            "@website/client_actions/website_preview/website_preview"
+        );
+        patch(WebsitePreview.prototype, {
+            setup() {
+                super.setup(...arguments);
+                restoreSavedPathOnParams(this.props.action?.context?.params);
+            },
+        });
+    } catch {
+        // website module not installed
+    }
 }
 
 installWebsitePatches();

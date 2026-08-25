@@ -7,7 +7,6 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { downloadFile } from "@web/core/network/download";
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
-import { user } from "@web/core/user";
 import { mountComponent } from "@web/env";
 import { session } from "@web/session";
 import { Component, onMounted, onWillDestroy, onWillStart, useState } from "@odoo/owl";
@@ -427,7 +426,7 @@ export class ThemeSettingsButton extends Component {
 }
 
 export async function mountThemeSettingsButtons() {
-    if (!user.isSystem || !session.willow_theme_is_system_admin) {
+    if (!session.willow_theme_is_system_admin && !session.is_system && !session.is_admin) {
         return;
     }
     const env = window.odoo?.__WOWL_DEBUG__?.root?.env;

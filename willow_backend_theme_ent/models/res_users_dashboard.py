@@ -70,8 +70,8 @@ class ResUsers(models.Model):
 
         theme_version = get_manifest("willow_backend_theme_ent").get("version", "")
 
-        can_open_users = self.env["res.users"].has_access("read")
-        can_open_scheduled_actions = self.env["ir.cron"].has_access("read") and user._is_system()
+        can_open_users = self.env["res.users"].check_access_rights("read", raise_exception=False)
+        can_open_scheduled_actions = self.env["ir.cron"].check_access_rights("read", raise_exception=False) and user._is_system()
         can_open_settings = user._is_admin() or user._is_system()
         can_toggle_debug = user._is_internal()
 

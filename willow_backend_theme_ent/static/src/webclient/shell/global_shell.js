@@ -3,15 +3,69 @@
 import { browser } from "@web/core/browser/browser";
 import { cookie } from "@web/core/browser/cookie";
 import { _t } from "@web/core/l10n/translation";
-import { router, routerBus } from "@web/core/browser/router";
 import { registry } from "@web/core/registry";
-import { user, userBus } from "@web/core/user";
 import { imageUrl } from "@web/core/utils/urls";
 import { mountComponent } from "@web/env";
 import { session } from "@web/session";
 import { UserMenu } from "@web/webclient/user_menu/user_menu";
 import { mountThemeSettingsButtons } from "../../theme_settings/components/theme_settings";
 import { ensureHeroArt } from "../hero/hero_art";
+
+function parseHashQuery(hash) {
+    if (!hash || hash === "#") {
+        return {};
+    }
+    const str = hash.startsWith("#") ? hash.slice(1) : hash;
+    const parts = str.split("&");
+    const result = {};
+    for (const part of parts) {
+        const [key, value] = part.split("=");
+        if (key) {
+            result[key] = decodeURIComponent(value || "");
+        }
+    }
+    return result;
+}
+
+let wlServices = {};
+let routerBus = null;
+let userBus = null;
+let user = {
+    get userId() {
+        return session.uid;
+    },
+    get isSystem() {
+        return Boolean(session.willow_theme_is_system_admin || session.is_system);
+    },
+    get isAdmin() {
+        return Boolean(session.willow_theme_is_system_admin || session.is_admin || session.is_system);
+    },
+    get isInternal() {
+        return Boolean(session.is_internal ?? true);
+    },
+    get lang() {
+        return session.user_context?.lang || "en-US";
+    },
+    get settings() {
+        return session.user_settings || {};
+    },
+    updateUserSettings(key, val) {
+        if (wlServices.user?.updateUserSettings) {
+            return wlServices.user.updateUserSettings(key, val);
+        }
+    },
+};
+const router = {
+    get current() {
+        return wlServices.router?.current?.hash || parseHashQuery(window.location.hash) || {};
+    },
+    stateToUrl(state) {
+        if (wlServices.router?.stateToUrl) {
+            return wlServices.router.stateToUrl(state);
+        }
+        return window.location.pathname + window.location.search + window.location.hash;
+    },
+};
 
 const THEME_KEY = "wl_sp_theme_mode";
 const THEME_RELOAD_KEY = "wl_sp_theme_reloading";
@@ -66,7 +120,7 @@ const DEFAULT_THEME_VALUES = {
 const WILLOW_DASHBOARD_MENU_XMLID = "willow_backend_theme_ent.menu_willow_dashboard";
 const WILLOW_DASHBOARD_ACTION_XMLID = "willow_backend_theme_ent.action_willow_dashboard";
 const WILLOW_DASHBOARD_ICON_SRC = "/willow_backend_theme_ent/static/src/img/apps/dashboard.svg";
-const KRAKEN_THEME_VERSION = "19.0.1.0.0";
+const WILLOW_THEME_VERSION = "17.0.2.4.9";
 const BRAND_COPY_MIN_WIDTH = 80;
 const FALLBACK_TOPBAR_MENUS = [
     "Dashboard",
@@ -1853,13 +1907,21 @@ function scrollToTarget(id) {
 }
 
 const willowShellBridgeService = {
-    // `router` and `user` are Odoo modules, not services. Declaring them here
-    // prevents the entire web client from starting before the shell can mount.
-    dependencies: ["menu", "action"],
-    start(env, { menu, action }) {
+    dependencies: ["menu", "action", "router", "user", "company", "command"],
+    start(env, services) {
         window.__willowEnv = env;
-        window.__willowMenuService = menu;
-        window.__willowActionService = action;
+        window.__willowMenuService = services.menu;
+        window.__willowActionService = services.action;
+        window.__willowRouterService = services.router;
+        window.__willowUserService = services.user;
+        window.__willowCompanyService = services.company;
+        window.__willowCommandService = services.command;
+        wlServices = { ...services, envBus: env.bus };
+        if (services.user) {
+            user = services.user;
+        }
+        routerBus = env.bus;
+        userBus = env.bus;
     },
 };
 registry.category("services").add("willow_shell_bridge", willowShellBridgeService);
@@ -2409,8 +2471,8 @@ function syncDashboardFooterContext() {
     setTextContent("wl_sp_footer_filters", collectDashboardFilters());
     setTextContent("wl_sp_footer_shortcut", getShortcutHint());
     setTextContent("wl_sp_footer_locale", getLocaleTimeZoneLabel());
-    setTextContent("wl_sp_footer_odoo_version", session.server_version || "Odoo 19");
-    setTextContent("wl_sp_footer_theme_version", KRAKEN_THEME_VERSION);
+    setTextContent("wl_sp_footer_odoo_version", session.server_version || "Odoo 17");
+    setTextContent("wl_sp_footer_theme_version", WILLOW_THEME_VERSION);
     setTextContent(
         "wl_sp_footer_debug_link",
         isDebugMode() ? _t("Developer Mode On") : _t("Developer Mode")
@@ -2728,7 +2790,7 @@ async function refreshDashboardFooterData(force = false) {
                 `${footerData.timezone || user?.tz || "UTC"} / ${footerData.locale || getUserLocale()}`
             );
             setTextContent("wl_sp_footer_odoo_version", footerData.odoo_version || session.server_version || "Odoo");
-            setTextContent("wl_sp_footer_theme_version", footerData.theme_version || KRAKEN_THEME_VERSION);
+            setTextContent("wl_sp_footer_theme_version", footerData.theme_version || WILLOW_THEME_VERSION);
             setTextContent("wl_sp_footer_last_refresh", nowLabel);
             setTextContent(
                 "wl_sp_footer_debug_link",
@@ -5031,16 +5093,18 @@ function setupControlButtons() {
         updateScrollState();
     });
 
-    const companyBus = userBus;
-    companyBus.addEventListener("ACTIVE_COMPANIES_CHANGED", () => {
-        window.setTimeout(() => {
-            syncCompanyBrandName();
-            syncCompanyBrandLogo();
-            syncDashboardFooterContext();
-            refreshDashboardFooterData(true);
-            mountSystemTray();
-        }, 0);
-    });
+    const companyBus = userBus || getWebclientBus();
+    if (companyBus?.addEventListener) {
+        companyBus.addEventListener("ACTIVE_COMPANIES_CHANGED", () => {
+            window.setTimeout(() => {
+                syncCompanyBrandName();
+                syncCompanyBrandLogo();
+                syncDashboardFooterContext();
+                refreshDashboardFooterData(true);
+                mountSystemTray();
+            }, 0);
+        });
+    }
 }
 
 function getTabsScrollState(cluster) {
@@ -5158,8 +5222,9 @@ function mountScrollers() {
 }
 
 function bindNavigationRefresh(scheduleRunFeatures) {
-    if (!boundRouteEvents) {
-        routerBus.addEventListener("ROUTE_CHANGE", () => {
+    const routeBus = routerBus || getWebclientBus();
+    if (!boundRouteEvents && routeBus?.addEventListener) {
+        routeBus.addEventListener("ROUTE_CHANGE", () => {
             closeSubmenuPopover();
             closeHeroDropdown();
             heroSubnavSignature = "";

@@ -121,7 +121,7 @@ class WillowDashboardDataBuilder:
         if model_name not in self.env:
             return False
         try:
-            return bool(self.env[model_name].has_access("read"))
+            return bool(self.env[model_name].check_access_rights("read", raise_exception=False))
         except Exception:
             return False
 
@@ -976,7 +976,7 @@ class WillowBusinessDashboardBuilder:
         return True
 
     def _read_group_count(self, group, groupby_field="company_id"):
-        """Extract record count from a read_group row (Odoo 19 field names)."""
+        """Extract record count from a read_group row (Odoo 17 field names)."""
         if not group:
             return 0
         for key in (f"{groupby_field}_count", "id_count", "__count", "id"):
@@ -989,14 +989,11 @@ class WillowBusinessDashboardBuilder:
         if model_name not in self.env:
             return False
         try:
-            return self.env[model_name].has_access("read")
+            return bool(self.env[model_name].check_access_rights(
+                "read", raise_exception=False
+            ))
         except Exception:
-            try:
-                return self.env[model_name].check_access_rights(
-                    "read", raise_exception=False
-                )
-            except Exception:
-                return False
+            return False
 
     def _visible_menu_ids(self):
         if self._visible_menus is None:

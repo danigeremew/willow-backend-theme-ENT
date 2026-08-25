@@ -15,19 +15,19 @@
 5. [x] Keep Enterprise systray registrations intact and move their rendered container into Willow's topbar using Willow's existing systray mount.
 6. [x] Copy missing Community configuration parameters into the Enterprise namespace during post-install migration without deleting the source values.
 7. [x] Validate manifests, Python, XML, JavaScript imports, asset paths, translation headers, and Git repository cleanliness.
-8. [x] Install and upgrade the module in an isolated Odoo 19 Enterprise database, compile production assets, and exercise the shell in a real browser.
+8. [x] Install and upgrade the module in an isolated Odoo 17 Enterprise database, compile production assets, and exercise the shell in a real browser.
 
 ## Compatibility boundaries
 
 - Do not modify Odoo Community or Enterprise core modules.
 - Do not install Community and Enterprise Willow editions together.
-- Keep Enterprise-only view structures outside Willow's selector assumptions unless verified against local Odoo 19 Enterprise source.
+- Keep Enterprise-only view structures outside Willow's selector assumptions unless verified against local Odoo 17 Enterprise source.
 - Re-run the regression matrix whenever Willow Community changes or the target Enterprise build is upgraded.
 - Exercise app-specific views again in a representative production database because the isolated validation database intentionally contains only the module dependency set.
 
 ## Completed validation
 
-- Odoo 19 Enterprise install and upgrade: passed.
+- Odoo 17 Enterprise install and upgrade: passed.
 - Production backend JavaScript and CSS bundle compilation: passed.
 - Willow dashboard selected as the Enterprise root action: passed.
 - Enterprise systray preservation: passed with 14 rendered items in the dependency-only database.

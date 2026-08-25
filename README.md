@@ -1,6 +1,6 @@
-# Willow Backend Theme (Enterprise Edition) — Odoo 19
+# Willow Backend Theme (Enterprise Edition) — Odoo 17
 
-Modern ERP backend theme for Odoo 19 Enterprise with a navy header, card-based dashboard, and Willow UI styling inspired by contemporary ERP dashboards.
+Modern ERP backend theme for Odoo 17 Enterprise with a navy header, card-based dashboard, and Willow UI styling inspired by contemporary ERP dashboards.
 
 ## Design
 
@@ -29,7 +29,7 @@ Modern ERP backend theme for Odoo 19 Enterprise with a navy header, card-based d
 
 ## Notes
 
-- Designed specifically for the Odoo 19 Enterprise backend
+- Designed specifically for the Odoo 17 Enterprise backend
 - Uses the `willow_backend_theme_ent` technical name and configuration namespace
 - Seamlessly integrates with Enterprise services, systray tools, and navigation
 - Copies missing theme settings from `willow_backend_theme_ce` during installation without deleting Community settings
