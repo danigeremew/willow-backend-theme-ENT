@@ -39,6 +39,7 @@ edition and uses the ``willow_backend_theme_ent`` technical name.
             "willow_backend_theme_ent/static/src/webclient/shell/global_shell.scss",
             "willow_backend_theme_ent/static/src/webclient/website_theme_bridge.js",
             "willow_backend_theme_ent/static/src/webclient/shell/webclient_enterprise.js",
+            "willow_backend_theme_ent/static/src/webclient/shell/navigation_compat_17.js",
             "willow_backend_theme_ent/static/src/webclient/shell/global_shell.js",
             "willow_backend_theme_ent/static/src/views/list/list.scss",
             "willow_backend_theme_ent/static/src/views/list/list_renderer_patch.js",

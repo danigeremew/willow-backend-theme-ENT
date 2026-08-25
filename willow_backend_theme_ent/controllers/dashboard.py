@@ -10,8 +10,6 @@ class Home(WebHome):
         [
             "/apps",
             "/apps/<path:subpath>",
-            "/odoo/apps",
-            "/odoo/apps/<path:subpath>",
         ],
         type="http",
         auth="none",
@@ -21,9 +19,7 @@ class Home(WebHome):
             return request.redirect_query(
                 "/web/login", query={"redirect": "/web#action=base.open_module_tree"}
             )
-        return request.redirect_query(
-            "/web#action=base.open_module_tree", query=request.params
-        )
+        return request.redirect("/web#action=base.open_module_tree")
 
     @http.route(
         [
@@ -31,8 +27,6 @@ class Home(WebHome):
             "/home/<path:subpath>",
             "/dashboard",
             "/dashboard/<path:subpath>",
-            "/odoo",
-            "/odoo/<path:subpath>",
         ],
         type="http",
         auth="none",
