@@ -14,7 +14,7 @@
     "version": "19.0.2.4.9",
     "category": "Themes/Backend",
     "license": "OPL-1",
-    "price": 34.00,
+    "price": 74.00,
     "currency": "USD",
     "author": "Beineto Labs",
     "contributors": ["Daniel Geremew"],
