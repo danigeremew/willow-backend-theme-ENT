@@ -155,9 +155,12 @@ patch(ListRenderer.prototype, {
         onMounted(() => {
             this._wlScheduleListFooterSync();
             this._wlBindListFooterResizeObserver();
+            this._wlBindResizeWidthSync();
         });
         onPatched(() => this._wlScheduleListFooterSync());
         onWillUnmount(() => {
+            this._wlResizeWidthSyncCleanup?.();
+            this._wlResizeWidthSyncCleanup = null;
             this._wlListFooterResizeObserver?.disconnect();
             this._wlListFooterResizeObserver = null;
         });
@@ -169,6 +172,52 @@ patch(ListRenderer.prototype, {
                 syncPartitionedListColumnWidths(this.tableRef?.el);
             });
         });
+    },
+
+    _wlBindResizeWidthSync() {
+        const table = this.tableRef?.el;
+        if (!table || isFormEmbeddedList(table)) {
+            return;
+        }
+        let frame = null;
+        const sync = () => {
+            frame = null;
+            if (this.tableRef?.el === table) {
+                syncPartitionedListColumnWidths(table);
+            }
+        };
+        const scheduleSync = () => {
+            if (frame === null && table.querySelector(".o_column_resizing")) {
+                // Core registers its drag listener after mount. Wait until it has
+                // written the header width, and update rows once per paint.
+                frame = requestAnimationFrame(sync);
+            }
+        };
+        const finishSync = () => {
+            if (frame !== null || table.querySelector(".o_column_resizing")) {
+                if (frame !== null) {
+                    cancelAnimationFrame(frame);
+                }
+                // Flush before core measures and stores the final column widths.
+                // Core can also stop a drag on keydown or another pointerdown.
+                sync();
+            }
+        };
+        const stoppingEvents = ["pointerup", "keydown", "pointerdown"];
+        window.addEventListener("pointermove", scheduleSync);
+        for (const eventType of stoppingEvents) {
+            window.addEventListener(eventType, finishSync);
+        }
+        this._wlResizeWidthSyncCleanup = () => {
+            window.removeEventListener("pointermove", scheduleSync);
+            for (const eventType of stoppingEvents) {
+                window.removeEventListener(eventType, finishSync);
+            }
+            if (frame !== null) {
+                cancelAnimationFrame(frame);
+                frame = null;
+            }
+        };
     },
 
     _wlBindListFooterResizeObserver() {
