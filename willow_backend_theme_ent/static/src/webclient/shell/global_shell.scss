@@ -858,7 +858,9 @@ body:has(.o_web_client) .wl_sp_submenu_popover.popover-body,
     font-size: 13px;
     font-weight: 700;
     color: #2b3138;
-    overflow: hidden;
+    // The relocated Odoo user menu is rendered inside this profile. It must not
+    // clip its dropdown; the menu receives its own mapped stacking level below.
+    overflow: visible;
 }
 
 .wl_sp_theme_toggle:not(.wl_sp_mobile_profile_item),
@@ -1021,6 +1023,19 @@ body:has(.o_web_client) .wl_sp_submenu_popover.popover-body,
 .wl_sp_profile_menu_mount .o_user_avatar,
 .wl_sp_profile_menu_mount .oe_topbar_name {
     display: none !important;
+}
+
+// Odoo 17 keeps the user menu under the relocated profile mount. Raise an open
+// menu above Willow's adjacent settings control, but below offcanvas/modal UI.
+.wl_sp_profile_menu_mount:has(.show) {
+    z-index: 1002;
+    pointer-events: auto;
+}
+
+.wl_sp_profile_menu_mount .dropdown-menu,
+.wl_sp_profile_menu_mount .o-dropdown--menu {
+    z-index: 1002;
+    pointer-events: auto;
 }
 .wl_sp_rail_group {
     // No desktop floating rail (unlike Kraken) — only shown inside the ≤991 drawer.

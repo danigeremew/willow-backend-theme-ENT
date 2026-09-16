@@ -974,7 +974,8 @@ body:has(.o_web_client.wl_sp_global_mode),
 
 .o_web_client.wl_sp_global_mode .o_action_manager > .o_action > .o_content {
     border-radius: 0;
-    overflow: hidden;
+    // The Enterprise user-menu is mounted here; do not clip its dropdown.
+    overflow: visible;
 }
 
 // Kanban action is itself `.o_kanban_view` — allow stage swipe inside content.
@@ -1091,12 +1092,14 @@ body:has(.o_web_client.wl_sp_global_mode),
     pointer-events: auto;
 }
 
-// Home / Dashboard topbar shell: sticky at top (z-index 1000).
+// Home / Dashboard topbar shell: sticky at top. Keep its stacking context just
+// above Bootstrap dropdowns in dashboard content, while remaining below the
+// offcanvas and modal stacks (1040+), so the Enterprise user-menu is clickable.
 // Dynamically tracks scroll depth (0px to 80px) with zero CSS transition lag.
 .o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page, .o_willow_dashboard_action) .wl_sp_global_shell {
     position: sticky;
     top: 0;
-    z-index: 1000 !important;
+    z-index: 1001 !important;
     min-height: 0;
     pointer-events: auto;
     background-color: rgba(255, 255, 255, calc(var(--wl-scroll-progress, 0) * 0.48)) !important;

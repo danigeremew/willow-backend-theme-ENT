@@ -45,7 +45,9 @@ class ResUsers(models.Model):
         for vals in vals_list:
             if "color_scheme" in vals and "willow_theme_mode" not in vals:
                 vals["willow_theme_mode"] = vals["color_scheme"]
-            elif "willow_theme_mode" in vals and "color_scheme" not in vals and "color_scheme" in self._fields:
+            if "color_scheme" not in self._fields:
+                vals.pop("color_scheme", None)
+            elif "willow_theme_mode" in vals and "color_scheme" not in vals:
                 vals["color_scheme"] = vals["willow_theme_mode"]
         return super().create(vals_list)
 
@@ -53,7 +55,9 @@ class ResUsers(models.Model):
         vals = dict(vals)
         if "color_scheme" in vals and "willow_theme_mode" not in vals:
             vals["willow_theme_mode"] = vals["color_scheme"]
-        elif "willow_theme_mode" in vals and "color_scheme" not in vals and "color_scheme" in self._fields:
+        if "color_scheme" not in self._fields:
+            vals.pop("color_scheme", None)
+        elif "willow_theme_mode" in vals and "color_scheme" not in vals:
             vals["color_scheme"] = vals["willow_theme_mode"]
         return super().write(vals)
 

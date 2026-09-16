@@ -58,7 +58,12 @@ let user = {
     get settings() {
         return session.user_settings || {};
     },
-    updateUserSettings(key, val) {
+    setUserSettings(key, val) {
+        // Odoo 17 exposes setUserSettings(); retain the newer alias as a
+        // forward-compatible fallback for version ports sharing this shell.
+        if (wlServices.user?.setUserSettings) {
+            return wlServices.user.setUserSettings(key, val);
+        }
         if (wlServices.user?.updateUserSettings) {
             return wlServices.user.updateUserSettings(key, val);
         }
@@ -674,9 +679,7 @@ function bootThemeReloadLock() {
 function persistThemeModePreference(mode) {
     currentThemePreference = mode;
     cookie.set("color_scheme", mode);
-    if (user?.updateUserSettings) {
-        user.updateUserSettings("color_scheme", mode);
-    }
+    cookie.set("configured_color_scheme", mode);
     try {
         browser.localStorage.setItem(THEME_KEY, mode);
     } catch (error) {
@@ -706,13 +709,12 @@ async function setThemeMode(mode) {
             while (true) {
                 pendingThemeMode = null;
                 // Persist preference in parallel — do not block CSS swap on RPC latency.
-                const writePromise = callKw("res.users", "write", [
-                    [user.userId],
-                    {
-                        willow_theme_mode: modeToApply,
-                        color_scheme: modeToApply,
-                    },
-                ]).catch((error) => logThemeError("failed to persist theme preference", error));
+                const writePromise = user?.setUserSettings
+                    ? user.setUserSettings("color_scheme", modeToApply)
+                    : callKw("res.users", "write", [
+                          [user.userId],
+                          { willow_theme_mode: modeToApply },
+                      ]);
 
                 try {
                     const swapped = await applyThemeAssets(modeToApply);
@@ -726,7 +728,13 @@ async function setThemeMode(mode) {
                     return;
                 }
 
-                void writePromise;
+                try {
+                    await writePromise;
+                } catch (error) {
+                    // Cookie and local storage preserve the selected mode even
+                    // when the optional server preference cannot be saved.
+                    logThemeError("failed to persist theme preference", error);
+                }
 
                 if (pendingThemeMode && pendingThemeMode !== modeToApply) {
                     modeToApply = pendingThemeMode;
@@ -2346,7 +2354,7 @@ function withCurrentDebugParam(targetUrl) {
 function buildMenuUrl(menuId, actionId) {
     const normalizedMenuId = Number.parseInt(menuId, 10);
     if (!Number.isFinite(normalizedMenuId)) {
-        return withCurrentDebugParam("/odoo");
+        return withCurrentDebugParam("/web");
     }
     const state = { menu_id: normalizedMenuId };
     if (actionId) {
@@ -2364,7 +2372,7 @@ function buildMenuUrl(menuId, actionId) {
     if (actionId) {
         hash.set("action", String(actionId));
     }
-    return `${withCurrentDebugParam("/odoo")}#${hash.toString()}`;
+    return `${withCurrentDebugParam("/web")}#${hash.toString()}`;
 }
 
 function isModifiedNavigationClick(ev) {
@@ -2950,7 +2958,7 @@ function buildTabsElement(menuService) {
         if (!menu.isFallback) {
             button.href = buildMenuUrl(menu.id, menu.actionID);
         } else {
-            button.href = withCurrentDebugParam("/odoo");
+            button.href = withCurrentDebugParam("/apps");
         }
         button.dataset.wlMenuId = String(menu.id);
         button.dataset.wlAction = menu.isFallback ? "open-apps" : "open-menu";
@@ -3798,7 +3806,7 @@ function buildMobileSidebarMarkup() {
                 <span class="wl_sp_mobile_profile_icon" aria-hidden="true"><i class="fa fa-th"></i></span>
                 <span class="wl_sp_mobile_profile_text">${_t("All Apps")}</span>
             </button>
-            <a class="wl_sp_mobile_profile_item" data-wl-action="open-settings" href="${withCurrentDebugParam("/odoo/settings")}" title="${_t("Settings")}">
+            <a class="wl_sp_mobile_profile_item" data-wl-action="open-settings" href="${withCurrentDebugParam("/web#action=base_setup.action_general_configuration")}" title="${_t("Settings")}">
                 <span class="wl_sp_mobile_profile_icon" aria-hidden="true"><i class="fa fa-cog"></i></span>
                 <span class="wl_sp_mobile_profile_text">${_t("Settings")}</span>
             </a>
@@ -4248,7 +4256,7 @@ function openWillowDashboard() {
         return;
     }
     window.location.assign(
-        `${withCurrentDebugParam("/odoo/web")}#action=${WILLOW_DASHBOARD_ACTION_XMLID}`
+        `${withCurrentDebugParam("/web")}#action=${WILLOW_DASHBOARD_ACTION_XMLID}`
     );
 }
 
@@ -4513,7 +4521,7 @@ function openSettingsMenu() {
         return;
     }
     if (canOpenSettings()) {
-        window.location.assign(withCurrentDebugParam("/odoo/settings"));
+        window.location.assign(withCurrentDebugParam("/web#action=base_setup.action_general_configuration"));
     }
 }
 
@@ -4848,7 +4856,7 @@ function setupControlButtons() {
                 if (isModifiedNavigationClick(ev)) {
                     closeMobileSidebar();
                     closeSubmenuPopover();
-                    const url = `${withCurrentDebugParam("/odoo/web")}#action=${WILLOW_DASHBOARD_ACTION_XMLID}`;
+                    const url = `${withCurrentDebugParam("/web")}#action=${WILLOW_DASHBOARD_ACTION_XMLID}`;
                     window.open(url, "_blank");
                     ev.preventDefault();
                     ev.stopPropagation();
@@ -5370,6 +5378,9 @@ function start() {
         });
     };
     window.__wlScheduleRunFeatures = scheduleRunFeatures;
+    // Enterprise color-scheme controls use this public Willow contract.
+    window.__wlGetThemeMode = getThemeMode;
+    window.__wlSetThemeMode = setThemeMode;
 
     let observedTarget = null;
     let rootObserver = null;

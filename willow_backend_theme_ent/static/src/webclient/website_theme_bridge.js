@@ -147,12 +147,13 @@ async function applyThemeOnWebsiteUnlocked(mode) {
             await loadBundleCssOnly("web.assets_web_dark");
             return;
         }
-        // Ensure light CSS is present BEFORE removing dark — otherwise the page
-        // briefly renders as unstyled HTML.
-        removeAssetTags((url) => url.includes("web.assets_web_dark"));
+        // web.assets_web_dark includes the complete backend bundle in Odoo 17.
+        // Load and confirm light CSS before removing it, so a failed request
+        // leaves the currently complete dark stylesheet in place.
         if (!hasLightScreenStylesheets()) {
             await reloadLightBundleAssets();
         }
+        removeAssetTags((url) => url.includes("web.assets_web_dark"));
     } finally {
         endAssetSwapLock();
     }

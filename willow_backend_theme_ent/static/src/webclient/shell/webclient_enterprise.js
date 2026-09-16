@@ -6,7 +6,10 @@ import { _t } from "@web/core/l10n/translation";
 import { cookie as cookieManager } from "@web/core/browser/cookie";
 import { WebClient } from "@web/webclient/webclient";
 import { WebClientEnterprise } from "@web_enterprise/webclient/webclient";
-import { colorSchemeService } from "@web_enterprise/webclient/color_scheme/color_scheme_service";
+import {
+    ColorSchemeService,
+    colorSchemeService,
+} from "@web_enterprise/webclient/color_scheme/color_scheme_service";
 
 // Odoo Enterprise opens its fullscreen Home Menu when no route is present.
 // Willow's sequence-0 dashboard is the intended root app, so delegate only
@@ -51,23 +54,22 @@ export function willowColorSchemeItem(env) {
     };
 }
 
-// Override the user menu switch item so it uses Willow's in-place theme toggle
-// and dynamically reflects Willow's theme state.
-userMenuRegistry.add("color_scheme.switch", willowColorSchemeItem, { force: true });
+// Preserve Odoo's ColorSchemeService instance (getters, reload fallback, and
+// UI unblock behavior) while routing a user-initiated switch through Willow.
+patch(ColorSchemeService.prototype, {
+    switchToColorScheme(scheme) {
+        if (typeof window.__wlSetThemeMode === "function") {
+            return window.__wlSetThemeMode(scheme);
+        }
+        return super.switchToColorScheme(scheme);
+    },
+});
 
 patch(colorSchemeService, {
-    start(env, { ui }) {
+    start() {
+        const service = super.start(...arguments);
+        // Replace the stock menu item after its registry entry is installed.
         userMenuRegistry.add("color_scheme.switch", willowColorSchemeItem, { force: true });
-        return {
-            switchToColorScheme: (scheme) => {
-                if (typeof window.__wlSetThemeMode === "function") {
-                    void window.__wlSetThemeMode(scheme);
-                } else {
-                    cookieManager.set("color_scheme", scheme);
-                    ui.block();
-                    this.reload();
-                }
-            },
-        };
+        return service;
     },
 });

@@ -989,7 +989,7 @@ export class WillowOperationsDashboardAction extends Component {
             appsButton.click();
             return;
         }
-        window.location.assign("/odoo/apps");
+        window.location.assign("/apps");
     }
 
     openCalendar() {

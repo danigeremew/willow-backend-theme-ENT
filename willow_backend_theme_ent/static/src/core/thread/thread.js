@@ -12,7 +12,8 @@ patch(Thread.prototype, {
 
         if (!this.props.showNotificationMessages) {
             messages = messages.filter(
-                (msg) => !["user_notification", "notification"].includes(msg.message_type)
+                // Odoo 17 maps the RPC message_type field to Message.type.
+                (msg) => !["user_notification", "notification"].includes(msg.type)
             );
         }
         return messages;

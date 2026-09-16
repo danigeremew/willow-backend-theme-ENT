@@ -10,6 +10,14 @@ patch(ButtonBox.prototype, {
         super.setup();
         const ui = useService("ui");
 
+        // Odoo 17 Enterprise renders buttons through getButtons()/getMaxButtons().
+        // Newer Odoo 17 sources compute visibleButtons during rendering instead.
+        // Keep Willow's compact thresholds while preserving either stock contract.
+        if (typeof this.getButtons === "function") {
+            this.getMaxButtons = () => [2, 2, 3, 4, 4, 5, 6][ui.size] ?? 6;
+            return;
+        }
+
         onWillRender(() => {
             const MAX_VISIBLE_BUTTONS_BY_SIZE = [2, 2, 3, 4, 4, 5, 6];
             const maxVisibleButtons = MAX_VISIBLE_BUTTONS_BY_SIZE[ui.size] ?? 6;
