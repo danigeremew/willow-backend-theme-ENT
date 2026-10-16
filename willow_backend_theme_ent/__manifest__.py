@@ -13,7 +13,7 @@ edition and uses the ``willow_backend_theme_ent`` technical name.
     "version": "17.0.2.4.9",
     "category": "Themes/Backend",
     "license": "OPL-1",
-    "price": 74.00,
+    "price": 34.00,
     "currency": "USD",
     "author": "Beineto Labs",
     "contributors": ["Daniel Geremew"],
