@@ -10,7 +10,7 @@ services and systray tools while keeping Willow's dashboard as the
 default root application. It is a separate build from the Community
 edition and uses the ``willow_backend_theme_ent`` technical name.
 """,
-    "version": "17.0.2.4.10",
+    "version": "17.0.2.4.11",
     "category": "Themes/Backend",
     "license": "OPL-1",
     "price": 34.00,
@@ -42,7 +42,6 @@ edition and uses the ``willow_backend_theme_ent`` technical name.
             "willow_backend_theme_ent/static/src/webclient/shell/navigation_compat_17.js",
             "willow_backend_theme_ent/static/src/webclient/shell/global_shell.js",
             "willow_backend_theme_ent/static/src/views/list/list.scss",
-            "willow_backend_theme_ent/static/src/views/list/list_renderer_patch.js",
             "willow_backend_theme_ent/static/src/views/kanban/kanban.scss",
             "willow_backend_theme_ent/static/src/views/form/form_renderer.js",
             "willow_backend_theme_ent/static/src/views/form/form_compiler.js",

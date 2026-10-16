@@ -1099,7 +1099,7 @@ body:has(.o_web_client.wl_sp_global_mode),
 .o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page, .o_willow_dashboard_action) .wl_sp_global_shell {
     position: sticky;
     top: 0;
-    z-index: 1001 !important;
+    z-index: $zindex-dropdown + 1;
     min-height: 0;
     pointer-events: auto;
     background-color: rgba(255, 255, 255, calc(var(--wl-scroll-progress, 0) * 0.48)) !important;
@@ -1117,6 +1117,22 @@ body:has(.o_web_client.wl_sp_global_mode),
     box-shadow: 0 4px 20px rgba(0, 0, 0, calc(var(--wl-scroll-progress, 0) * 0.4)) !important;
     border-bottom: 1px solid rgba(255, 255, 255, calc(var(--wl-scroll-progress, 0) * 0.12));
     transition: none !important;
+}
+
+@media (max-width: 991.98px) {
+    // A backdrop filter (even blur(0)) makes the header the containing block
+    // for its fixed drawer. Keep the drawer and backdrop viewport-sized on Home.
+    .o_web_client.wl_sp_global_mode:has(.wl_erp_theme_page, .o_willow_dashboard_action) .wl_sp_global_shell,
+    .o_web_client.wl_sp_global_mode.wl_sp_theme_dark:has(.wl_erp_theme_page, .o_willow_dashboard_action) .wl_sp_global_shell {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    // Lift the whole drawer stacking context above sticky view content, while
+    // retaining Odoo's higher modal/overlay layer for dialogs and notifications.
+    body.o_web_client.wl_sp_global_mode.wl_sp_mobile_sidebar_open .wl_sp_global_shell {
+        z-index: $zindex-offcanvas;
+    }
 }
 
 .o_web_client.wl_sp_global_mode.wl_sp_hero_custom:has(.wl_erp_theme_page, .o_willow_dashboard_action) .wl_sp_global_shell.is-scrolled {
@@ -2064,7 +2080,13 @@ body.wl_sp_workspace_open {
 .wl_erp_submenus {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    // Keep navigation on one row at every width; dropdowns mount on body,
+    // outside this scroller, and the existing scroll handler dismisses them.
+    flex-wrap: nowrap;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
     gap: 4px;
     min-height: 54px;
     padding: 8px 0 10px;
@@ -2079,6 +2101,8 @@ body.wl_sp_workspace_open {
 
 .wl_erp_submenu_item {
     display: inline-flex;
+    // Preserve each label's width so excess items scroll instead of compressing.
+    flex: 0 0 auto;
     align-items: center;
     gap: 0;
     position: relative;
@@ -2100,6 +2124,16 @@ body.wl_sp_workspace_open {
     color: inherit;
     font: inherit;
     line-height: inherit;
+}
+
+// The shared Dashboard SVG has a dark baked-in stroke. Invert only that
+// monochrome asset in dark mode, in both the mobile drawer and app workspace.
+.o_web_client.wl_sp_theme_dark {
+    --wl-dashboard-icon-filter: brightness(0) invert(1);
+}
+
+.o_web_client :is(.wl_sp_mobile_app_icon, .wl_sp_apps_tile_icon) img[src="/willow_backend_theme_ent/static/src/img/apps/dashboard.svg"] {
+    filter: var(--wl-dashboard-icon-filter, none);
 }
 
 .wl_erp_submenu_item:hover {
